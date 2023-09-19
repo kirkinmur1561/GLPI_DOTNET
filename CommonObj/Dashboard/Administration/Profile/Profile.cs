@@ -7,629 +7,628 @@ namespace CommonObj.Dashboard.Administration.Profile
 {
     public class Profile : Dashboard<Profile>
     {
-
-        [JsonProperty("interface")]
+        [JsonProperty(BaseJsonProperty.INTERFACE)]
         public string Interface { get; set; }
         
-        [JsonProperty("helpdesk_hardware")]
+        [JsonProperty(BaseJsonProperty.HELPDESK_HARDWARE)]
         public long? HelpdeskHardware { get; set; }
         
-        [JsonProperty("helpdesk_item_type")]
+        [JsonProperty(BaseJsonProperty.HELPDESK_ITEM_TYPE)]
         public string[] HelpdeskItemType { get; set; }
         
-        [JsonProperty("ticket_status")]
+        [JsonProperty(BaseJsonProperty.TICKET_STATUS)]
         public object StatusTicket { get; set; }
         
-        [JsonProperty("problem_status")]
+        [JsonProperty(BaseJsonProperty.PROBLEM_STATUS)]
         public object StatusProblem { get; set; }
         
-        [JsonProperty("hange_status")]
+        [JsonProperty(BaseJsonProperty.HANGE_STATUS)]
         public object StatusHange { get; set; }
         
-        [JsonProperty("create_ticket_on_login")]
+        [JsonProperty(BaseJsonProperty.CREATE_TICKET_ON_LOGIN)]
         public bool? IsCreateTicketOnLogin { get; set; }
         
-        [JsonProperty("tickettemplates_id")]
+        [JsonProperty(BaseJsonProperty.TICKETTEMPLATES_ID)]
         public long? IdTicketTemplates { get; set; }
         
-        [JsonProperty("changetemplates_id")]
+        [JsonProperty(BaseJsonProperty.CHANGETEMPLATES_ID)]
         public long? IdChangeTemplates { get; set; }
         
-        [JsonProperty("problemtemplates_id")]
+        [JsonProperty(BaseJsonProperty.PROBLEMTEMPLATES_ID)]
         public long? IdProblemTemplates { get; set; }
 
-        [JsonProperty("managed_domainrecordtypes")]
+        [JsonProperty(BaseJsonProperty.MANAGED_DOMAINRECORDTYPES)]
         public object ManagedDomainRecordTypes { get; set; }
         
-        [JsonProperty("appliance")]
+        [JsonProperty(BaseJsonProperty.APPLIANCE)]
         public long? Appliance { get; set; }
         
-        [JsonProperty("backup")]
+        [JsonProperty(BaseJsonProperty.BACKUP)]
         public long? Backup { get; set; }
         
-        [JsonProperty("bookmark_public")]
+        [JsonProperty(BaseJsonProperty.BOOKMARK_PUBLIC)]
         public long? BookmarkPublic { get; set; }
         
-        [JsonProperty("budget")]
+        [JsonProperty(BaseJsonProperty.BUDGET)]
         public long? Budget { get; set; }
         
-        [JsonProperty("cable_management")]
+        [JsonProperty(BaseJsonProperty.CABLE_MANAGEMENT)]
         public long? ManagementCable { get; set; }
         
-        [JsonProperty("calendar")]
+        [JsonProperty(BaseJsonProperty.CALENDAR)]
         public long? Calendar { get; set; }
         
-        [JsonProperty("cartridge")]
+        [JsonProperty(BaseJsonProperty.CARTRIDGE)]
         public long? Cartridge { get; set; }
         
-        [JsonProperty("certificate")]
+        [JsonProperty(BaseJsonProperty.CERTIFICATE)]
         public long? Certificate { get; set; }
         
-        [JsonProperty("change")]
+        [JsonProperty(BaseJsonProperty.CHANGE)]
         public long? Change { get; set; }
         
-        [JsonProperty("changevalidation")]
+        [JsonProperty(BaseJsonProperty.CHANGEVALIDATION)]
         public long? ChangeValidation { get; set; }
         
-        [JsonProperty("cluster")]
+        [JsonProperty(BaseJsonProperty.CLUSTER)]
         public long? Cluster { get; set; }
         
-        [JsonProperty("computer")]
+        [JsonProperty(BaseJsonProperty.COMPUTER)]
         public long? Computer { get; set; }
         
-        [JsonProperty("config")]
+        [JsonProperty(BaseJsonProperty.CONFIG)]
         public long? Config { get; set; }
         
-        [JsonProperty("consumable")]
+        [JsonProperty(BaseJsonProperty.CONSUMABLE)]
         public long? Consumable { get; set; }
         
-        [JsonProperty("contact_enterprise")]
+        [JsonProperty(BaseJsonProperty.CONTACT_ENTERPRISE)]
         public long? ContactEnterprise { get; set; }
         
-        [JsonProperty("contract")]
+        [JsonProperty(BaseJsonProperty.CONTRACT)]
         public long? Contract { get; set; }
         
-        [JsonProperty("dashboard")]
+        [JsonProperty(BaseJsonProperty.DASHBOARD)]
         public long? Dashboard { get; set; }
         
-        [JsonProperty("database")]
+        [JsonProperty(BaseJsonProperty.DATABASE)]
         public long? DataBase { get; set; }
         
-        [JsonProperty("datacenter")]
+        [JsonProperty(BaseJsonProperty.DATACENTER)]
         public long? DataCenter { get; set; }
         
-        [JsonProperty("device")]
+        [JsonProperty(BaseJsonProperty.DEVICE)]
         public long? Device { get; set; }
         
-        [JsonProperty("devicesimcard_pinpuk")]
+        [JsonProperty(BaseJsonProperty.DEVICESIMCARD_PINPUK)]
         public long? DevicesimcardPinpuk { get; set; }
         
-        [JsonProperty("document")]
+        [JsonProperty(BaseJsonProperty.DOCUMENT)]
         public long? Document { get; set; }
         
-        [JsonProperty("domain")]
+        [JsonProperty(BaseJsonProperty.DOMAIN)]
         public long? Domain { get; set; }
         
-        [JsonProperty("dropdown")]
+        [JsonProperty(BaseJsonProperty.DROPDOWN)]
         public long? Dropdown { get; set; }
         
-        [JsonProperty("entity")]
+        [JsonProperty(BaseJsonProperty.ENTITY)]
         public long? Entity { get; set; }
         
-        [JsonProperty("externalevent")]
+        [JsonProperty(BaseJsonProperty.EXTERNALEVENT)]
         public long? ExternalEvent { get; set; }
         
-        [JsonProperty("followup")]
+        [JsonProperty(BaseJsonProperty.FOLLOWUP)]
         public long? Followup { get; set; }
         
-        [JsonProperty("global_validation")]
+        [JsonProperty(BaseJsonProperty.GLOBAL_VALIDATION)]
         public long? GlobalValidation { get; set; }
         
-        [JsonProperty("group")]
+        [JsonProperty(BaseJsonProperty.GROUP)]
         public long? Group { get; set; }
         
-        [JsonProperty("infocom")]
+        [JsonProperty(BaseJsonProperty.INFOCOM)]
         public long? Infocom { get; set; }
         
-        [JsonProperty("internet")]
+        [JsonProperty(BaseJsonProperty.INTERNET)]
         public long? Internet { get; set; }
         
-        [JsonProperty("inventory")]
+        [JsonProperty(BaseJsonProperty.INVENTORY)]
         public long? Inventory { get; set; }
         
-        [JsonProperty("itilcategory")]
+        [JsonProperty(BaseJsonProperty.ITILCATEGORY)]
         public long? ItilCategory { get; set; }
         
-        [JsonProperty("itilfollowuptemplate")]
+        [JsonProperty(BaseJsonProperty.ITILFOLLOWUPTEMPLATE)]
         public long? ItilFollowupTemplate { get; set; }
         
-        [JsonProperty("itiltemplate")]
+        [JsonProperty(BaseJsonProperty.ITILTEMPLATE)]
         public long? ItilTemplate { get; set; }
         
-        [JsonProperty("knowbase")]
+        [JsonProperty(BaseJsonProperty.KNOWBASE)]
         public long? KnowBase { get; set; }
         
-        [JsonProperty("knowbasecategory")]
+        [JsonProperty(BaseJsonProperty.KNOWBASECATEGORY)]
         public long? KnowBaseCategory { get; set; }
         
-        [JsonProperty("license")]
+        [JsonProperty(BaseJsonProperty.LICENSE)]
         public long? License { get; set; }
         
-        [JsonProperty("line")]
+        [JsonProperty(BaseJsonProperty.LINE)]
         public long? Line { get; set; }
         
-        [JsonProperty("lineoperator")]
+        [JsonProperty(BaseJsonProperty.LINEOPERATOR)]
         public long? LineOperator { get; set; }
         
-        [JsonProperty("link")]
+        [JsonProperty(BaseJsonProperty.LINK)]
         public long? Link { get; set; }
         
-        [JsonProperty("location")]
+        [JsonProperty(BaseJsonProperty.LOCATION)]
         public long? Location { get; set; }
         
-        [JsonProperty("logs")]
+        [JsonProperty(BaseJsonProperty.LOGS)]
         public long? Logs { get; set; }
         
-        [JsonProperty("monitor")]
+        [JsonProperty(BaseJsonProperty.MONITOR)]
         public long? Monitor { get; set; }
         
-        [JsonProperty("networking")]
+        [JsonProperty(BaseJsonProperty.NETWORKING)]
         public long? Networking { get; set; }
         
-        [JsonProperty("notification")]
+        [JsonProperty(BaseJsonProperty.NOTIFICATION)]
         public long? Notification { get; set; }
         
-        [JsonProperty("password_update")]
+        [JsonProperty(BaseJsonProperty.PASSWORD_UPDATE)]
         public long? PasswordUpdate { get; set; }
         
-        [JsonProperty("pendingreason")]
+        [JsonProperty(BaseJsonProperty.PENDINGREASON)]
         public long? Pendingreason { get; set; }
         
-        [JsonProperty("peripheral")]
+        [JsonProperty(BaseJsonProperty.PERIPHERAL)]
         public long? Peripheral { get; set; }
         
-        [JsonProperty("personalization")]
+        [JsonProperty(BaseJsonProperty.PERSONALIZATION)]
         public long? Personalization { get; set; }
         
-        [JsonProperty("phone")]
+        [JsonProperty(BaseJsonProperty.PHONE)]
         public long? Phone { get; set; }
         
-        [JsonProperty("planning")]
+        [JsonProperty(BaseJsonProperty.PLANNING)]
         public long? Planning { get; set; }
         
-        [JsonProperty("plugin_accounts")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_ACCOUNTS)]
         public long? PluginAccounts { get; set; }
         
-        [JsonProperty("plugin_accounts_hash")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_ACCOUNTS_HASH)]
         public long? PluginAccountsHash { get; set; }
         
-        [JsonProperty("plugin_accounts_my_groups")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_ACCOUNTS_MY_GROUPS)]
         public long? PluginAccountsMyGroups { get; set; }
         
-        [JsonProperty("plugin_accounts_open_ticket")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_ACCOUNTS_OPEN_TICKET)]
         public long? PluginAccountsOpenTicket { get; set; }
         
-        [JsonProperty("plugin_accounts_see_all_users")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_ACCOUNTS_SEE_ALL_USERS)]
         public long? PluginAccountsSeeAllUsers { get; set; }
         
-        [JsonProperty("plugin_addressing")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_ADDRESSING)]
         public long? PluginAddressing { get; set; }
         
-        [JsonProperty("plugin_addressing_use_ping_in_equipment")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_ADDRESSING_USE_PING_IN_EQUIPMENT)]
         public long? PluginAddressingUsePingInEquipment { get; set; }
         
-        [JsonProperty("plugin_archimap_open_ticket")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_ARCHIMAP_OPEN_TICKET)]
         public long? PluginArchimapOpenTicket { get; set; }
         
-        [JsonProperty("plugin_archires")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_ARCHIRES)]
         public long? PluginArchires { get; set; }
         
-        [JsonProperty("plugin_databases_open_ticket")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_DATABASES_OPEN_TICKET)]
         public long? PluginDatabasesOpenTicket { get; set; }
         
-        [JsonProperty("plugin_datainjection_model")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_DATAINJECTION_MODEL)]
         public long? PluginDatainjectionModel { get; set; }
         
-        [JsonProperty("plugin_datainjection_use")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_DATAINJECTION_USE)]
         public long? PluginDatainjectionUse { get; set; }
         
-        [JsonProperty("plugin_domains")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_DOMAINS)]
         public long? PluginDomains { get; set; }
         
-        [JsonProperty("plugin_domains_dropdown")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_DOMAINS_DROPDOWN)]
         public long? PluginDomainsDropdown { get; set; }
         
-        [JsonProperty("plugin_domains_open_ticket")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_DOMAINS_OPEN_TICKET)]
         public long? PluginDomainsOpenTicket { get; set; }
         
-        [JsonProperty("plugin_environment")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_ENVIRONMENT)]
         public long? PluginEnvironment { get; set; }
         
-        [JsonProperty("plugin_environment_accounts")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_ENVIRONMENT_ACCOUNTS)]
         public long? PluginEnvironmentAccounts { get; set; }
         
-        [JsonProperty("plugin_environment_badges")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_ENVIRONMENT_BADGES)]
         public long? PluginEnvironmentBadges { get; set; }
         
-        [JsonProperty("plugin_environment_databases")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_ENVIRONMENT_DATABASES)]
         public long? PluginEnvironmentDatabases { get; set; }
         
-        [JsonProperty("plugin_environment_webapplications")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_ENVIRONMENT_WEBAPPLICATIONS)]
         public long? PluginEnvironmentWebapplications { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_agent")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_AGENT)]
         public long? PluginFusioninventoryAgent { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_blacklist")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_BLACKLIST)]
         public long? PluginFusioninventoryBlacklist { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_collect")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_COLLECT)]
         public long? PluginFusioninventoryCollect { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_configsecurity")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_CONFIGSECURITY)]
         public long? PluginFusioninventoryConfigsecurity { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_configuration")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_CONFIGURATION)]
         public long? PluginFusioninventoryConfiguration { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_credential")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_CREDENTIAL)]
         public long? PluginFusioninventoryCredential { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_credentialip")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_CREDENTIALIP)]
         public long? PluginFusioninventoryCredentialip { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_deploymirror")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_DEPLOYMIRROR)]
         public long? PluginFusioninventoryDeploymirror { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_esx")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_ESX)]
         public long? PluginFusioninventoryEsx { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_group")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_GROUP)]
         public long? PluginFusioninventoryGroup { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_ignoredimportdevice")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_IGNOREDIMPORTDEVICE)]
         public long? PluginFusioninventoryIgnoredimportdevice { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_importxml")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_IMPORTXML)]
         public long? PluginFusioninventoryImportxml { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_iprange")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_IPRANGE)]
         public long? PluginFusioninventoryIprange { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_lock")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_LOCK)]
         public long? PluginFusioninventoryLock { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_menu")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_MENU)]
         public long? PluginFusioninventoryMenu { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_networkequipment")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_NETWORKEQUIPMENT)]
         public long? PluginFusioninventoryNetworkequipment { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_package")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_PACKAGE)]
         public long? PluginFusioninventoryPackage { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_printer")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_PRINTER)]
         public long? PluginFusioninventoryPrinter { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_remotecontrol")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_REMOTECONTROL)]
         public long? PluginFusioninventoryRemotecontrol { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_reportnetworkequipment")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_REPORTNETWORKEQUIPMENT)]
         public long? PluginFusioninventoryReportnetworkequipment { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_reportprinter")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_REPORTPRINTER)]
         public long? PluginFusioninventoryReportprinter { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_rulecollect")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_RULECOLLECT)]
         public long? PluginFusioninventoryRulecollect { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_ruleentity")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_RULEENTITY)]
         public long? PluginFusioninventoryRuleentity { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_ruleimport")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_RULEIMPORT)]
         public long? PluginFusioninventoryRuleimport { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_rulelocation")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_RULELOCATION)]
         public long? PluginFusioninventoryRulelocation { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_selfpackage")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_SELFPACKAGE)]
         public long? PluginFusioninventorySelfpackage { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_task")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_TASK)]
         public long? PluginFusioninventoryTask { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_unmanaged")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_UNMANAGED)]
         public long? PluginFusioninventoryUnmanaged { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_userinteractiontemplate")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_USERINTERACTIONTEMPLATE)]
         public long? PluginFusioninventoryUserinteractiontemplate { get; set; }
         
-        [JsonProperty("plugin_fusioninventory_wol")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_FUSIONINVENTORY_WOL)]
         public long? PluginFusioninventoryWol { get; set; }
         
-        [JsonProperty("plugin_genericobject_dvrs")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_GENERICOBJECT_DVRS)]
         public long? PluginGenericobjectDvrs { get; set; }
         
-        [JsonProperty("plugin_genericobject_types")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_GENERICOBJECT_TYPES)]
         public long? PluginGenericobjectTypes { get; set; }
         
-        [JsonProperty("plugin_karastock_history")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_KARASTOCK_HISTORY)]
         public long? PluginKarastockHistory { get; set; }
         
-        [JsonProperty("plugin_karastock_order")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_KARASTOCK_ORDER)]
         public long? PluginKarastockOrder { get; set; }
         
-        [JsonProperty("plugin_karastock_stock")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_KARASTOCK_STOCK)]
         public long? PluginKarastockStock { get; set; }
         
-        [JsonProperty("plugin_ocsinventoryng")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_OCSINVENTORYNG)]
         public long? PluginOcsinventoryng { get; set; }
         
-        [JsonProperty("plugin_ocsinventoryng_clean")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_OCSINVENTORYNG_CLEAN)]
         public long? PluginOcsinventoryngClean { get; set; }
         
-        [JsonProperty("plugin_ocsinventoryng_import")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_OCSINVENTORYNG_IMPORT)]
         public long? PluginOcsinventoryngImport { get; set; }
         
-        [JsonProperty("plugin_ocsinventoryng_link")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_OCSINVENTORYNG_LINK)]
         public long? PluginOcsinventoryngLink { get; set; }
         
-        [JsonProperty("plugin_ocsinventoryng_rule")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_OCSINVENTORYNG_RULE)]
         public long? PluginOcsinventoryngRule { get; set; }
         
-        [JsonProperty("plugin_ocsinventoryng_sync")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_OCSINVENTORYNG_SYNC)]
         public long? PluginOcsinventoryngSync { get; set; }
         
-        [JsonProperty("plugin_ocsinventoryng_view")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_OCSINVENTORYNG_VIEW)]
         public long? PluginOcsinventoryngView { get; set; }
         
-        [JsonProperty("plugin_order_bill")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_ORDER_BILL)]
         public long? PluginOrderBill { get; set; }
         
-        [JsonProperty("plugin_order_order")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_ORDER_ORDER)]
         public long? PluginOrderOrder { get; set; }
         
-        [JsonProperty("plugin_order_reference")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_ORDER_REFERENCE)]
         public long? PluginOrderReference { get; set; }
         
-        [JsonProperty("plugin_pdf")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_PDF)]
         public long? PluginPdf { get; set; }
         
-        [JsonProperty("plugin_printercounters")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_PRINTERCOUNTERS)]
         public long? PluginPrintercounters { get; set; }
         
-        [JsonProperty("plugin_printercounters_add_lower_records")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_PRINTERCOUNTERS_ADD_LOWER_RECORDS)]
         public long? PluginPrintercountersAddLowerRecords { get; set; }
         
-        [JsonProperty("plugin_printercounters_snmpset")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_PRINTERCOUNTERS_SNMPSET)]
         public long? PluginPrintercountersSnmpset { get; set; }
         
-        [JsonProperty("plugin_printercounters_update_records")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_PRINTERCOUNTERS_UPDATE_RECORDS)]
         public long? PluginPrintercountersUpdateRecords { get; set; }
         
-        [JsonProperty("plugin_processmaker_case")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_PROCESSMAKER_CASE)]
         public long? PluginProcessmakerCase { get; set; }
         
-        [JsonProperty("plugin_processmaker_config")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_PROCESSMAKER_CONFIG)]
         public long? PluginProcessmakerConfig { get; set; }
         
-        [JsonProperty("plugin_reports_applicationsbylocation")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_APPLICATIONSBYLOCATION)]
         public long? PluginReportsApplicationsbylocation { get; set; }
         
-        [JsonProperty("plugin_reports_doublons")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_DOUBLONS)]
         public long? PluginReportsDoublons { get; set; }
         
-        [JsonProperty("plugin_reports_equipmentbygroups")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_EQUIPMENTBYGROUPS)]
         public long? PluginReportsEquipmentbygroups { get; set; }
         
-        [JsonProperty("plugin_reports_equipmentbylocation")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_EQUIPMENTBYLOCATION)]
         public long? PluginReportsEquipmentbylocation { get; set; }
         
-        [JsonProperty("plugin_reports_globalhisto")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_GLOBALHISTO)]
         public long? PluginReportsGlobalhisto { get; set; }
         
-        [JsonProperty("plugin_reports_histohard")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_HISTOHARD)]
         public long? PluginReportsHistohard { get; set; }
         
-        [JsonProperty("plugin_reports_histoinst")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_HISTOINST)]
         public long? PluginReportsHistoinst { get; set; }
         
-        [JsonProperty("plugin_reports_infocom")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_INFOCOM)]
         public long? PluginReportsInfocom { get; set; }
         
-        [JsonProperty("plugin_reports_iteminstall")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_ITEMINSTALL)]
         public long? PluginReportsIteminstall { get; set; }
         
-        [JsonProperty("plugin_reports_licenses")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_LICENSES)]
         public long? PluginReportsLicenses { get; set; }
         
-        [JsonProperty("plugin_reports_licensesexpires")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_LICENSESEXPIRES)]
         public long? PluginReportsLicensesexpires { get; set; }
         
-        [JsonProperty("plugin_reports_listequipmentbylocation")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_LISTEQUIPMENTBYLOCATION)]
         public long? PluginReportsListequipmentbylocation { get; set; }
         
-        [JsonProperty("plugin_reports_listgroups")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_LISTGROUPS)]
         public long? PluginReportsListgroups { get; set; }
         
-        [JsonProperty("plugin_reports_location")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_LOCATION)]
         public long? PluginReportsLocation { get; set; }
         
-        [JsonProperty("plugin_reports_order_deliveryinfos")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_ORDER_DELIVERYINFOS)]
         public long? PluginReportsOrderDeliveryinfos { get; set; }
         
-        [JsonProperty("plugin_reports_order_orderdelivery")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_ORDER_ORDERDELIVERY)]
         public long? PluginReportsOrderOrderdelivery { get; set; }
         
-        [JsonProperty("plugin_reports_pcsbyentity")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_PCSBYENTITY)]
         public long? PluginReportsPcsbyentity { get; set; }
         
-        [JsonProperty("plugin_reports_printers")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_PRINTERS)]
         public long? PluginReportsPrinters { get; set; }
         
-        [JsonProperty("plugin_reports_rules")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_RULES)]
         public long? PluginReportsRules { get; set; }
         
-        [JsonProperty("plugin_reports_searchinfocom")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_SEARCHINFOCOM)]
         public long? PluginReportsSearchinfocom { get; set; }
         
-        [JsonProperty("plugin_reports_softnotinstalled")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_SOFTNOTINSTALLED)]
         public long? PluginReportsSoftnotinstalled { get; set; }
         
-        [JsonProperty("plugin_reports_softversioninstallations")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_SOFTVERSIONINSTALLATIONS)]
         public long? PluginReportsSoftversioninstallations { get; set; }
         
-        [JsonProperty("plugin_reports_statnightticketsbypriority")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_STATNIGHTTICKETSBYPRIORITY)]
         public long? PluginReportsStatnightticketsbypriority { get; set; }
         
-        [JsonProperty("plugin_reports_statticketsbyentity")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_STATTICKETSBYENTITY)]
         public long? PluginReportsStatticketsbyentity { get; set; }
         
-        [JsonProperty("plugin_reports_statticketsbypriority")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_STATTICKETSBYPRIORITY)]
         public long? PluginReportsStatticketsbypriority { get; set; }
         
-        [JsonProperty("plugin_reports_statusertask")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_STATUSERTASK)]
         public long? PluginReportsStatusertask { get; set; }
         
-        [JsonProperty("plugin_reports_transferreditems")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_TRANSFERREDITEMS)]
         public long? PluginReportsTransferreditems { get; set; }
         
-        [JsonProperty("plugin_reports_zombies")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_REPORTS_ZOMBIES)]
         public long? PluginReportsZombies { get; set; }
         
-        [JsonProperty("plugin_satisfaction")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_SATISFACTION)]
         public long? PluginSatisfaction { get; set; }
         
-        [JsonProperty("plugin_shellcommands")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_SHELLCOMMANDS)]
         public long? PluginShellcommands { get; set; }
         
-        [JsonProperty("plugin_tasklists")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_TASKLISTS)]
         public long? PluginTasklists { get; set; }
         
-        [JsonProperty("plugin_tasklists_config")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_TASKLISTS_CONFIG)]
         public long? PluginTasklistsConfig { get; set; }
         
-        [JsonProperty("plugin_tasklists_see_all")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_TASKLISTS_SEE_ALL)]
         public long? PluginTasklistsSeeAll { get; set; }
         
-        [JsonProperty("plugin_typology")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_TYPOLOGY)]
         public long? PluginTypology { get; set; }
         
-        [JsonProperty("plugin_vip")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_VIP)]
         public long? PluginVip { get; set; }
         
-        [JsonProperty("plugin_webresources_resource")]
+        [JsonProperty(BaseJsonProperty.PLUGIN_WEBRESOURCES_RESOURCE)]
         public long? PluginWebresourcesResource { get; set; }
         
-        [JsonProperty("printer")]
+        [JsonProperty(BaseJsonProperty.PRINTER)]
         public long? Printer { get; set; }
         
-        [JsonProperty("problem")]
+        [JsonProperty(BaseJsonProperty.PROBLEM)]
         public long? Problem { get; set; }
         
-        [JsonProperty("profile")]
+        [JsonProperty(BaseJsonProperty.PROFILE)]
         public long? profile { get; set; }
         
-        [JsonProperty("project")]
+        [JsonProperty(BaseJsonProperty.PROJECT)]
         public long? Project { get; set; }
         
-        [JsonProperty("projecttask")]
+        [JsonProperty(BaseJsonProperty.PROJECTTASK)]
         public long? Projecttask { get; set; }
         
-        [JsonProperty("queuednotification")]
+        [JsonProperty(BaseJsonProperty.QUEUEDNOTIFICATION)]
         public long? Queuednotification { get; set; }
         
-        [JsonProperty("recurrentchange")]
+        [JsonProperty(BaseJsonProperty.RECURRENTCHANGE)]
         public long? Recurrentchange { get; set; }
         
-        [JsonProperty("reminder_public")]
+        [JsonProperty(BaseJsonProperty.REMINDER_PUBLIC)]
         public long? ReminderPublic { get; set; }
         
-        [JsonProperty("reports")]
+        [JsonProperty(BaseJsonProperty.REPORTS)]
         public long? Reports { get; set; }
         
-        [JsonProperty("reservation")]
+        [JsonProperty(BaseJsonProperty.RESERVATION)]
         public long? Reservation { get; set; }
         
-        [JsonProperty("rssfeed_public")]
+        [JsonProperty(BaseJsonProperty.RSSFEED_PUBLIC)]
         public long? RssfeedPublic { get; set; }
         
-        [JsonProperty("rule_asset")]
+        [JsonProperty(BaseJsonProperty.RULE_ASSET)]
         public long? RuleAsset { get; set; }
         
-        [JsonProperty("rule_dictionnary_dropdown")]
+        [JsonProperty(BaseJsonProperty.RULE_DICTIONNARY_DROPDOWN)]
         public long? RuleDictionnaryDropdown { get; set; }
         
-        [JsonProperty("rule_dictionnary_printer")]
+        [JsonProperty(BaseJsonProperty.RULE_DICTIONNARY_PRINTER)]
         public long? RuleDictionnaryPrinter { get; set; }
         
-        [JsonProperty("rule_dictionnary_software")]
+        [JsonProperty(BaseJsonProperty.RULE_DICTIONNARY_SOFTWARE)]
         public long? RuleDictionnarySoftware { get; set; }
         
-        [JsonProperty("rule_import")]
+        [JsonProperty(BaseJsonProperty.RULE_IMPORT)]
         public long? RuleImport { get; set; }
         
-        [JsonProperty("rule_ldap")]
+        [JsonProperty(BaseJsonProperty.RULE_LDAP)]
         public long? RuleLdap { get; set; }
         
-        [JsonProperty("rule_mailcollector")]
+        [JsonProperty(BaseJsonProperty.RULE_MAILCOLLECTOR)]
         public long? RuleMailcollector { get; set; }
         
-        [JsonProperty("rule_softwarecategories")]
+        [JsonProperty(BaseJsonProperty.RULE_SOFTWARECATEGORIES)]
         public long? RuleSoftwarecategories { get; set; }
         
-        [JsonProperty("rule_ticket")]
+        [JsonProperty(BaseJsonProperty.RULE_TICKET)]
         public long? RuleTicket { get; set; }
         
-        [JsonProperty("search_config")]
+        [JsonProperty(BaseJsonProperty.SEARCH_CONFIG)]
         public long? SearchConfig { get; set; }
         
-        [JsonProperty("shellcommands")]
+        [JsonProperty(BaseJsonProperty.SHELLCOMMANDS)]
         public long? Shellcommands { get; set; }
         
-        [JsonProperty("show_group_hardware")]
+        [JsonProperty(BaseJsonProperty.SHOW_GROUP_HARDWARE)]
         public long? ShowGroupHardware { get; set; }
         
-        [JsonProperty("slm")]
+        [JsonProperty(BaseJsonProperty.SLM)]
         public long? Slm { get; set; }
         
-        [JsonProperty("software")]
+        [JsonProperty(BaseJsonProperty.SOFTWARE)]
         public long? Software { get; set; }
         
-        [JsonProperty("solutiontemplate")]
+        [JsonProperty(BaseJsonProperty.SOLUTIONTEMPLATE)]
         public long? Solutiontemplate { get; set; }
         
-        [JsonProperty("state")]
+        [JsonProperty(BaseJsonProperty.STATE)]
         public long? State { get; set; }
         
-        [JsonProperty("statistic")]
+        [JsonProperty(BaseJsonProperty.STATISTIC)]
         public long? Statistic { get; set; }
         
-        [JsonProperty("task")]
+        [JsonProperty(BaseJsonProperty.TASK)]
         public long? Task { get; set; }
         
-        [JsonProperty("taskcategory")]
+        [JsonProperty(BaseJsonProperty.TASKCATEGORY)]
         public long? Taskcategory { get; set; }
         
-        [JsonProperty("ticket")]
+        [JsonProperty(BaseJsonProperty.TICKET)]
         public long? Ticket { get; set; }
         
-        [JsonProperty("ticketcost")]
+        [JsonProperty(BaseJsonProperty.TICKETCOST)]
         public long? Ticketcost { get; set; }
         
-        [JsonProperty("ticketrecurrent")]
+        [JsonProperty(BaseJsonProperty.TICKETRECURRENT)]
         public long? Ticketrecurrent { get; set; }
         
-        [JsonProperty("ticketvalidation")]
+        [JsonProperty(BaseJsonProperty.TICKETVALIDATION)]
         public long? Ticketvalidation { get; set; }
         
-        [JsonProperty("transfer")]
+        [JsonProperty(BaseJsonProperty.TRANSFER)]
         public long? Transfer { get; set; }
         
-        [JsonProperty("typedoc")]
+        [JsonProperty(BaseJsonProperty.TYPEDOC)]
         public long? Typedoc { get; set; }
         
-        [JsonProperty("user")]
+        [JsonProperty(BaseJsonProperty.USER)]
         public long? User { get; set; }
 
         /// <summary>

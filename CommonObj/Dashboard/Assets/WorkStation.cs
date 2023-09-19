@@ -1,4 +1,5 @@
-﻿using CommonObj.Dashboard.Common;
+﻿using CommonObj.Base;
+using CommonObj.Dashboard.Common;
 using CommonObj.Dashboard.Common.LinkCommon;
 using Newtonsoft.Json;
 
@@ -6,22 +7,22 @@ namespace CommonObj.Dashboard.Assets
 {
     public abstract class WorkStation<TW> : Dashboard<TW> where TW : Dashboard<TW>
         {
-        [JsonProperty("contact")]
+        [JsonProperty(BaseJsonProperty.CONTACT)]
         public string Contact { get; set; }
 
-        [JsonProperty("contact_num")]
+        [JsonProperty(BaseJsonProperty.CONTACT_NUM)]
         public string ContactNum { get; set; }
 
-        [JsonProperty("serial")]
+        [JsonProperty(BaseJsonProperty.SERIAL)]
         public string Serial { get; set; }
 
-        [JsonProperty("otherserial")]
+        [JsonProperty(BaseJsonProperty.OTHERSERIAL)]
         public string OtherSerial { get; set; }
 
-        [JsonProperty("states_id")]
+        [JsonProperty(BaseJsonProperty.STATES_ID)]
         public long? IdStates { get; set; }
 
-        [JsonProperty("is_dynamic")]
+        [JsonProperty(BaseJsonProperty.IS_DYNAMIC)]
         public bool? IsDynamic { get; set; }
         
         [JsonIgnore]

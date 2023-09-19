@@ -1,4 +1,5 @@
-﻿using CommonObj.Dashboard.Common;
+﻿using CommonObj.Base;
+using CommonObj.Dashboard.Common;
 using Newtonsoft.Json;
 
 namespace CommonObj.Dashboard.Administration
@@ -8,7 +9,7 @@ namespace CommonObj.Dashboard.Administration
     /// </summary>
     public class Calendar:Dashboard<Calendar>
     {
-        [JsonProperty("cache_duration")]
+        [JsonProperty(BaseJsonProperty.CACHE_DURATION)]
         public int[] CacheDuration { get; set; }
     }
 }

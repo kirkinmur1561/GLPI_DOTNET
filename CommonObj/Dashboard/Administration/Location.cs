@@ -1,4 +1,5 @@
-﻿using CommonObj.Dashboard.Common;
+﻿using CommonObj.Base;
+using CommonObj.Dashboard.Common;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
@@ -11,46 +12,46 @@ namespace CommonObj.Dashboard.Administration
 
         }
         
-        [JsonProperty("completename")]
+        [JsonProperty(BaseJsonProperty.COMPLETENAME)]
         public string CompleteName { get; set; }
         
-        [JsonProperty("level")]
+        [JsonProperty(BaseJsonProperty.LEVEL)]
         public int? Level { get; set; }
         
-        [JsonProperty("ancestors_cache")]
+        [JsonProperty(BaseJsonProperty.ANCESTORS_CACHE)]
         public string CacheAncestors { get; set; }
         
-        [JsonProperty("sons_cache")]
+        [JsonProperty(BaseJsonProperty.SONS_CACHE)]
         public string SonsCache { get; set; }
         
-        [JsonProperty("address")]
+        [JsonProperty(BaseJsonProperty.ADDRESS)]
         public string Address { get; set; }
         
-        [JsonProperty("postcode")]
+        [JsonProperty(BaseJsonProperty.POSTCODE)]
         public string Postcode { get; set; }
         
-        [JsonProperty("town")]
+        [JsonProperty(BaseJsonProperty.TOWN)]
         public string Town { get; set; }
         
-        [JsonProperty("state")]
+        [JsonProperty(BaseJsonProperty.STATE)]
         public string State { get; set; }
         
-        [JsonProperty("country")]
+        [JsonProperty(BaseJsonProperty.COUNTRY)]
         public string Country { get; set; }
         
-        [JsonProperty("building")]
+        [JsonProperty(BaseJsonProperty.BUILDING)]
         public string Building { get; set; }
         
-        [JsonProperty("room")]
+        [JsonProperty(BaseJsonProperty.ROOM)]
         public string Room { get; set; }
         
-        [JsonProperty("latitude")]
+        [JsonProperty(BaseJsonProperty.LATITUDE)]
         public string Latitude { get; set; }
         
-        [JsonProperty("longitude")]
+        [JsonProperty(BaseJsonProperty.LONGITUDE)]
         public string Longitude { get; set; }
         
-        [JsonProperty("altitude")]
+        [JsonProperty(BaseJsonProperty.ALTITUDE)]
         public object Altitude { get; set; }
 
         public override bool Equals(object obj)

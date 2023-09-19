@@ -1,24 +1,33 @@
-﻿using Newtonsoft.Json;
+﻿using CommonObj.Base;
+using Newtonsoft.Json;
 
 namespace CommonObj.Dashboard.Helpdesk.LinkTicket
 {
     public class TicketValidation:CommonLinkTicket
     {       
-        [JsonProperty("entities_id")]
-        public long IdEntity { get; set; }       
-        [JsonProperty("users_id_validate")]
+        [JsonProperty(BaseJsonProperty.ENTITIES_ID)]
+        public long IdEntity { get; set; }
+        
+        [JsonProperty(BaseJsonProperty.USERS_ID_VALIDATE)]
         public long IdUserValidate{ get; set; }
-        [JsonProperty("comment_submission")]
+        
+        [JsonProperty(BaseJsonProperty.COMMENT_SUBMISSION)]
         public string CommentSubmission { get; set; }
-        [JsonProperty("comment_validation")]
+        
+        [JsonProperty(BaseJsonProperty.COMMENT_VALIDATION)]
         public string CommentValidation { get; set; }
-        [JsonProperty("status")]
+        
+        [JsonProperty(BaseJsonProperty.STATUS)]
         public int? Status { get; set; }
-        [JsonProperty("submission_date")]
+        
+        [JsonProperty(BaseJsonProperty.SUBMISSION_DATE)]
         public DateTime? DateSubmission { get; set; } 
-        [JsonProperty("validation_date")]
+        
+        [JsonProperty(BaseJsonProperty.VALIDATION_DATE)]
         public DateTime? DateValidation { get; set; }
-        [JsonProperty("timeline_position")]
-        public int? TimelinePosition { get; set; }        
+        
+        [JsonProperty(BaseJsonProperty.TIMELINE_POSITION)]
+        public int? TimelinePosition { get; set; }    
+        
     }
 }

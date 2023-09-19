@@ -8,7 +8,9 @@ using CommonObj.Dashboard.Administration.User;
 using CommonObj.Dashboard.Assets.LinkComputer;
 using CommonObj.Dashboard.Search;
 using Newtonsoft.Json;
+using static CommonObj.Base.BaseResource;
 using Range = CommonObj.Dashboard.Search.Range;
+using SearchOption = CommonObj.Dashboard.Search.SearchOption;
 
 namespace CommonObj.Dashboard.Common
 {
@@ -314,21 +316,19 @@ namespace CommonObj.Dashboard.Common
 
         //#region Single
 
-        public static async Task<string> ListSearchOptions(
+        public static async Task<IEnumerable<SearchOption>> ListSearchOptionsAsync(
             IClient clt,
-            TimeSpan internalTimeout = default,
             CancellationToken cancel = default)
         {             
             clt.SetHeaderDefault();
-            //clt.http.Timeout = internalTimeout != default ? internalTimeout : clt.CommonTimeout;
-
+            
             HttpResponseMessage response =
-                await clt.http.GetAsync(string.Join("/", BaseResource.LIST_SEARCH_OPTIONS, typeof(TD).Name), cancel);            
+                await clt.http.GetAsync(string.Join("/", value: new[] { LIST_SEARCH_OPTIONS, typeof(TD).Name }), cancel);            
 
             string responseData = await response.Content.ReadAsStringAsync(cancel);
 
             return response.IsSuccessStatusCode
-                ? responseData
+                ? SearchOption.Parse(JsonConvert.DeserializeObject<Dictionary<string, object>>(responseData)?? new Dictionary<string, object>())
                 : throw new ExceptionGLPI_ErrorCommon(responseData, response.StatusCode);
         }
 
@@ -337,7 +337,6 @@ namespace CommonObj.Dashboard.Common
         /// </summary>
         /// <param name="clt">подключенный объект к GLPI</param>
         /// <param name="parameter">Параметры запроса</param>
-        /// <param name="internalTimeout"></param>
         /// <param name="cancel">Принудительная остановка процесса</param>
         /// <returns></returns>
         /// <exception cref="ExceptionGLPI_ErrorCommon"></exception>
@@ -413,38 +412,38 @@ namespace CommonObj.Dashboard.Common
         //                 JsonConvert.DeserializeObject(await response.Response.Content.ReadAsStringAsync(cancel),
         //                     response.RequestedProperty.PropertyType));
         // }
-        //
-        // /// <summary>
-        // /// Получить объект типа TD
-        // /// </summary>
-        // /// <param name="clt">Основное подключение к glpi</param>
-        // /// <param name="parameter">Параметры поиска</param>
-        // /// <param name="cancel"></param>
-        // /// <exception cref="JsonException"></exception>
-        // /// <exception cref="ExceptionCheck"></exception>
-        // /// <exception cref="Exception"></exception>
-        // public static async Task<TD> GetAsync(
-        //     IGlpiClient clt,
-        //     Parameter parameter,
-        //     CancellationToken cancel = default)
-        // {
-        //     if (clt.Checker()) throw new ExceptionCheck(clt);           
-        //     clt.SetHeaderDefault();            
-        //     
-        //     if (parameter?.id is null or < 0) throw new System.Exception("Error parameter.");
-        //     try
-        //     {
-        //         return JsonConvert.DeserializeObject<TD>(await GetJson(clt, parameter, cancel));
-        //     }
-        //     catch (TimeoutException tr)
-        //     {
-        //         throw;
-        //     }
-        //     catch
-        //     {
-        //         throw new System.Exception("Json value null");
-        //     }            
-        // }        
+        
+        /// <summary>
+        /// Получить объект типа TD
+        /// </summary>
+        /// <param name="clt">Основное подключение к glpi</param>
+        /// <param name="parameter">Параметры поиска</param>
+        /// <param name="cancel"></param>
+        /// <exception cref="JsonException"></exception>
+        /// <exception cref="ExceptionCheck"></exception>
+        /// <exception cref="Exception"></exception>
+        public static async Task<TD> GetAsync(
+            IClient clt,
+            Parameter parameter,
+            CancellationToken cancel = default)
+        {
+                     
+            clt.SetHeaderDefault();            
+            
+            if (parameter?.id is null or < 0) throw new System.Exception("Error parameter.");
+            try
+            {
+                return JsonConvert.DeserializeObject<TD>(await GetJson(clt, parameter, cancel));
+            }
+            catch (TimeoutException tr)
+            {
+                throw;
+            }
+            catch
+            {
+                throw new System.Exception("Json value null");
+            }            
+        }        
         //
         // /// <summary>
         // /// Поиск объектов типа D

@@ -1,3 +1,4 @@
+using CommonObj.Base;
 using Newtonsoft.Json;
 
 namespace CommonObj.Dashboard.Common.LinkCommon
@@ -5,280 +6,280 @@ namespace CommonObj.Dashboard.Common.LinkCommon
     public class Entity:Dashboard<Entity>
     {       
         
-        [JsonProperty("completename")]
+        [JsonProperty(BaseJsonProperty.COMPLETENAME)]
         public string CompleteName {get; set;}       
         
-        [JsonProperty("level")]
+        [JsonProperty(BaseJsonProperty.LEVEL)]
         public long? Level {get; set;}
         
-        [JsonProperty("sons_cache")]
+        [JsonProperty(BaseJsonProperty.SONS_CACHE)]
         public object SonsCache {get; set;}
         
-        [JsonProperty("ancestors_cache")]
+        [JsonProperty(BaseJsonProperty.ANCESTORS_CACHE)]
         public object AncestorsCache {get; set;}
         
-        [JsonProperty("registration_number")]
+        [JsonProperty(BaseJsonProperty.REGISTRATION_NUMBER)]
         public object RegistrationNumber {get; set;}
         
-        [JsonProperty("address")]
+        [JsonProperty(BaseJsonProperty.ADDRESS)]
         public object Address {get; set;}
         
-        [JsonProperty("postcode")]
+        [JsonProperty(BaseJsonProperty.POSTCODE)]
         public object Postcode {get; set;}
         
-        [JsonProperty("town")]
+        [JsonProperty(BaseJsonProperty.TOWN)]
         public object Town {get; set;}
         
-        [JsonProperty("state")]
+        [JsonProperty(BaseJsonProperty.STATE)]
         public object State {get; set;}
         
-        [JsonProperty("country")]
+        [JsonProperty(BaseJsonProperty.COUNTRY)]
         public object Country {get; set;}
         
-        [JsonProperty("website")]
+        [JsonProperty(BaseJsonProperty.WEBSITE)]
         public object Website {get; set;}
         
-        [JsonProperty("phonenumber")]
+        [JsonProperty(BaseJsonProperty.PHONENUMBER)]
         public object PhoneNumber {get; set;}
         
-        [JsonProperty("fax")]
+        [JsonProperty(BaseJsonProperty.FAX)]
         public object Fax {get; set;}
         
-        [JsonProperty("email")]
+        [JsonProperty(BaseJsonProperty.EMAIL)]
         public string Email {get; set;}
         
-        [JsonProperty("admin_email")]
+        [JsonProperty(BaseJsonProperty.ADMIN_EMAIL)]
         public string EmailAdmin {get; set;}
         
-        [JsonProperty("admin_email_name")]
+        [JsonProperty(BaseJsonProperty.ADMIN_EMAIL_NAME)]
         public string EmailAdminName {get; set;}
         
-        [JsonProperty("replyto_email")]
+        [JsonProperty(BaseJsonProperty.REPLYTO_EMAIL)]
         public string EmailReply {get; set;}
         
-        [JsonProperty("replyto_email_name")]
+        [JsonProperty(BaseJsonProperty.REPLYTO_EMAIL_NAME)]
         public string EmailReplyName {get; set;}
         
-        [JsonProperty("notification_subject_tag")]
+        [JsonProperty(BaseJsonProperty.NOTIFICATION_SUBJECT_TAG)]
         public string TagNotificationSubject {get; set;}
         
-        [JsonProperty("ldap_dn")]
+        [JsonProperty(BaseJsonProperty.LDAP_DN)]
         public string LDAP_DN {get; set;}
         
-        [JsonProperty("tag")]
+        [JsonProperty(BaseJsonProperty.TAG)]
         public string Tag {get; set;}
         
-        [JsonProperty("authldaps_id")]
+        [JsonProperty(BaseJsonProperty.AUTHLDAPS_ID)]
         public long? IdAuthLDAP {get; set;}
         
-        [JsonProperty("mail_domain")]
+        [JsonProperty(BaseJsonProperty.MAIL_DOMAIN)]
         public string EmailDomain {get; set;}
         
-        [JsonProperty("entity_ldapfilter")]
+        [JsonProperty(BaseJsonProperty.ENTITY_LDAPFILTER)]
         public string EntityLDAP_Filter {get; set;}
         
-        [JsonProperty("mailing_signature")]
+        [JsonProperty(BaseJsonProperty.MAILING_SIGNATURE)]
         public string EmailingSignature {get; set;}
         
-        [JsonProperty("cartridges_alert_repeat")]
+        [JsonProperty(BaseJsonProperty.CARTRIDGES_ALERT_REPEAT)]
         public long? AlertRepeatCartridges {get; set;}
         
-        [JsonProperty("consumables_alert_repeat")]
+        [JsonProperty(BaseJsonProperty.CONSUMABLES_ALERT_REPEAT)]
         public long? AlertRepeatConsumables {get; set;}
         
-        [JsonProperty("use_licenses_alert")]
+        [JsonProperty(BaseJsonProperty.USE_LICENSES_ALERT)]
         public long? AlertUseLicenses {get; set;}
         
-        [JsonProperty("send_licenses_alert_before_delay")]
+        [JsonProperty(BaseJsonProperty.SEND_LICENSES_ALERT_BEFORE_DELAY)]
         public long? AlertBeforeDelaySendLicenses {get; set;}
         
-        [JsonProperty("use_certificates_alert")]
+        [JsonProperty(BaseJsonProperty.USE_CERTIFICATES_ALERT)]
         public long? AlertUseCertificates {get; set;}
         
-        [JsonProperty("send_certificates_alert_before_delay")]
+        [JsonProperty(BaseJsonProperty.SEND_CERTIFICATES_ALERT_BEFORE_DELAY)]
         public long? AlertBeforeDelaySendCertificates {get; set;}
         
-        [JsonProperty("certificates_alert_repeat_interval")]
+        [JsonProperty(BaseJsonProperty.CERTIFICATES_ALERT_REPEAT_INTERVAL)]
         public long? AlertRepeatIntervalCertificates {get; set;}
         
-        [JsonProperty("use_contracts_alert")]
+        [JsonProperty(BaseJsonProperty.USE_CONTRACTS_ALERT)]
         public long? AlertUseContracts {get; set;}
         
-        [JsonProperty("send_contracts_alert_before_delay")]
+        [JsonProperty(BaseJsonProperty.SEND_CONTRACTS_ALERT_BEFORE_DELAY)]
         public long? send_contracts_alert_before_delay {get; set;}
         
-        [JsonProperty("use_infocoms_alert")]
+        [JsonProperty(BaseJsonProperty.USE_INFOCOMS_ALERT)]
         public long? use_infocoms_alert {get; set;}
         
-        [JsonProperty("send_infocoms_alert_before_delay")]
+        [JsonProperty(BaseJsonProperty.SEND_INFOCOMS_ALERT_BEFORE_DELAY)]
         public long? send_infocoms_alert_before_delay {get; set;}
         
-        [JsonProperty("use_reservations_alert")]
+        [JsonProperty(BaseJsonProperty.USE_RESERVATIONS_ALERT)]
         public long? use_reservations_alert {get; set;}
         
-        [JsonProperty("use_domains_alert")]
+        [JsonProperty(BaseJsonProperty.USE_DOMAINS_ALERT)]
         public long? use_domains_alert {get; set;}
         
-        [JsonProperty("send_domains_alert_close_expiries_delay")]
+        [JsonProperty(BaseJsonProperty.SEND_DOMAINS_ALERT_CLOSE_EXPIRIES_DELAY)]
         public long? send_domains_alert_close_expiries_delay {get; set;}
         
-        [JsonProperty("send_domains_alert_expired_delay")]
+        [JsonProperty(BaseJsonProperty.SEND_DOMAINS_ALERT_EXPIRED_DELAY)]
         public long? send_domains_alert_expired_delay {get; set;}
         
-        [JsonProperty("autoclose_delay")]
+        [JsonProperty(BaseJsonProperty.AUTOCLOSE_DELAY)]
         public long? autoclose_delay {get; set;}
         
-        [JsonProperty("autopurge_delay")]
+        [JsonProperty(BaseJsonProperty.AUTOPURGE_DELAY)]
         public long? autopurge_delay {get; set;}
         
-        [JsonProperty("notclosed_delay")]
+        [JsonProperty(BaseJsonProperty.NOTCLOSED_DELAY)]
         public long? notclosed_delay {get; set;}
         
-        [JsonProperty("calendars_id")]
+        [JsonProperty(BaseJsonProperty.CALENDARS_ID)]
         public long? calendars_id {get; set;}
         
-        [JsonProperty("auto_assign_mode")]
+        [JsonProperty(BaseJsonProperty.AUTO_ASSIGN_MODE)]
         public long? auto_assign_mode {get; set;}
         
-        [JsonProperty("tickettype")]
+        [JsonProperty(BaseJsonProperty.TICKETTYPE)]
         public long? tickettype {get; set;}
         
-        [JsonProperty("max_closedate")]
+        [JsonProperty(BaseJsonProperty.MAX_CLOSEDATE)]
         public object max_closedate {get; set;}
         
-        [JsonProperty("inquest_config")]
+        [JsonProperty(BaseJsonProperty.INQUEST_CONFIG)]
         public object inquest_config {get; set;}
         
-        [JsonProperty("inquest_rate")]
+        [JsonProperty(BaseJsonProperty.INQUEST_RATE)]
         public object inquest_rate {get; set;}
         
-        [JsonProperty("inquest_delay")]
+        [JsonProperty(BaseJsonProperty.INQUEST_DELAY)]
         public object inquest_delay {get; set;}
         
-        [JsonProperty("inquest_URL")]
+        [JsonProperty(BaseJsonProperty.INQUEST_URL)]
         public object inquest_URL {get; set;}
         
-        [JsonProperty("autofill_warranty_date")]
+        [JsonProperty(BaseJsonProperty.AUTOFILL_WARRANTY_DATE)]
         public object autofill_warranty_date {get; set;}
         
-        [JsonProperty("autofill_use_date")]
+        [JsonProperty(BaseJsonProperty.AUTOFILL_USE_DATE)]
         public object autofill_use_date {get; set;}
         
-        [JsonProperty("autofill_buy_date")]
+        [JsonProperty(BaseJsonProperty.AUTOFILL_BUY_DATE)]
         public object autofill_buy_date {get; set;}
         
-        [JsonProperty("autofill_delivery_date")]
+        [JsonProperty(BaseJsonProperty.AUTOFILL_DELIVERY_DATE)]
         public object autofill_delivery_date {get; set;}
         
-        [JsonProperty("autofill_order_date")]
+        [JsonProperty(BaseJsonProperty.AUTOFILL_ORDER_DATE)]
         public object autofill_order_date {get; set;}
         
-        [JsonProperty("tickettemplates_id")]
+        [JsonProperty(BaseJsonProperty.TICKETTEMPLATES_ID)]
         public object tickettemplates_id {get; set;}
         
-        [JsonProperty("changetemplates_id")]
+        [JsonProperty(BaseJsonProperty.CHANGETEMPLATES_ID)]
         public object changetemplates_id {get; set;}
         
-        [JsonProperty("problemtemplates_id")]
+        [JsonProperty(BaseJsonProperty.PROBLEMTEMPLATES_ID)]
         public object problemtemplates_id {get; set;}
         
-        [JsonProperty("entities_id_software")]
+        [JsonProperty(BaseJsonProperty.ENTITIES_ID_SOFTWARE)]
         public object entities_id_software {get; set;}
         
-        [JsonProperty("default_contract_alert")]
+        [JsonProperty(BaseJsonProperty.DEFAULT_CONTRACT_ALERT)]
         public object default_contract_alert {get; set;}
         
-        [JsonProperty("default_infocom_alert")]
+        [JsonProperty(BaseJsonProperty.DEFAULT_INFOCOM_ALERT)]
         public object default_infocom_alert {get; set;}
         
-        [JsonProperty("default_cartridges_alarm_threshold")]
+        [JsonProperty(BaseJsonProperty.DEFAULT_CARTRIDGES_ALARM_THRESHOLD)]
         public object default_cartridges_alarm_threshold {get; set;}
         
-        [JsonProperty("default_consumables_alarm_threshold")]
+        [JsonProperty(BaseJsonProperty.DEFAULT_CONSUMABLES_ALARM_THRESHOLD)]
         public object default_consumables_alarm_threshold {get; set;}
         
-        [JsonProperty("delay_send_emails")]
+        [JsonProperty(BaseJsonProperty.DELAY_SEND_EMAILS)]
         public object delay_send_emails {get; set;}
         
-        [JsonProperty("is_notif_enable_default")]
+        [JsonProperty(BaseJsonProperty.IS_NOTIF_ENABLE_DEFAULT)]
         public object is_notif_enable_default {get; set;}
         
-        [JsonProperty("inquest_duration")]
+        [JsonProperty(BaseJsonProperty.INQUEST_DURATION)]
         public object inquest_duration {get; set;}
         
-        [JsonProperty("date_mod")]
+        [JsonProperty(BaseJsonProperty.DATE_MOD)]
         public object date_mod {get; set;}
         
-        [JsonProperty("date_creation")]
+        [JsonProperty(BaseJsonProperty.DATE_CREATION)]
         public object date_creation {get; set;}
         
-        [JsonProperty("autofill_decommission_date")]
+        [JsonProperty(BaseJsonProperty.AUTOFILL_DECOMMISSION_DATE)]
         public object autofill_decommission_date {get; set;}
         
-        [JsonProperty("suppliers_as_private")]
+        [JsonProperty(BaseJsonProperty.SUPPLIERS_AS_PRIVATE)]
         public object suppliers_as_private {get; set;}
         
-        [JsonProperty("anonymize_support_agents")]
+        [JsonProperty(BaseJsonProperty.ANONYMIZE_SUPPORT_AGENTS)]
         public object anonymize_support_agents {get; set;}
         
-        [JsonProperty("contracts_id_default")]
+        [JsonProperty(BaseJsonProperty.CONTRACTS_ID_DEFAULT)]
         public object contracts_id_default {get; set;}
         
-        [JsonProperty("display_users_initials")]
+        [JsonProperty(BaseJsonProperty.DISPLAY_USERS_INITIALS)]
         public object display_users_initials {get; set;}
         
-        [JsonProperty("enable_custom_css")]
+        [JsonProperty(BaseJsonProperty.ENABLE_CUSTOM_CSS)]
         public object enable_custom_css {get; set;}
         
-        [JsonProperty("custom_css_code")]
+        [JsonProperty(BaseJsonProperty.CUSTOM_CSS_CODE)]
         public object custom_css_code {get; set;}
         
-        [JsonProperty("latitude")]
+        [JsonProperty(BaseJsonProperty.LATITUDE)]
         public object latitude {get; set;}
         
-        [JsonProperty("longitude")]
+        [JsonProperty(BaseJsonProperty.LONGITUDE)]
         public object longitude {get; set;}
         
-        [JsonProperty("altitude")]
+        [JsonProperty(BaseJsonProperty.ALTITUDE)]
         public object altitude {get; set;}
         
-        [JsonProperty("calendars_strategy")]
+        [JsonProperty(BaseJsonProperty.CALENDARS_STRATEGY)]
         public object calendars_strategy {get; set;}
         
-        [JsonProperty("changetemplates_strategy")]
+        [JsonProperty(BaseJsonProperty.CHANGETEMPLATES_STRATEGY)]
         public object changetemplates_strategy {get; set;}
         
-        [JsonProperty("contracts_strategy_default")]
+        [JsonProperty(BaseJsonProperty.CONTRACTS_STRATEGY_DEFAULT)]
         public object contracts_strategy_default {get; set;}
         
-        [JsonProperty("entities_strategy_software")]
+        [JsonProperty(BaseJsonProperty.ENTITIES_STRATEGY_SOFTWARE)]
         public object entities_strategy_software {get; set;}
         
-        [JsonProperty("problemtemplates_strategy")]
+        [JsonProperty(BaseJsonProperty.PROBLEMTEMPLATES_STRATEGY)]
         public object problemtemplates_strategy {get; set;}
         
-        [JsonProperty("tickettemplates_strategy")]
+        [JsonProperty(BaseJsonProperty.TICKETTEMPLATES_STRATEGY)]
         public object tickettemplates_strategy {get; set;}
         
-        [JsonProperty("transfers_strategy")]
+        [JsonProperty(BaseJsonProperty.TRANSFERS_STRATEGY)]
         public object transfers_strategy {get; set;}
         
-        [JsonProperty("from_email")]
+        [JsonProperty(BaseJsonProperty.FROM_EMAIL)]
         public object from_email {get; set;}
         
-        [JsonProperty("from_email_name")]
+        [JsonProperty(BaseJsonProperty.FROM_EMAIL_NAME)]
         public object from_email_name {get; set;}
         
-        [JsonProperty("noreply_email")]
+        [JsonProperty(BaseJsonProperty.NOREPLY_EMAIL)]
         public object noreply_email {get; set;}
         
-        [JsonProperty("noreply_email_name")]
+        [JsonProperty(BaseJsonProperty.NOREPLY_EMAIL_NAME)]
         public object noreply_email_name {get; set;}
         
-        [JsonProperty("transfers_id")]
+        [JsonProperty(BaseJsonProperty.TRANSFERS_ID)]
         public object transfers_id {get; set;}
         
-        [JsonProperty("agent_base_url")]
+        [JsonProperty(BaseJsonProperty.AGENT_BASE_URL)]
         public object agent_base_url {get; set;}        
     }
 }

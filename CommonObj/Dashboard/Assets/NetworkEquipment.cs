@@ -1,20 +1,21 @@
-﻿using Newtonsoft.Json;
+﻿using CommonObj.Base;
+using Newtonsoft.Json;
 
 namespace CommonObj.Dashboard.Assets
 {
 
     public class NetworkEquipment : WorkStation<NetworkEquipment>, IEquatable<NetworkEquipment>
     {
-        [JsonProperty("ram")]
+        [JsonProperty(BaseJsonProperty.RAM)]
         public long? RAM { get; set; }
 
-        [JsonProperty("networks_id")]
+        [JsonProperty(BaseJsonProperty.NETWORKS_ID)]
         public long? IdNetworks { get; set; }
 
-        [JsonProperty("networkequipmenttypes_id")]
+        [JsonProperty(BaseJsonProperty.NETWORKEQUIPMENTTYPES_ID)]
         public long? IdNetworkEquipmentTypes { get; set; }
 
-        [JsonProperty("networkequipmentmodels_id")]
+        [JsonProperty(BaseJsonProperty.NETWORKEQUIPMENTMODELS_ID)]
         public long? IdNetworkEquipmentModels { get; set; }
 
 

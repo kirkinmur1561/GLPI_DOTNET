@@ -1,3 +1,4 @@
+using CommonObj.Base;
 using CommonObj.Dashboard.Common;
 using Newtonsoft.Json;
 
@@ -13,10 +14,10 @@ namespace CommonObj.Dashboard.Administration.User
             
         }
         
-        [JsonProperty("email")]
+        [JsonProperty(BaseJsonProperty.EMAIL)]
         public string Email { get; set; }
         
-        [JsonProperty("is_default")]
+        [JsonProperty(BaseJsonProperty.IS_DEFAULT)]
         public bool? IsDefault { get; set; }
         
         

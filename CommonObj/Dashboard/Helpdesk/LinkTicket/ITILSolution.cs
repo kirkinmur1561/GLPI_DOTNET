@@ -1,35 +1,49 @@
-﻿using Newtonsoft.Json;
+﻿using CommonObj.Base;
+using Newtonsoft.Json;
 
 namespace CommonObj.Dashboard.Helpdesk.LinkTicket
 {
     public class ITILSolution:CommonLinkTicket
     {       
-        [JsonProperty("itemtype")]
+        [JsonProperty(BaseJsonProperty.ITEMTYPE)]
         public string ItemType { get; set; }
-        [JsonProperty("items_id")]
+        
+        [JsonProperty(BaseJsonProperty.ITEMS_ID)]
         public long IdItems { get; set; }
-        [JsonProperty("solutiontypes_id")]
+        
+        [JsonProperty(BaseJsonProperty.SOLUTIONTYPES_ID)]
         public long IdSolutionType { get; set; }
-        [JsonProperty("solutiontype_name")]
+        
+        [JsonProperty(BaseJsonProperty.SOLUTIONTYPE_NAME)]
         public string NameSolutionType { get; set; }
-        [JsonProperty("content")]
+        
+        [JsonProperty(BaseJsonProperty.CONTENT)]
         public string Content { get; set; }
-        [JsonProperty("date_creation")]
+        
+        [JsonProperty(BaseJsonProperty.DATE_CREATION)]
         public DateTime? DateCreation { get; set; }
-        [JsonProperty("date_mod")]
+        
+        [JsonProperty(BaseJsonProperty.DATE_MOD)]
         public DateTime? DateMod { get; set; }
-        [JsonProperty("date_approval")]
-        public DateTime? DateApproval { get; set; }       
-        [JsonProperty("user_name")]
+        
+        [JsonProperty(BaseJsonProperty.DATE_APPROVAL)]
+        public DateTime? DateApproval { get; set; }    
+        
+        [JsonProperty(BaseJsonProperty.USER_NAME)]
         public string NameUser { get; set; }
-        [JsonProperty("users_id_editor")]
+        
+        [JsonProperty(BaseJsonProperty.USERS_ID_EDITOR)]
         public long IdUserEditor { get; set; }
-        [JsonProperty("users_id_approval")]
+        
+        [JsonProperty(BaseJsonProperty.USERS_ID_APPROVAL)]
         public long IdUserApproval { get; set; }
-        [JsonProperty("user_name_approval")]
+        
+        [JsonProperty(BaseJsonProperty.USER_NAME_APPROVAL)]
         public string NameUserApproval { get; set; }
-        [JsonProperty("status")]
+        
+        [JsonProperty(BaseJsonProperty.STATUS)]
         public int? Status { get; set; }
+        
         [JsonProperty("itilfollowups_id")]
         public long? IdItilFollowUp { get; set; }       
     }

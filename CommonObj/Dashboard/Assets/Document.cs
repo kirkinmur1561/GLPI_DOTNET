@@ -1,28 +1,38 @@
-﻿using CommonObj.Dashboard.Common;
+﻿using CommonObj.Base;
+using CommonObj.Dashboard.Common;
 using Newtonsoft.Json;
 
 namespace CommonObj.Dashboard.Assets
 {
     public class Document:Dashboard<Document>
     {
-        [JsonProperty("filename")]
+        [JsonProperty(BaseJsonProperty.FILENAME)]
         public string FileName { get; set; }
-        [JsonProperty("filepath")]
+        
+        [JsonProperty(BaseJsonProperty.FILEPATH)]
         public string FilePath { get; set; }
-        [JsonProperty("documentcategories_id")]
+        
+        [JsonProperty(BaseJsonProperty.DOCUMENTCATEGORIES_ID)]
         public long? IdDocumentCategories { get; set; }
-        [JsonProperty("mime")]
+        
+        [JsonProperty(BaseJsonProperty.MIME)]
         public string Mime { get; set; }
-        [JsonProperty("link")]
+        
+        [JsonProperty(BaseJsonProperty.LINK)]
         public string Link { get; set; }
-        [JsonProperty("tickets_id")]
+        
+        [JsonProperty(BaseJsonProperty.TICKETS_ID)]
         public long? IdTickets { get; set; }
-        [JsonProperty("sha1sum")]
+        
+        [JsonProperty(BaseJsonProperty.SHA1SUM)]
         public string Sha1 { get; set; }
-        [JsonProperty("is_blacklisted")]
+        
+        [JsonProperty(BaseJsonProperty.IS_BLACKLISTED)]
         public bool? IsBlockListed { get; set; }
-        [JsonProperty("tag")]
+        
+        [JsonProperty(BaseJsonProperty.TAG)]
         public string Tag { get; set; }
+        
 
         /// <summary>
         /// 

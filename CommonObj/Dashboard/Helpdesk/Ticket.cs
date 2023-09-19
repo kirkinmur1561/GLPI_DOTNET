@@ -1,4 +1,5 @@
-﻿using CommonObj.Dashboard.Administration;
+﻿using CommonObj.Base;
+using CommonObj.Dashboard.Administration;
 using CommonObj.Dashboard.Administration.User;
 using CommonObj.Dashboard.Common;
 using CommonObj.Dashboard.Helpdesk.LinkTicket;
@@ -31,125 +32,125 @@ namespace CommonObj.Dashboard.Helpdesk
         /// <summary>
         /// Дата создания
         /// </summary>
-        [JsonProperty("date")]
+        [JsonProperty(BaseJsonProperty.DATE)]
         public DateTime? Date { get; set; }
 
         /// <summary>1
         /// Дата закрытия
         /// </summary>
-        [JsonProperty("closedate")]
+        [JsonProperty(BaseJsonProperty.CLOSEDATE)]
         public DateTime? CloseDate { get; set; }
 
-        [JsonProperty("solvedate")]
+        [JsonProperty(BaseJsonProperty.SOLVEDATE)]
         public DateTime? SolveDate { get; set; }
 
         /// <summary>
         /// Статус заявки
         /// </summary>
-        [JsonProperty("status")]
+        [JsonProperty(BaseJsonProperty.STATUS)]
         public EStatus Status { get; set; }
 
         /// <summary>
         /// Крайний редактор
         /// </summary>
-        [JsonProperty("users_id_lastupdater")]
+        [JsonProperty(BaseJsonProperty.USERS_ID_LASTUPDATER)]
         public long? UsersIdLastUpdater { get; set; }
 
         /// <summary>
         /// Исполнитель заявки
         /// </summary>
-        [JsonProperty("users_id_recipient")]
+        [JsonProperty(BaseJsonProperty.USERS_ID_RECIPIENT)]
         public long? UsersIdRecipient { get; set; }
 
 
-        [JsonProperty("requesttypes_id")]
+        [JsonProperty(BaseJsonProperty.REQUESTTYPES_ID)]
         public long? RequestTypesId { get; set; }
 
         /// <summary>
         /// Описание
         /// </summary>
-        [JsonProperty("content")]
+        [JsonProperty(BaseJsonProperty.CONTENT)]
         public string Content { get; set; }
 
-        [JsonProperty("urgency")]
+        [JsonProperty(BaseJsonProperty.URGENCY)]
         public long? Urgency { get; set; }
 
-        [JsonProperty("impact")]
+        [JsonProperty(BaseJsonProperty.IMPACT)]
         public long? Impact { get; set; }
 
         /// <summary>
         /// Приоритет заявки
         /// </summary>
-        [JsonProperty("priority")]
+        [JsonProperty(BaseJsonProperty.PRIORITY)]
         public long? Priority { get; set; }
 
-        [JsonProperty("itilcategories_id")]
+        [JsonProperty(BaseJsonProperty.ITILCATEGORIES_ID)]
         public long? ItilCategoriesId { get; set; }
 
-        [JsonProperty("type")]
+        [JsonProperty(BaseJsonProperty.TYPE)]
         public long? Type { get; set; }
 
-        [JsonProperty("global_validation")]
+        [JsonProperty(BaseJsonProperty.GLOBAL_VALIDATION)]
         public long? GlobalValidation { get; set; }
 
-        [JsonProperty("slas_id_ttr")]
+        [JsonProperty(BaseJsonProperty.SLAS_ID_TTR)]
         public long? SlAsIdTtr { get; set; }
 
-        [JsonProperty("slas_id_tto")]
+        [JsonProperty(BaseJsonProperty.SLAS_ID_TTO)]
         public long? SlAsIdTto { get; set; }
 
-        [JsonProperty("slalevels_id_ttr")]
+        [JsonProperty(BaseJsonProperty.SLALEVELS_ID_TTR)]
         public long? SlaLevelsIdTtr { get; set; }
 
-        [JsonProperty("time_to_resolve")]
+        [JsonProperty(BaseJsonProperty.TIME_TO_RESOLVE)]
         public DateTime? TimeToResolve { get; set; }
 
-        [JsonProperty("time_to_own")]
+        [JsonProperty(BaseJsonProperty.TIME_TO_OWN)]
         public DateTime? TimeToOwn { get; set; }
 
-        [JsonProperty("begin_waiting_date")]
+        [JsonProperty(BaseJsonProperty.BEGIN_WAITING_DATE)]
         public DateTime? BeginWaitingDate { get; set; }
 
-        [JsonProperty("sla_waiting_duration")]
+        [JsonProperty(BaseJsonProperty.SLA_WAITING_DURATION)]
         public long? SlaWaitingDuration { get; set; }
 
-        [JsonProperty("ola_waiting_duration")]
+        [JsonProperty(BaseJsonProperty.OLA_WAITING_DURATION)]
         public long? OlaWaitingDuration { get; set; }
 
-        [JsonProperty("olas_id_tto")]
+        [JsonProperty(BaseJsonProperty.OLAS_ID_TTO)]
         public long? OlasIdTto { get; set; }
 
-        [JsonProperty("olas_id_ttr")]
+        [JsonProperty(BaseJsonProperty.OLAS_ID_TTR)]
         public long? OlasIdTtr { get; set; }
 
-        [JsonProperty("olalevels_id_ttr")]
+        [JsonProperty(BaseJsonProperty.OLALEVELS_ID_TTR)]
         public long? OlaLevelsIdTtr { get; set; }
 
-        [JsonProperty("ola_ttr_begin_date")]
+        [JsonProperty(BaseJsonProperty.OLA_TTR_BEGIN_DATE)]
         public DateTime? OlaTtrBeginDate { get; set; }
 
-        [JsonProperty("internal_time_to_resolve")]
+        [JsonProperty(BaseJsonProperty.INTERNAL_TIME_TO_RESOLVE)]
         public DateTime? InternalTimeToResolve { get; set; }
 
-        [JsonProperty("internal_time_to_own")]
+        [JsonProperty(BaseJsonProperty.INTERNAL_TIME_TO_OWN)]
         public DateTime? InternalTimeToOwn { get; set; }
 
-        [JsonProperty("waiting_duration")]
+        [JsonProperty(BaseJsonProperty.WAITING_DURATION)]
         public long? WaitingDuration { get; set; }
 
-        [JsonProperty("close_delay_stat")]
+        [JsonProperty(BaseJsonProperty.CLOSE_DELAY_STAT)]
         public long? CloseDelayStat { get; set; }
 
-        [JsonProperty("solve_delay_stat")]
+        [JsonProperty(BaseJsonProperty.SOLVE_DELAY_STAT)]
         public long? SolveDelayStat { get; set; }
 
-        [JsonProperty("takeintoaccount_delay_stat")]
+        [JsonProperty(BaseJsonProperty.TAKEINTOACCOUNT_DELAY_STAT)]
         public long? TakeIntoAccountDelayStat { get; set; }
 
-        [JsonProperty("actiontime")]
+        [JsonProperty(BaseJsonProperty.ACTIONTIME)]
         public long? ActionTime { get; set; }
 
-        [JsonProperty("validation_percent")]
+        [JsonProperty(BaseJsonProperty.VALIDATION_PERCENT)]
         public long? ValidationPercent { get; set; }
 
         // /// <summary>

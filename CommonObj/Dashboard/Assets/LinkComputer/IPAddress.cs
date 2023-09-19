@@ -1,3 +1,4 @@
+using CommonObj.Base;
 using CommonObj.Dashboard.Common;
 using Newtonsoft.Json;
 
@@ -11,37 +12,37 @@ namespace CommonObj.Dashboard.Assets.LinkComputer
             IpV6 = 6
         }
         
-        [JsonProperty("items_id")]
+        [JsonProperty(BaseJsonProperty.ITEMS_ID)]
         public long? IdItem {get; set;}
         
-        [JsonProperty("itemtype")]
+        [JsonProperty(BaseJsonProperty.ITEMTYPE)]
         public string TypeItem {get; set;}
         
         /// <summary>
         /// Версия IP
         /// </summary>
-        [JsonProperty("version")]
+        [JsonProperty(BaseJsonProperty.VERSION)]
         public EipVersion Version {get; set;}
         
-        [JsonProperty("name")]
+        [JsonProperty(BaseJsonProperty.NAME)]
         public string Address {get; set;}
         
-        [JsonProperty("binary_0")]
+        [JsonProperty(BaseJsonProperty.BINARY_0)]
         public long? Binary0 {get; set;}
         
-        [JsonProperty("binary_1")]
+        [JsonProperty(BaseJsonProperty.BINARY_1)]
         public long? Binary1 {get; set;}
         
-        [JsonProperty("binary_2")]
+        [JsonProperty(BaseJsonProperty.BINARY_2)]
         public long? Binary2 {get; set;}
         
-        [JsonProperty("binary_3")]
+        [JsonProperty(BaseJsonProperty.BINARY_3)]
         public long? Binary3 {get; set;}        
        
-        [JsonProperty("mainitems_id")]
+        [JsonProperty(BaseJsonProperty.MAINITEMS_ID)]
         public long? IdMainItem {get; set;}
         
-        [JsonProperty("mainitemtype")]
+        [JsonProperty(BaseJsonProperty.MAINITEMTYPE)]
         public string TypeMainItem {get; set;}       
     }
 }

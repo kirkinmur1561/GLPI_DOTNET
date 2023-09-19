@@ -1,3 +1,4 @@
+using CommonObj.Base;
 using CommonObj.Dashboard.Common;
 using Newtonsoft.Json;
 
@@ -5,13 +6,16 @@ namespace CommonObj.Dashboard.Helpdesk.LinkTicket
 {
     public abstract class CommonLinkTicket
     {
-        [JsonProperty("id")]
+        [JsonProperty(BaseJsonProperty.ID)]
         public long Id { get; set; }
-        [JsonProperty("tickets_id")]
+        
+        [JsonProperty(BaseJsonProperty.TICKETS_ID)]
         public long IdTicket { get; set; }
-        [JsonProperty("users_id")]
+        
+        [JsonProperty(BaseJsonProperty.USERS_ID)]
         public long IdUser { get; set; }
-        [JsonProperty("links")]
+        
+        [JsonProperty(BaseJsonProperty.LINKS)]
         public List<Link> Links { get; set; }
     }
 }

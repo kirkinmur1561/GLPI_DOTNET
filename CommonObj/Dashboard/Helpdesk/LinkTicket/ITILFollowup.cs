@@ -1,4 +1,5 @@
-﻿using CommonObj.Dashboard.Common;
+﻿using CommonObj.Base;
+using CommonObj.Dashboard.Common;
 using Newtonsoft.Json;
 
 namespace CommonObj.Dashboard.Helpdesk.LinkTicket
@@ -7,33 +8,47 @@ namespace CommonObj.Dashboard.Helpdesk.LinkTicket
     {
         [JsonProperty("id")]
         public long Id { get; set; }
-        [JsonProperty("itemtype")]
+        
+        [JsonProperty(BaseJsonProperty.ITEMTYPE)]
         public string ItemType { get; set; }
-        [JsonProperty("items_id")]
+        
+        [JsonProperty(BaseJsonProperty.ITEMS_ID)]
         public long IdItems { get; set; }
-        [JsonProperty("date")]
+        
+        [JsonProperty(BaseJsonProperty.DATE)]
         public DateTime? Date { get; set; }
-        [JsonProperty("users_id")]
+        
+        [JsonProperty(BaseJsonProperty.USERS_ID)]
         public long IdUser { get; set; }
-        [JsonProperty("users_id_editor")]
+        
+        [JsonProperty(BaseJsonProperty.USERS_ID_EDITOR)]
         public long IdUserEditor { get; set; }
-        [JsonProperty("content")]
+        
+        [JsonProperty(BaseJsonProperty.CONTENT)]
         public string Content { get; set; }
-        [JsonProperty("is_private")]
+        
+        [JsonProperty(BaseJsonProperty.IS_PRIVATE)]
         public bool IsPrivate { get; set; }
-        [JsonProperty("requesttypes_id")]
+        
+        [JsonProperty(BaseJsonProperty.REQUESTTYPES_ID)]
         public long IdRequestType { get; set; }
-        [JsonProperty("date_mod")]
+        
+        [JsonProperty(BaseJsonProperty.DATE_MOD)]
         public DateTime? DateMod { get; set; }
-        [JsonProperty("date_creation")]
+        
+        [JsonProperty(BaseJsonProperty.DATE_CREATION)]
         public DateTime? DateCreation { get; set; }
-        [JsonProperty("timeline_position")]
+        
+        [JsonProperty(BaseJsonProperty.TIMELINE_POSITION)]
         public int TimeLinePosition { get; set; }
-        [JsonProperty("sourceitems_id")]
+        
+        [JsonProperty(BaseJsonProperty.SOURCEITEMS_ID)]
         public long IdSourceItem { get; set; }
-        [JsonProperty("sourceof_items_id")]
+        
+        [JsonProperty(BaseJsonProperty.SOURCEOF_ITEMS_ID)]
         public long IdSourceOfItem { get; set; }
-        [JsonProperty("links")]
+        
+        [JsonProperty(BaseJsonProperty.LINKS)]
         public List<Link> Links { get; set; }
     }
 }

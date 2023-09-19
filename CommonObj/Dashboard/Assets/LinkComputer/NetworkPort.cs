@@ -1,3 +1,4 @@
+using CommonObj.Base;
 using CommonObj.Dashboard.Common;
 using Newtonsoft.Json;
 
@@ -5,70 +6,70 @@ namespace CommonObj.Dashboard.Assets.LinkComputer
 {
     public class NetworkPort:Dashboard<NetworkPort>
     {        
-        [JsonProperty("items_id")]
+        [JsonProperty(BaseJsonProperty.ITEMS_ID)]
         public long? IdItem {get; set;}
         
-        [JsonProperty("itemtype")]
+        [JsonProperty(BaseJsonProperty.ITEMTYPE)]
         public string TypeItem {get; set;}            
         
         /// <summary>
         /// Port number
         /// </summary>
-        [JsonProperty("logical_number")]
+        [JsonProperty(BaseJsonProperty.LOGICAL_NUMBER)]
         public long? LogicalNum {get; set;}        
         
-        [JsonProperty("instantiation_type")]
+        [JsonProperty(BaseJsonProperty.INSTANTIATION_TYPE)]
         public string TypeInstantiation {get; set;}
         
-        [JsonProperty("mac")]
+        [JsonProperty(BaseJsonProperty.MAC)]
         public string MAC_Address {get; set;}                
         
-        [JsonProperty("is_dynamic")]
+        [JsonProperty(BaseJsonProperty.IS_DYNAMIC)]
         public bool? IsDynamic {get; set;}         
         
-        [JsonProperty("ifmtu")]
+        [JsonProperty(BaseJsonProperty.IFMTU)]
         public long? ifMtu {get; set;}
         
-        [JsonProperty("ifspeed")]
+        [JsonProperty(BaseJsonProperty.IFSPEED)]
         public long? ifSpeed {get; set;}
         
-        [JsonProperty("ifinternalstatus")]
+        [JsonProperty(BaseJsonProperty.IFINTERNALSTATUS)]
         public long? ifInternalStatus {get; set;}
         
-        [JsonProperty("ifconnectionstatus")]
+        [JsonProperty(BaseJsonProperty.IFCONNECTIONSTATUS)]
         public long? ifConnectionStatus {get; set;}
         
-        [JsonProperty("iflastchange")]
+        [JsonProperty(BaseJsonProperty.IFLASTCHANGE)]
         public long? ifLastChange {get; set;}
         
-        [JsonProperty("ifinbytes")]
+        [JsonProperty(BaseJsonProperty.IFINBYTES)]
         public long? ifInBytes {get; set;}
         
-        [JsonProperty("ifinerrors")]
+        [JsonProperty(BaseJsonProperty.IFINERRORS)]
         public long? ifInErrors {get; set;}
         
-        [JsonProperty("ifoutbytes")]
+        [JsonProperty(BaseJsonProperty.IFOUTBYTES)]
         public long? ifOutBytes {get; set;}
         
-        [JsonProperty("ifouterrors")]
+        [JsonProperty(BaseJsonProperty.IFOUTERRORS)]
         public long? ifOutErrors {get; set;}
         
-        [JsonProperty("ifstatus")]
+        [JsonProperty(BaseJsonProperty.IFSTATUS)]
         public long? ifStatus {get; set;}
         
-        [JsonProperty("ifdescr")]
+        [JsonProperty(BaseJsonProperty.IFDESCR)]
         public long? ifDescr {get; set;}
         
-        [JsonProperty("ifalias")]
+        [JsonProperty(BaseJsonProperty.IFALIAS)]
         public long? ifAlias {get; set;}
         
-        [JsonProperty("portduplex")]
+        [JsonProperty(BaseJsonProperty.PORTDUPLEX)]
         public object PortDuplex {get; set;}
         
-        [JsonProperty("trunk")]
+        [JsonProperty(BaseJsonProperty.TRUNK)]
         public long? Trunk {get; set;}
         
-        [JsonProperty("lastup")]
+        [JsonProperty(BaseJsonProperty.LASTUP)]
         public object LastUp {get; set;}        
         
         [JsonIgnore]

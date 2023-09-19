@@ -1,23 +1,24 @@
-﻿using CommonObj.Dashboard.Common;
+﻿using CommonObj.Base;
+using CommonObj.Dashboard.Common;
 using Newtonsoft.Json;
 
 namespace CommonObj.Dashboard.Assets
 {
     public class Software : Dashboard<Software>, IEquatable<Software>
     {
-        [JsonProperty("is_update")]
+        [JsonProperty(BaseJsonProperty.IS_UPDATE)]
         public bool? IsUpdate { get; set; }
 
-        [JsonProperty("softwares_id")]
+        [JsonProperty(BaseJsonProperty.SOFTWARES_ID)]
         public long? IdSoftwares { get; set; }
 
-        [JsonProperty("is_helpdesk_visible")]
+        [JsonProperty(BaseJsonProperty.IS_HELPDESK_VISIBLE)]
         public bool? IsHelpdeskVisible { get; set; }
 
-        [JsonProperty("softwarecategories_id")]
+        [JsonProperty(BaseJsonProperty.SOFTWARECATEGORIES_ID)]
         public long? IdSoftwareCategories { get; set; }
 
-        [JsonProperty("is_valid")]
+        [JsonProperty(BaseJsonProperty.IS_VALID)]
         public bool? IsValid { get; set; }
 
 

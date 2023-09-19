@@ -1,41 +1,42 @@
-﻿using Newtonsoft.Json;
+﻿using CommonObj.Base;
+using Newtonsoft.Json;
 
 namespace CommonObj.Dashboard.Assets
 {
 
     public class Printer : WorkStation<Printer>, IEquatable<Printer>
     {
-        [JsonProperty("have_serial")]
+        [JsonProperty(BaseJsonProperty.HAVE_SERIAL)]
         public bool? HaveSerial { get; set; }
 
-        [JsonProperty("have_parallel")]
+        [JsonProperty(BaseJsonProperty.HAVE_PARALLEL)]
         public bool? HaveParallelPort { get; set; }
 
-        [JsonProperty("have_usb")]
+        [JsonProperty(BaseJsonProperty.HAVE_USB)]
         public bool? HaveUSB { get; set; }
 
-        [JsonProperty("have_wifi")]
+        [JsonProperty(BaseJsonProperty.HAVE_WIFI)]
         public bool? HaveWiFi { get; set; }
 
-        [JsonProperty("have_ethernet")]
+        [JsonProperty(BaseJsonProperty.HAVE_ETHERNET)]
         public bool? HaveRJ45 { get; set; }
 
-        [JsonProperty("memory_size")]
+        [JsonProperty(BaseJsonProperty.MEMORY_SIZE)]
         public double? MemorySize { get; set; }
 
-        [JsonProperty("networks_id")]
+        [JsonProperty(BaseJsonProperty.NETWORKS_ID)]
         public long? IdNetworks { get; set; }
 
-        [JsonProperty("printertypes_id")]
+        [JsonProperty(BaseJsonProperty.PRINTERTYPES_ID)]
         public long? IdPrinterTypes { get; set; }
 
-        [JsonProperty("printermodels_id")]
+        [JsonProperty(BaseJsonProperty.PRINTERMODELS_ID)]
         public long? IdPrinterModels { get; set; }
 
-        [JsonProperty("init_pages_counter")]
+        [JsonProperty(BaseJsonProperty.INIT_PAGES_COUNTER)]
         public long? InitPagesCounter { get; set; }
 
-        [JsonProperty("last_pages_counter")]
+        [JsonProperty(BaseJsonProperty.LAST_PAGES_COUNTER)]
         public long? LastPagesCounter { get; set; }
 
 

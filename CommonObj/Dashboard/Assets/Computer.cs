@@ -1,4 +1,5 @@
-﻿using CommonObj.Dashboard.Assets.LinkComputer;
+﻿using CommonObj.Base;
+using CommonObj.Dashboard.Assets.LinkComputer;
 using CommonObj.Dashboard.Helpdesk.LinkTicket;
 using Newtonsoft.Json;
 
@@ -7,19 +8,19 @@ namespace CommonObj.Dashboard.Assets
 
     public class Computer : WorkStation<Computer>, IEquatable<Computer>
     {
-        [JsonProperty("autoupdatesystems_id")]
+        [JsonProperty(BaseJsonProperty.AUTOUPDATESYSTEMS_ID)]
         public long? IdAutoUpdateSystems { get; set; }
 
-        [JsonProperty("networks_id")]
+        [JsonProperty(BaseJsonProperty.NETWORKS_ID)]
         public long? IdNetworks { get; set; }
 
-        [JsonProperty("computermodels_id")]
+        [JsonProperty(BaseJsonProperty.COMPUTERMODELS_ID)]
         public long? IdComputerModels { get; set; }
 
-        [JsonProperty("computertypes_id")]
+        [JsonProperty(BaseJsonProperty.COMPUTERTYPES_ID)]
         public long? IdComputerTypes { get; set; }
 
-        [JsonProperty("uuid")]
+        [JsonProperty(BaseJsonProperty.UUID)]
         public string UUId { get; set; }       
 
         [JsonIgnore]

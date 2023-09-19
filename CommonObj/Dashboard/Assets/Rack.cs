@@ -1,46 +1,47 @@
-﻿using Newtonsoft.Json;
+﻿using CommonObj.Base;
+using Newtonsoft.Json;
 
 namespace CommonObj.Dashboard.Assets
 {
     public class Rack : WorkStation<Rack>, IEquatable<Rack>
     {
-        [JsonProperty("rackmodels_id")]
+        [JsonProperty(BaseJsonProperty.RACKMODELS_ID)]
         public long? IdRackModel { get; set; }
 
-        [JsonProperty("racktypes_id")]
+        [JsonProperty(BaseJsonProperty.RACKTYPES_ID)]
         public long? IdRackType { get; set; }
 
-        [JsonProperty("width")]
+        [JsonProperty(BaseJsonProperty.WIDTH)]
         public double? Width { get; set; }
 
-        [JsonProperty("height")]
+        [JsonProperty(BaseJsonProperty.HEIGHT)]
         public double? Height { get; set; }
 
-        [JsonProperty("depth")]
+        [JsonProperty(BaseJsonProperty.DEPTH)]
         public double? Depth { get; set; }
 
-        [JsonProperty("number_units")]
+        [JsonProperty(BaseJsonProperty.NUMBER_UNITS)]
         public long? NumberUnit { get; set; }
 
-        [JsonProperty("dcrooms_id")]
+        [JsonProperty(BaseJsonProperty.DCROOMS_ID)]
         public long? IdDCRoom { get; set; }
 
-        [JsonProperty("room_orientation")]
+        [JsonProperty(BaseJsonProperty.ROOM_ORIENTATION)]
         public long? RoomOrientation { get; set; }
 
-        [JsonProperty("position")]
+        [JsonProperty(BaseJsonProperty.POSITION)]
         public string Position { get; set; }
 
-        [JsonProperty("bgcolor")]
+        [JsonProperty(BaseJsonProperty.BGCOLOR)]
         public string BGColor { get; set; }
 
-        [JsonProperty("max_power")]
+        [JsonProperty(BaseJsonProperty.MAX_POWER)]
         public double? MaxPower { get; set; }
 
-        [JsonProperty("mesured_power")]
+        [JsonProperty(BaseJsonProperty.MESURED_POWER)]
         public long? MesuredPower { get; set; }
 
-        [JsonProperty("max_weight")]
+        [JsonProperty(BaseJsonProperty.MAX_WEIGHT)]
         public double? MaxWeight { get; set; }
 
 

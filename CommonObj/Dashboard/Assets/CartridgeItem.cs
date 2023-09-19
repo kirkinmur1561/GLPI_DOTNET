@@ -1,26 +1,27 @@
-﻿using CommonObj.Dashboard.Common;
+﻿using CommonObj.Base;
+using CommonObj.Dashboard.Common;
 using Newtonsoft.Json;
 
 namespace CommonObj.Dashboard.Assets
 {
     public class CartridgeItem : Dashboard<CartridgeItem>, IEquatable<CartridgeItem>
     {
-        [JsonProperty("cartridgeitems_id")]
+        [JsonProperty(BaseJsonProperty.CARTRIDGEITEMS_ID)]
         public long? IdCartridge { get; set; }
 
-        [JsonProperty("printers_id")]
+        [JsonProperty(BaseJsonProperty.PRINTERS_ID)]
         public long? IdPrinter { get; set; }
 
-        [JsonProperty("date_in")]
+        [JsonProperty(BaseJsonProperty.DATE_IN)]
         public DateTime? DateIn { get; set; }
 
-        [JsonProperty("date_use")]
+        [JsonProperty(BaseJsonProperty.DATE_USE)]
         public DateTime? DateUse { get; set; }
 
-        [JsonProperty("date_out")]
+        [JsonProperty(BaseJsonProperty.DATE_OUT)]
         public DateTime? DateOut { get; set; }
 
-        [JsonProperty("pages")]
+        [JsonProperty(BaseJsonProperty.PAGES)]
         public long? Pages { get; set; }
 
         public bool Equals(CartridgeItem other) =>

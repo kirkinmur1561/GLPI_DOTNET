@@ -1,23 +1,24 @@
-﻿using CommonObj.Dashboard.Common;
+﻿using CommonObj.Base;
+using CommonObj.Dashboard.Common;
 using Newtonsoft.Json;
 
 namespace CommonObj.Dashboard.Assets
 {
     public class ConsumableItem : Dashboard<ConsumableItem>, IEquatable<ConsumableItem>
     {
-        [JsonProperty("consumableitems_id")]
+        [JsonProperty(BaseJsonProperty.CONSUMABLEITEMS_ID)]
         public long? IdConsumable { get; set; }
 
-        [JsonProperty("date_in")]
+        [JsonProperty(BaseJsonProperty.DATE_IN)]
         public DateTime? DateIn { get; set; }
 
-        [JsonProperty("date_out")]
+        [JsonProperty(BaseJsonProperty.DATE_OUT)]
         public DateTime? DateOut { get; set; }
 
-        [JsonProperty("itemtype")]
+        [JsonProperty(BaseJsonProperty.ITEMTYPE)]
         public DateTime? ItemType { get; set; }
 
-        [JsonProperty("items_id")]
+        [JsonProperty(BaseJsonProperty.ITEMS_ID)]
         public long? IdItems { get; set; }
 
 

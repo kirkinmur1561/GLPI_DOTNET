@@ -52,7 +52,7 @@ namespace CommonObj.Dashboard.Administration.User
         
         
         [JsonProperty(BaseJsonProperty.LANGUAGE)]
-        public string Luse_modeanguage{get;set;}
+        public string LuseModeanguage{get;set;}
         
         [JsonProperty(BaseJsonProperty.USE_MODE)]
         public int UseMode{get;set;}
@@ -112,7 +112,7 @@ namespace CommonObj.Dashboard.Administration.User
         public object NamesFormat{get;set;}
         
         [JsonProperty(BaseJsonProperty.CSV_DELIMITER)]
-        public object CSVDelimiter{get;set;}
+        public object CsvDelimiter{get;set;}
         
         [JsonProperty(BaseJsonProperty.IS_IDS_VISIBLE)]
         public bool? IsIdsVisible{get;set;}
@@ -216,10 +216,10 @@ namespace CommonObj.Dashboard.Administration.User
         public object DisplayOptions{get;set;}
         
         [JsonProperty(BaseJsonProperty.IS_DELETED_LDAP)]
-        public bool? IsDeletedLDAP{get;set;}
+        public bool? IsDeletedLdap{get;set;}
         
         [JsonProperty(BaseJsonProperty.PDFFONT)]
-        public object PDFfont{get;set;}
+        public object PdFfont{get;set;}
         
         [JsonProperty(BaseJsonProperty.PICTURE)]
         public object Picture{get;set;}
@@ -276,7 +276,7 @@ namespace CommonObj.Dashboard.Administration.User
         public object LockDirectunlockNotification{get;set;}
         
         [JsonProperty(BaseJsonProperty.HIGHCONTRAST_CSS)]
-        public object HighcontrastCSS{get;set;}
+        public object HighcontrastCss{get;set;}
         
         [JsonProperty(BaseJsonProperty.PLANNINGS)]
         public object Plannings{get;set;}
@@ -315,7 +315,7 @@ namespace CommonObj.Dashboard.Administration.User
         public UserTitle UserTitle { get; set; }        
         
         [JsonIgnore]
-        public AuthLdap AuthLDAP { get; set; }
+        public AuthLdap AuthLdap { get; set; }
         
         [JsonIgnore]
         public UserCategory UserCategory { get; set; }        

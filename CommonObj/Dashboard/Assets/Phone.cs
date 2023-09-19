@@ -1,35 +1,36 @@
-﻿using Newtonsoft.Json;
+﻿using CommonObj.Base;
+using Newtonsoft.Json;
 
 namespace CommonObj.Dashboard.Assets
 {
 
     public class Phone : WorkStation<Phone>, IEquatable<Phone>
     {
-        [JsonProperty("phonetypes_id")]
+        [JsonProperty(BaseJsonProperty.PHONETYPES_ID)]
         public long? IdPhoneTypes { get; set; }
 
-        [JsonProperty("phonemodels_id")]
+        [JsonProperty(BaseJsonProperty.PHONEMODELS_ID)]
         public long? IdPhoneModel { get; set; }
 
-        [JsonProperty("brand")]
+        [JsonProperty(BaseJsonProperty.BRAND)]
         public string Brand { get; set; }
 
-        [JsonProperty("phonepowersupplies_id")]
+        [JsonProperty(BaseJsonProperty.PHONEPOWERSUPPLIES_ID)]
         public long? IdPhonePowerSupplies { get; set; }
 
-        [JsonProperty("number_line")]
+        [JsonProperty(BaseJsonProperty.NUMBER_LINE)]
         public long? NumberLine { get; set; }
 
-        [JsonProperty("have_headset")]
+        [JsonProperty(BaseJsonProperty.HAVE_HEADSET)]
         public bool? HaveHeadset { get; set; }
 
-        [JsonProperty("have_hp")]
+        [JsonProperty(BaseJsonProperty.HAVE_HP)]
         public bool? HaveHP { get; set; }
 
-        [JsonProperty("manufacturers_id")]
+        [JsonProperty(BaseJsonProperty.MANUFACTURERS_ID)]
         public long? IdManufacture { get; set; }
 
-        [JsonProperty("is_global")]
+        [JsonProperty(BaseJsonProperty.IS_GLOBAL)]
         public bool? IsGlobal { get; set; }
 
 

@@ -1,4 +1,5 @@
-﻿using CommonObj.Dashboard.Common;
+﻿using CommonObj.Base;
+using CommonObj.Dashboard.Common;
 using Newtonsoft.Json;
 
 namespace CommonObj.Dashboard.Administration
@@ -6,49 +7,49 @@ namespace CommonObj.Dashboard.Administration
     public class Group:Dashboard<Group>
     {
         
-        [JsonProperty("ldap_field")]
+        [JsonProperty(BaseJsonProperty.LDAP_FIELD)]
         public object LDAPField { get; set; }
         
-        [JsonProperty("ldap_value")]
+        [JsonProperty(BaseJsonProperty.LDAP_VALUE)]
         public object LDAPValue { get; set; }
         
-        [JsonProperty("ldap_group_dn")]
+        [JsonProperty(BaseJsonProperty.LDAP_GROUP_DN)]
         public object LDAPGroupDN { get; set; }       
         
-        [JsonProperty("completename")]
+        [JsonProperty(BaseJsonProperty.COMPLETENAME)]
         public string CompleteName { get; set; }
         
-        [JsonProperty("level")]
+        [JsonProperty(BaseJsonProperty.LEVEL)]
         public int? Level { get; set; }
         
-        [JsonProperty("ancestors_cache")]
+        [JsonProperty(BaseJsonProperty.ANCESTORS_CACHE)]
         public object CacheAncestors { get; set; }
         
-        [JsonProperty("sons_cache")]
+        [JsonProperty(BaseJsonProperty.SONS_CACHE)]
         public object CacheSons { get; set; }
         
-        [JsonProperty("is_requester")]
+        [JsonProperty(BaseJsonProperty.IS_REQUESTER)]
         public bool? IsRequester { get; set; }
         
-        [JsonProperty("is_watcher")]
+        [JsonProperty(BaseJsonProperty.IS_WATCHER)]
         public bool? IsWatcher { get; set; }
         
-        [JsonProperty("is_assign")]
+        [JsonProperty(BaseJsonProperty.IS_ASSIGN)]
         public bool? IsAssign { get; set; }
         
-        [JsonProperty("is_task")]
+        [JsonProperty(BaseJsonProperty.IS_TASK)]
         public bool? IsTask { get; set; }
         
-        [JsonProperty("is_notify")]
+        [JsonProperty(BaseJsonProperty.IS_NOTIFY)]
         public bool? IsNotify { get; set; }
         
-        [JsonProperty("is_itemgroup")]
+        [JsonProperty(BaseJsonProperty.IS_ITEMGROUP)]
         public bool? IsItemGroup { get; set; }
         
-        [JsonProperty("is_usergroup")]
+        [JsonProperty(BaseJsonProperty.IS_USERGROUP)]
         public bool? IsUserGroup { get; set; }
         
-        [JsonProperty("is_manager")]
+        [JsonProperty(BaseJsonProperty.IS_MANAGER)]
         public bool? IsManager { get; set; }
     }
 }

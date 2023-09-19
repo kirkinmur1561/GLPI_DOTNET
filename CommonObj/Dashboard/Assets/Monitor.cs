@@ -1,43 +1,44 @@
-﻿using Newtonsoft.Json;
+﻿using CommonObj.Base;
+using Newtonsoft.Json;
 
 namespace CommonObj.Dashboard.Assets
 {
     public class Monitor : WorkStation<Monitor>, IEquatable<Monitor>
     {
-        [JsonProperty("size")]
+        [JsonProperty(BaseJsonProperty.SIZE)]
         public double? Size { get; set; }
 
-        [JsonProperty("have_micro")]
+        [JsonProperty(BaseJsonProperty.HAVE_MICRO)]
         public bool? HaveMicro { get; set; }
 
-        [JsonProperty("have_speaker")]
+        [JsonProperty(BaseJsonProperty.HAVE_SPEAKER)]
         public bool? HaveSpeaker { get; set; }
 
-        [JsonProperty("have_subd")]
+        [JsonProperty(BaseJsonProperty.HAVE_SUBD)]
         public bool? HaveSubD { get; set; }
 
-        [JsonProperty("have_bnc")]
+        [JsonProperty(BaseJsonProperty.HAVE_BNC)]
         public bool? HaveBNC { get; set; }
 
-        [JsonProperty("have_dvi")]
+        [JsonProperty(BaseJsonProperty.HAVE_DVI)]
         public bool? HaveDVI { get; set; }
 
-        [JsonProperty("have_pivot")]
+        [JsonProperty(BaseJsonProperty.HAVE_PIVOT)]
         public bool? HavePivot { get; set; }
 
-        [JsonProperty("have_hdmi")]
+        [JsonProperty(BaseJsonProperty.HAVE_HDMI)]
         public bool? HaveHDMI { get; set; }
 
-        [JsonProperty("have_displayport")]
+        [JsonProperty(BaseJsonProperty.HAVE_DISPLAYPORT)]
         public bool? HaveDisplayPort { get; set; }
 
-        [JsonProperty("monitortypes_id")]
+        [JsonProperty(BaseJsonProperty.MONITORTYPES_ID)]
         public long? IdMonitorTypes { get; set; }
 
-        [JsonProperty("monitormodels_id")]
+        [JsonProperty(BaseJsonProperty.MONITORMODELS_ID)]
         public long? IdMonitorModels { get; set; }
 
-        [JsonProperty("is_global")]
+        [JsonProperty(BaseJsonProperty.IS_GLOBAL)]
         public bool? IsGlobal { get; set; }
 
 

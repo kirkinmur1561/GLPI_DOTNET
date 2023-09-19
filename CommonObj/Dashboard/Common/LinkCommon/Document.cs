@@ -1,5 +1,6 @@
 using System.Net.Http.Headers;
 using System.Text;
+using CommonObj.Base;
 using Newtonsoft.Json;
 
 namespace CommonObj.Dashboard.Common.LinkCommon
@@ -13,7 +14,7 @@ namespace CommonObj.Dashboard.Common.LinkCommon
         /// <summary>
         /// Ответ на загрузку
         /// </summary>
-        [JsonProperty("message")]
+        [JsonProperty(BaseJsonProperty.MESSAGE)]
         public string Msg { get; set; }
 
         /// <summary>
@@ -25,23 +26,29 @@ namespace CommonObj.Dashboard.Common.LinkCommon
         // [JsonProperty("filename")]
         // public string FileName { get; set; }
 
-        [JsonProperty("filepath")]
+        [JsonProperty(BaseJsonProperty.FILEPATH)]
         public string FilePath { get; set; }
 
-        [JsonProperty("documentcategories_id")]
+        [JsonProperty(BaseJsonProperty.DOCUMENTCATEGORIES_ID)]
         public long IdDocumentCategory { get; set; }
 
-        [JsonProperty("mime")] public string MIME { get; set; }
+        [JsonProperty(BaseJsonProperty.MIME)]
+        public string MIME { get; set; }
 
-        [JsonProperty("link")] public string Link { get; set; }
+        [JsonProperty(BaseJsonProperty.LINK)] 
+        public string Link { get; set; }
 
-        [JsonProperty("tickets_id")] public long IdTicket { get; set; }
+        [JsonProperty(BaseJsonProperty.TICKETS_ID)] 
+        public long IdTicket { get; set; }
 
-        [JsonProperty("sha1sum")] public string Sha1 { get; set; }
+        [JsonProperty(BaseJsonProperty.SHA1SUM)] 
+        public string Sha1 { get; set; }
 
-        [JsonProperty("is_blacklisted")] public bool IsBlackList { get; set; }
+        [JsonProperty(BaseJsonProperty.IS_BLACKLISTED)] 
+        public bool IsBlackList { get; set; }
 
-        [JsonProperty("tag")] public string Tag { get; set; }
+        [JsonProperty(BaseJsonProperty.TAG)] 
+        public string Tag { get; set; }
 
         /// <summary>
         /// Загрузка файла
@@ -198,30 +205,41 @@ namespace CommonObj.Dashboard.Common.LinkCommon
 
         public class UploadResult
         {
-            [JsonProperty("filename")] public List<FileName> FileNames { get; set; }
+            [JsonProperty(BaseJsonProperty.FILENAME)] 
+            public List<FileName> FileNames { get; set; }
         }
 
         public class FileName
         {
-            [JsonProperty("name")] public string Name { get; set; }
+            [JsonProperty(BaseJsonProperty.NAME)] 
+            public string Name { get; set; }
 
-            [JsonProperty("size")] public ulong Size { get; set; }
+            [JsonProperty(BaseJsonProperty.SIZE)] 
+            public ulong Size { get; set; }
 
-            [JsonProperty("type")] public string MimeType { get; set; }
+            [JsonProperty(BaseJsonProperty.TYPE)] 
+            public string MimeType { get; set; }
 
-            [JsonProperty("url")] public string LoadAddress { get; set; }
+            [JsonProperty(BaseJsonProperty.URL)] 
+            public string LoadAddress { get; set; }
 
-            [JsonProperty("deleteUrl")] public string DeleteAddress { get; set; }
+            [JsonProperty(BaseJsonProperty.DELETEURL)] 
+            public string DeleteAddress { get; set; }
 
-            [JsonProperty("deleteType")] public string DeleteType { get; set; }
+            [JsonProperty(BaseJsonProperty.DELETETYPE)] 
+            public string DeleteType { get; set; }
 
-            [JsonProperty("prefix")] public string Prefix { get; set; }
+            [JsonProperty(BaseJsonProperty.PREFIX)] 
+            public string Prefix { get; set; }
 
-            [JsonProperty("display")] public string DisplayName { get; set; }
+            [JsonProperty(BaseJsonProperty.DISPLAY)] 
+            public string DisplayName { get; set; }
 
-            [JsonProperty("filesize")] public string DisplaySize { get; set; }
+            [JsonProperty(BaseJsonProperty.FILESIZE)] 
+            public string DisplaySize { get; set; }
 
-            [JsonProperty("id")] public string DocumentId { get; set; }
+            [JsonProperty(BaseJsonProperty.ID)] 
+            public string DocumentId { get; set; }
         }
 
         public class ManifestFile : IDisposable

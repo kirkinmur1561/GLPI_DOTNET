@@ -1,4 +1,5 @@
-﻿using CommonObj.Dashboard.Common;
+﻿using CommonObj.Base;
+using CommonObj.Dashboard.Common;
 using CommonObj.Dashboard.Common.Creators;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
@@ -12,7 +13,7 @@ namespace CommonObj.Dashboard.Administration
 
         }
 
-        [JsonProperty("itilcategories_id")]
+        [JsonProperty(BaseJsonProperty.ITILCATEGORIES_ID)]
         public string IdItilCategory { get=>_IdItilCategory;
             set
             {
@@ -24,31 +25,31 @@ namespace CommonObj.Dashboard.Administration
         
         public long? IdItilCategoryLong { get; private set; }
 
-        [JsonProperty("knowbaseitemcategories_")]
+        [JsonProperty(BaseJsonProperty.KNOWBASEITEMCATEGORIES_)]
         public long? IdKnowBaseItemCategory { get; set; }
 
-        [JsonProperty("level")]
+        [JsonProperty(BaseJsonProperty.LEVEL)]
         public int? Level { get; set; }
 
-        [JsonProperty("code")]
+        [JsonProperty(BaseJsonProperty.CODE)]
         public string Code { get; set; }
 
-        [JsonProperty("ancestors_cache")]
+        [JsonProperty(BaseJsonProperty.ANCESTORS_CACHE)]
         public string AncestorsCache { get; set; }
 
-        [JsonProperty("sons_cache")]
+        [JsonProperty(BaseJsonProperty.SONS_CACHE)]
         public string SonsCache { get; set; }
 
-        [JsonProperty("is_helpdeskvisible")]
+        [JsonProperty(BaseJsonProperty.IS_HELPDESKVISIBLE)]
         public bool? IsHelpDeskVisible { get; set; }
 
-        [JsonProperty("tickettemplates_id_incident")]
+        [JsonProperty(BaseJsonProperty.TICKETTEMPLATES_ID_INCIDENT)]
         public string IdTicketTemplatesIncident { get; set; }
 
-        [JsonProperty("tickettemplates_id_demand")]
+        [JsonProperty(BaseJsonProperty.TICKETTEMPLATES_ID_DEMAND)]
         public string IdTicketTemplatesDemand { get; set; }
 
-        [JsonProperty("changetemplates_id")]
+        [JsonProperty(BaseJsonProperty.CHANGETEMPLATES_ID)]
         public string IdChangeTemplates { get=>_IdChangeTemplates;
             set
             {
@@ -60,19 +61,19 @@ namespace CommonObj.Dashboard.Administration
         
         public long? IdChangeTemplatesLong { get; private set; }
 
-        [JsonProperty("problemtemplates_id")]
+        [JsonProperty(BaseJsonProperty.PROBLEMTEMPLATES_ID)]
         public string IdProblemTemplates { get; set; }
 
-        [JsonProperty("is_incident")]
+        [JsonProperty(BaseJsonProperty.IS_INCIDENT)]
         public bool? IsIncident { get; set; }
 
-        [JsonProperty("is_request")]
+        [JsonProperty(BaseJsonProperty.IS_REQUEST)]
         public bool? IsRequest { get; set; }
 
-        [JsonProperty("is_problem")]
+        [JsonProperty(BaseJsonProperty.IS_PROBLEM)]
         public bool? IsProblem { get; set; }
 
-        [JsonProperty("is_change")]
+        [JsonProperty(BaseJsonProperty.IS_CHANGE)]
         public bool? IsChange { get; set; }
 
         public bool Equals(ITILCategory other) =>
