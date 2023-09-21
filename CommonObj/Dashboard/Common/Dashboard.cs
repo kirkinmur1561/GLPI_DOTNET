@@ -408,16 +408,41 @@ namespace CommonObj.Dashboard.Common
                 ? JsonConvert.DeserializeObject<List<TD>>(startListType)
                 : throw new ExceptionGLPI_ErrorCommon(startListType, responseStart.StatusCode);        
         }
-
-        public async Task<IEnumerable<TD>?> LoadLinks(
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="clt"></param>
+        /// <param name="loadLink"></param>
+        /// <param name="links"></param>
+        /// <param name="cancel"></param>
+        /// <returns></returns>
+        public async Task LoadLinks(
             IClient clt,
             ELoadLink loadLink,
-            Func<IEnumerable<Link>,IEnumerable<Link>>? objs,
+            Func<IEnumerable<Link>,IEnumerable<Link>> links,
             CancellationToken cancel = default)
         {
+            IEnumerable<Link> lks;
+            if (loadLink == ELoadLink.BlackList)
+                lks = Links.Except(links.Invoke(Links));
+            lks = links.Invoke(Links);
 
-            var s = objs.Invoke(Links);
-            return null;
+            clt.SetHeaderDefault();
+
+            HttpResponseMessage response;
+            string data;
+            foreach (Link lk in lks)
+            {
+                var val = GetType().GetProperty(lk.Rel);
+                if (val == null) continue;
+                
+                response = await clt.http.GetAsync("", cancel);
+                data = await response.Content.ReadAsStringAsync(cancel);
+                if (response.IsSuccessStatusCode)
+                    val.SetValue(this, JsonConvert.DeserializeObject(data, val.GetType()));
+                else throw new ExceptionGLPI_ErrorCommon(data, response.StatusCode);
+            }
         }
 
         // /// <summary>
