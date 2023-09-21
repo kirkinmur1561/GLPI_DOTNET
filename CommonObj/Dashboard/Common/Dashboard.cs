@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using CommonObj.Base;
@@ -6,6 +7,7 @@ using CommonObj.Client;
 using CommonObj.Dashboard.Administration;
 using CommonObj.Dashboard.Administration.User;
 using CommonObj.Dashboard.Assets.LinkComputer;
+using CommonObj.Dashboard.Helpdesk;
 using CommonObj.Dashboard.Search;
 using Newtonsoft.Json;
 using static CommonObj.Base.BaseResource;
@@ -14,7 +16,7 @@ using SearchOption = CommonObj.Dashboard.Search.SearchOption;
 
 namespace CommonObj.Dashboard.Common
 {
-    public abstract class Dashboard<TD>:IDashboard,IComparable<TD> where TD: IDashboard
+    public abstract class Dashboard<TD>:IDashboard,IComparable<TD> where TD: class, IDashboard
     {
         [JsonProperty(BaseJsonProperty.ID)]
         public long? Id { get; set; }
@@ -331,7 +333,7 @@ namespace CommonObj.Dashboard.Common
                 ? SearchOption.Parse(JsonConvert.DeserializeObject<Dictionary<string, object>>(responseData)?? new Dictionary<string, object>())
                 : throw new ExceptionGLPI_ErrorCommon(responseData, response.StatusCode);
         }
-
+        
         /// <summary>
         /// Получить объект D в формате JSON
         /// </summary>
@@ -340,20 +342,82 @@ namespace CommonObj.Dashboard.Common
         /// <param name="cancel">Принудительная остановка процесса</param>
         /// <returns></returns>
         /// <exception cref="ExceptionGLPI_ErrorCommon"></exception>
-        public static async Task<string> GetJson(
+        public static async Task<string> GetJsonAsync(
             IClient clt,
             Parameter parameter,
             CancellationToken cancel = default)
         {            
             clt.SetHeaderDefault();           
 
-            HttpResponseMessage response = await clt.http.GetAsync(string.Join("", typeof(TD).Name,"?", parameter), cancel);
+            HttpResponseMessage response = await clt.http.GetAsync(string.Join(string.Empty, typeof(TD).Name, parameter), cancel);
             
             string responseData = await response.Content.ReadAsStringAsync(cancel);
 
             return response.IsSuccessStatusCode
                 ? responseData
                 : throw new ExceptionGLPI_ErrorCommon(responseData, response.StatusCode);
+        }
+        
+        /// <summary>
+        /// Получить объект типа TD
+        /// </summary>
+        /// <param name="clt">Основное подключение к glpi</param>
+        /// <param name="parameter">Параметры поиска</param>
+        /// <param name="cancel">Принудительная остановка процесса</param>
+        /// <exception cref="Exception"></exception>
+        public static async Task<TD?> GetAsync(
+            IClient clt,
+            Parameter parameter,
+            CancellationToken cancel = default)
+        {
+                     
+            clt.SetHeaderDefault();            
+            
+            if (parameter?.id is null or < 0) throw new System.Exception("Error parameter. Id eq = null or < 0");
+            return JsonConvert.DeserializeObject<TD>(await GetJsonAsync(clt, parameter, cancel));
+        }        
+        
+        /// <summary>
+        /// Получить список объектов D
+        /// </summary>
+        /// <param name="clt">Основное подключение к glpi</param>
+        /// <param name="cancel">Принудительная остановка процесса</param>
+        /// <returns></returns>
+        /// <exception cref="ExceptionGLPI_ErrorCommon"></exception>
+        public static async Task<IEnumerable<TD>?> GetEnumerableAsync(
+            IClient clt,
+            CancellationToken cancel = default)
+        {
+            clt.SetHeaderDefault();
+
+            HttpResponseMessage responsEnd = await clt.http.GetAsync(string.Join(string.Empty, typeof(TD).Name,
+                new Parameter { order = Parameter.EOrder.DESC }), cancel);
+
+            string endListType = await responsEnd.Content.ReadAsStringAsync(cancel);
+
+            IEnumerable<TD>? end = responsEnd.IsSuccessStatusCode
+                ? JsonConvert.DeserializeObject<List<TD>>(endListType)
+                : throw new ExceptionGLPI_ErrorCommon(endListType, responsEnd.StatusCode);
+
+            HttpResponseMessage responseStart = await clt.http.GetAsync(string.Join(string.Empty, typeof(TD).Name,
+                new Parameter { range = new Range(0, !end.Any() ? 50 : end?.Reverse()?.Last()?.Id ?? 50) }), cancel);
+        
+            string startListType = await responseStart.Content.ReadAsStringAsync(cancel);
+            
+            return responseStart.IsSuccessStatusCode
+                ? JsonConvert.DeserializeObject<List<TD>>(startListType)
+                : throw new ExceptionGLPI_ErrorCommon(startListType, responseStart.StatusCode);        
+        }
+
+        public async Task<IEnumerable<TD>?> LoadLinks(
+            IClient clt,
+            ELoadLink loadLink,
+            Func<IEnumerable<Link>,IEnumerable<Link>>? objs,
+            CancellationToken cancel = default)
+        {
+
+            var s = objs.Invoke(Links);
+            return null;
         }
 
         // /// <summary>
@@ -413,37 +477,7 @@ namespace CommonObj.Dashboard.Common
         //                     response.RequestedProperty.PropertyType));
         // }
         
-        /// <summary>
-        /// Получить объект типа TD
-        /// </summary>
-        /// <param name="clt">Основное подключение к glpi</param>
-        /// <param name="parameter">Параметры поиска</param>
-        /// <param name="cancel"></param>
-        /// <exception cref="JsonException"></exception>
-        /// <exception cref="ExceptionCheck"></exception>
-        /// <exception cref="Exception"></exception>
-        public static async Task<TD> GetAsync(
-            IClient clt,
-            Parameter parameter,
-            CancellationToken cancel = default)
-        {
-                     
-            clt.SetHeaderDefault();            
-            
-            if (parameter?.id is null or < 0) throw new System.Exception("Error parameter.");
-            try
-            {
-                return JsonConvert.DeserializeObject<TD>(await GetJson(clt, parameter, cancel));
-            }
-            catch (TimeoutException tr)
-            {
-                throw;
-            }
-            catch
-            {
-                throw new System.Exception("Json value null");
-            }            
-        }        
+        
         //
         // /// <summary>
         // /// Поиск объектов типа D
@@ -557,30 +591,30 @@ namespace CommonObj.Dashboard.Common
         //
         // }        
         //
-        // /// <summary>
-        // /// Получить список объектов D
-        // /// </summary>
-        // /// <param name="glpiClient"></param>
-        // /// <param name="cancel"></param>
-        // /// <returns></returns>
-        // /// <exception cref="ExceptionCheck"></exception>
+        /// <summary>
+        /// Получить список объектов D
+        /// </summary>
+        /// <param name="glpiClient"></param>
+        /// <param name="cancel"></param>
+        /// <returns></returns>
+        /// <exception cref="ExceptionCheck"></exception>
         // public static async Task<string> GetEnumerableJson(
-        //     IGlpiClient glpiClient, 
+        //     IClient clt, 
         //     CancellationToken cancel = default)=>        
         //      glpiClient.Checker()
         //         ? throw new ExceptionCheck(glpiClient)
         //         : JsonConvert.SerializeObject(await GetEnumerable(glpiClient, cancel));        
-        //
-        // /// <summary>
-        // /// Get date from uri
-        // /// </summary>
-        // /// <param name="clt"></param>
-        // /// <param name="endPoint"></param>
-        // /// <param name="cancel"></param>
-        // /// <returns></returns>
-        // /// <exception cref="ExceptionCheck"></exception>
-        // /// <exception cref="Exception"></exception>
-        // /// <exception cref="TimeoutException"></exception>
+        
+        /// <summary>
+        /// Get date from uri
+        /// </summary>
+        /// <param name="clt"></param>
+        /// <param name="endPoint"></param>
+        /// <param name="cancel"></param>
+        /// <returns></returns>
+        /// <exception cref="ExceptionCheck"></exception>
+        /// <exception cref="Exception"></exception>
+        /// <exception cref="TimeoutException"></exception>
         // public static async Task<string> GetJsonFromUri(
         //     IGlpiClient clt,
         //     string endPoint, 
@@ -615,76 +649,7 @@ namespace CommonObj.Dashboard.Common
         //             $"content?:{await response.Content.ReadAsStringAsync(cancel)}");
         // }
         //
-        // /// <summary>
-        // /// Получить список объектов D
-        // /// </summary>
-        // /// <param name="clt"></param>
-        // /// <param name="cancel"></param>
-        // /// <returns></returns>
-        // /// <exception cref="ExceptionCheck"></exception>
-        // /// <exception cref="Exception"></exception>
-        // /// <exception cref="TimeoutException"></exception>
-        // public static async Task<IEnumerable<TD>> GetEnumerable(
-        //     IGlpiClient clt,
-        //     CancellationToken cancel = default)
-        // {
-        //     if (clt.Checker())      throw new ExceptionCheck(clt);
-        //     if (clt.IsClone)        throw new System.Exception("Объект не должен быть клоном");
-        //     
-        //     IGlpiClient client = (IGlpiClient)clt.Clone();
-        //     client.SetHeaderDefault();
-        //
-        //     HttpResponseMessage responsEnd = null;
-        //     
-        //     ClientRequest clientRequestEnd = new ClientRequest(async () =>
-        //             await client.Client.GetAsync($"{typeof(TD).Name}" +
-        //                                          $"?{new Parameter { order = Parameter.EOrder.DESC }}",
-        //                 cancel),
-        //         a => responsEnd = a.Response);
-        //     
-        //     clt.QueueRequest.Enqueue(clientRequestEnd);
-        //
-        //     var timeSpan = DateTime.Now + TimeSpan.FromSeconds(client.TimeOut);  
-        //     
-        //     while (responsEnd == null)
-        //     {
-        //         if (cancel.IsCancellationRequested)
-        //             cancel.ThrowIfCancellationRequested();
-        //         
-        //         if (timeSpan < DateTime.Now) 
-        //             throw new TimeoutException("Привышено время ожидания ответа от сервера!");
-        //     }
-        //
-        //     IEnumerable<TD> end = responsEnd.IsSuccessStatusCode
-        //         ? JsonConvert.DeserializeObject<List<TD>>(await responsEnd.Content.ReadAsStringAsync(cancel))
-        //         : throw new System.Exception("Error in read response (end collection)");         
-        //
-        //     HttpResponseMessage responseMiddle = null;
-        //     
-        //     ClientRequest clientRequest =
-        //         new ClientRequest(
-        //             async () => 
-        //                 await client.Client.GetAsync($"{typeof(TD).Name}" +
-        //                                              $"?{new Parameter { range = new Range(0, end?.Reverse().Last().Id ?? 50) }}", cancel),
-        //             a => responseMiddle = a.Response);
-        //     
-        //     clt.QueueRequest.Enqueue(clientRequest);
-        //     
-        //     timeSpan = DateTime.Now + TimeSpan.FromSeconds(client.TimeOut);  
-        //     
-        //     while (responseMiddle == null)
-        //     {
-        //         if (cancel.IsCancellationRequested)
-        //             cancel.ThrowIfCancellationRequested();
-        //         
-        //         if (timeSpan < DateTime.Now) 
-        //             throw new TimeoutException("Привышено время ожидания ответа от сервера!");
-        //     }
-        //
-        //     return responseMiddle.IsSuccessStatusCode
-        //         ? JsonConvert.DeserializeObject<List<TD>>(await responseMiddle.Content.ReadAsStringAsync(cancel))
-        //         : throw new System.Exception("Error in read response (middle collection)");                   
-        // }       
+             
         //
         // /// <summary>
         // /// Добавляет объекты D в коллекцию GLPI
