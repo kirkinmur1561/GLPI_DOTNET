@@ -1,6 +1,5 @@
 ﻿using CommonObj.Base;
 using CommonObj.Dashboard.Administration;
-using CommonObj.Dashboard.Administration.User;
 using CommonObj.Dashboard.Common;
 using CommonObj.Dashboard.Helpdesk.LinkTicket;
 using Newtonsoft.Json;
@@ -161,48 +160,50 @@ namespace CommonObj.Dashboard.Helpdesk
         
         [JsonIgnore]
         public RequestType RequestType { get;  set; }
+        public IList<RequestType> RequestTypes { get; set; } = new List<RequestType>(); 
         
         [JsonIgnore]
-        public ITILCategory ITILCategory { get; set; }        
+        public ITILCategory ITILCategory { get; set; }
+        public IList<ITILCategory> ITILCategorys { get; set; } = new List<ITILCategory>();
         
         // [JsonIgnore]
         // public DocumentItem Document_Item { get; set; }
         
         [JsonIgnore]
-        public List<TicketTask> TicketTasks { get;  set;}
+        public IList<TicketTask> TicketTasks { get;  set;} = new List<TicketTask>();
         
         [JsonIgnore]
-        public List<TicketValidation> TicketValidation { get;  set;}
+        public IList<TicketValidation> TicketValidation { get;  set;} = new List<TicketValidation>();
         
         [JsonIgnore]
-        public List<TicketCost> TicketCost { get;  set;}
+        public IList<TicketCost> TicketCost { get;  set;} = new List<TicketCost>();
         
         [JsonIgnore]
-        public List<ProblemTicket> Problem_Ticket { get; set; }
+        public IList<ProblemTicket> Problem_Ticket { get; set; } = new List<ProblemTicket>();
         
         [JsonIgnore]
-        public List<ChangeTicket> Change_Ticket { get;  set;}
+        public IList<ChangeTicket> Change_Ticket { get;  set;} = new List<ChangeTicket>();
         
         [JsonIgnore]
-        public List<ItemTicket> Item_Ticket { get;  set;}
+        public IList<ItemTicket> Item_Ticket { get;  set;} = new List<ItemTicket>();
         
         /// <summary>
         /// Список сообщений, который оставил под статусом решенных
         /// </summary>
         [JsonIgnore]
-        public List<ITILSolution> ITILSolution { get;  set;}
+        public IList<ITILSolution> ITILSolution { get;  set;} = new List<ITILSolution>();
         
         [JsonIgnore]
-        public List<ITILFollowup> ITILFollowup { get;  set;}
+        public IList<ITILFollowup> ITILFollowup { get;  set;} = new List<ITILFollowup>();
         
         [JsonIgnore]
-        public List<TicketUser> Ticket_User { get;  set;}
+        public IList<TicketUser> Ticket_User { get;  set;} = new List<TicketUser>();
         
         [JsonIgnore]
-        public List<GroupTicket> Group_Ticket { get;  set;}
+        public IList<GroupTicket> Group_Ticket { get;  set;} = new List<GroupTicket>();
         
         [JsonIgnore]
-        public List<SupplierTicket> Supplier_Ticket { get;  set;}
+        public IList<SupplierTicket> Supplier_Ticket { get;  set;} = new List<SupplierTicket>();
         
 
         // /// <summary>

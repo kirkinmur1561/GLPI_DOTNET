@@ -1,7 +1,8 @@
 namespace CommonObj.Base;
 public static class BaseJsonProperty
 {
-        public const string ID = "id";        
+        public const string ID = "id";
+        public const string Id = "Id";
         public const string NAME = "name";        
         public const string @INTERFACE = "interface";        
         public const string IS_DEFAULT = "is_default";        
@@ -475,7 +476,7 @@ public static class BaseJsonProperty
         public const string IS_PROBLEM = "is_problem";
         public const string IS_CHANGE = "is_change";
         public const string BUILDING = "building";
-        public const string ROOM = "building";
+        public const string ROOM = "room";
         public const string VERSION = "version";
         public const string BINARY_0 = "binary_0";
         public const string BINARY_1 = "binary_1";

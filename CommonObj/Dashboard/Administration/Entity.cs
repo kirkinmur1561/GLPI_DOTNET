@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using CommonObj.Base;
+﻿using CommonObj.Base;
 using CommonObj.Dashboard.Common;
 using Newtonsoft.Json;
 
@@ -7,6 +6,7 @@ namespace CommonObj.Dashboard.Administration
 {
     public class Entity : Dashboard<Entity>
     {
+        public Entity(){}
         [JsonProperty(BaseJsonProperty.COMPLETENAME)]
         public string Completename { get; set; }
         
@@ -275,8 +275,7 @@ namespace CommonObj.Dashboard.Administration
         public long? TransfersId { get; set; }
         
         [JsonProperty(BaseJsonProperty.AGENT_BASE_URL)]
-        public object AgentBaseUrl { get; set; }
-        
+        public object AgentBaseUrl { get; set; }        
 
     }
 }

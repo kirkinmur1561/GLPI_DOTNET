@@ -3,7 +3,7 @@ using CommonObj.Base;
 namespace CommonObj.Client;
 
 public interface IClient:ICommonClient, IEquatable<IClient>,IAsyncDisposable
-{     
+{
     IInitialization? Initialization { get; }
 
     /// <summary>
@@ -27,5 +27,6 @@ public interface IClient:ICommonClient, IEquatable<IClient>,IAsyncDisposable
         TimeSpan? internalTimeout = default,
         CancellationToken? cancel = default);
 
-    void SetHeaderDefault(string mediaType = BaseResource.MIMO_APPLICATION_JSON);    
+    void SetHeaderDefault(string mediaType = BaseResource.MIMO_APPLICATION_JSON);
+    string ExceptUri(Uri uri);    
 }

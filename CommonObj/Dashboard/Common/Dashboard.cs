@@ -1,13 +1,10 @@
 ﻿using System.Collections;
-using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
 using CommonObj.Base;
 using CommonObj.Client;
 using CommonObj.Dashboard.Administration;
 using CommonObj.Dashboard.Administration.User;
 using CommonObj.Dashboard.Assets.LinkComputer;
-using CommonObj.Dashboard.Helpdesk;
 using CommonObj.Dashboard.Search;
 using Newtonsoft.Json;
 using static CommonObj.Base.BaseResource;
@@ -249,20 +246,21 @@ namespace CommonObj.Dashboard.Common
         [JsonProperty(BaseJsonProperty.LINKS)]
         public List<Link> Links { get; set; }
 
-        [JsonIgnore]
-        public User User { get; set; }        
         
-        [JsonIgnore]
-        public Group Group { get; set; }        
+        public User User { get; set; }
+        public IList<User> Users { get; set; } = new List<User>();
         
-        [JsonIgnore]
-        public Manufacturer Manufacturer { get; set; }        
+        public Group Group { get; set; }
+        public IList<Group> Groups { get; set; }        
+                
+        public Manufacturer Manufacturer { get; set; }
+        public IList<Manufacturer> Manufacturers { get; set; }
         
-        [JsonIgnore]
         public Location Location { get; set; }
+        public IList<Location> Locations { get; set; }
         
-        [JsonIgnore]
         public Entity Entity { get; set; }
+        public IList<Entity> Entitys { get; set; } = new List<Entity>();
 
         public IEnumerable<ModifiedObj> ChangeProperty { get; }
         private IList<ModifiedObj?> _modifiedObjs = new List<ModifiedObj?>();
@@ -423,7 +421,7 @@ namespace CommonObj.Dashboard.Common
             Func<IEnumerable<Link>,IEnumerable<Link>> links,
             CancellationToken cancel = default)
         {
-            IEnumerable<Link> lks;
+            IEnumerable<Link> lks;//список адресов, которые будут загружены
             if (loadLink == ELoadLink.BlackList)
                 lks = Links.Except(links.Invoke(Links));
             lks = links.Invoke(Links);
@@ -432,16 +430,46 @@ namespace CommonObj.Dashboard.Common
 
             HttpResponseMessage response;
             string data;
-            foreach (Link lk in lks)
-            {
-                var val = GetType().GetProperty(lk.Rel);
-                if (val == null) continue;
+            
+            foreach (var lk in lks.GroupBy(gb=>gb.Rel))//групперованные списки (по име)
+            {                
+                /*Поиск класса для записи.
+                 Сюда будет записанн только та ссылка
+                 у которой есть свой id в переменной Id{PropertyName}*/
+                var singleVal = GetType().GetProperty(lk.Key);
                 
-                response = await clt.http.GetAsync("", cancel);
-                data = await response.Content.ReadAsStringAsync(cancel);
-                if (response.IsSuccessStatusCode)
-                    val.SetValue(this, JsonConvert.DeserializeObject(data, val.GetType()));
-                else throw new ExceptionGLPI_ErrorCommon(data, response.StatusCode);
+                /*Поиск cписка в которые будут записаны те объекты
+                 у которых Id != Id{PropertyName}*/
+                var collectVal = GetType().GetProperty(string.Join(string.Empty, lk.Key, COLLECT_IDENTIFIER));
+                
+                if (singleVal == null && collectVal == null) continue;
+
+                var objects = (IList) collectVal.GetValue(this, null);
+                
+                foreach (Link link in lk)
+                {
+                    response = await clt.http.GetAsync(clt.ExceptUri(link.Address), cancel);
+                    data = await response.Content.ReadAsStringAsync(cancel);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var loadCollectVal = JsonConvert.DeserializeObject(data, singleVal.PropertyType);
+                        
+                        /*Поиск свойства в котором есть Id{PropertyName}*/
+                        var valId = GetType().GetProperty(string.Join(string.Empty, BaseJsonProperty.Id, lk.Key));
+                        if (valId == null)
+                            objects.Add(loadCollectVal);
+                        else
+                        {
+                            long? thisValId = (long?) valId.GetValue(this);
+                            long? loadValId = ((IDashboard) loadCollectVal).Id;
+
+                            if (thisValId.Equals(loadValId))
+                                singleVal.SetValue(this, loadCollectVal);
+                            else objects.Add(loadCollectVal);
+                        }
+                    }                            
+                    else throw new ExceptionGLPI_ErrorCommon(data, response.StatusCode);
+                }                              
             }
         }
 

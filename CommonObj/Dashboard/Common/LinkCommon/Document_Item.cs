@@ -1,6 +1,3 @@
-using System.Net.Http.Headers;
-using System.Net.Mime;
-
 namespace CommonObj.Dashboard.Common.LinkCommon
 {
     /// <summary>

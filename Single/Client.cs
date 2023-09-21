@@ -1,12 +1,8 @@
 using System.Net.Http.Headers;
 using System.Text;
-using System.Text.Json;
-using CommonObj;
 using CommonObj.Base;
 using CommonObj.Client;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace Single;
 
@@ -20,6 +16,7 @@ public class Client:IClient
     public TimeSpan CommonTimeout { get; set; }
     public HttpClient http { get; private set; }
     private IInitialization? _Init;
+    private string[] BaseUri { get; }
     public IInitialization? Initialization => _Init;
     
     /// <summary>
@@ -35,6 +32,7 @@ public class Client:IClient
             throw new ArgumentException("Error in arg or args");            
         
         GLPIAddress = glpiAddress;
+        BaseUri = glpiAddress.Split(BaseResource.SEPARATOR_URI);        
         AppToken = appToken;
         CommonTimeout = commonTimeout == default ? TimeSpan.FromSeconds(100) : commonTimeout;
     }
@@ -105,6 +103,12 @@ public class Client:IClient
         http.DefaultRequestHeaders.Add(BaseResource.HEADER_SESSION_TOKEN, _Init.SessionToken);
         http.DefaultRequestHeaders.Add(BaseResource.HEADER_APP_TOKEN, AppToken);
     }
+
+    public string ExceptUri(Uri uri) =>
+        string.Join(BaseResource.SEPARATOR_URI, uri.ToString().Split(BaseResource.SEPARATOR_URI).Except(BaseUri));
+    
+        
+    
 
     private Task KillSession(CancellationToken cancel = default) =>
         http.GetAsync(BaseResource.ROUTE_KILL_SESSION, cancel);

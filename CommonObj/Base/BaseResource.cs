@@ -17,4 +17,6 @@ public class BaseResource
     public const string GET_ACTIVE_PROFILE = "getActiveProfile";
     public const string GET_MY_PROFILES = "getMyProfiles";
     public const string LIST_SEARCH_OPTIONS = "listSearchOptions";
+    public const char SEPARATOR_URI = '/';
+    public const char COLLECT_IDENTIFIER = 's';
 }
