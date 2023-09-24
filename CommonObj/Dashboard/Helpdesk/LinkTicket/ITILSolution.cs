@@ -45,6 +45,12 @@ namespace CommonObj.Dashboard.Helpdesk.LinkTicket
         public int? Status { get; set; }
         
         [JsonProperty("itilfollowups_id")]
-        public long? IdItilFollowUp { get; set; }       
+        public long? IdItilFollowUp { get; set; }
+        
+        [JsonIgnore]
+        public ITILFollowup ItilFollowup { get; set; }
+
+        [JsonIgnore]
+        public IList<ITILFollowup> ItilFollowups { get; private set; } = new List<ITILFollowup>();
     }
 }

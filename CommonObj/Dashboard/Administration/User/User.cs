@@ -1,4 +1,5 @@
-﻿using CommonObj.Base;
+﻿using System.Collections.ObjectModel;
+using CommonObj.Base;
 using CommonObj.Client;
 using CommonObj.Dashboard.Common;
 using Newtonsoft.Json;
@@ -312,16 +313,25 @@ namespace CommonObj.Dashboard.Administration.User
         public string Nickname{get;set;}        
         
         [JsonIgnore]
-        public UserTitle UserTitle { get; set; }        
+        public UserTitle UserTitle { get; set; }
+        [JsonIgnore]
+        public IList<UserTitle> UserTitles { get; private set; } = new List<UserTitle>();
+        
         
         [JsonIgnore]
         public AuthLdap AuthLdap { get; set; }
+        [JsonIgnore]
+        public IList<AuthLdap> AuthLdaps { get; private set; } = new List<AuthLdap>();
         
         [JsonIgnore]
-        public UserCategory UserCategory { get; set; }        
+        public UserCategory UserCategory { get; set; }
+        [JsonIgnore]
+        public IList<UserCategory> UserCategorys { get; private set; }
                
         [JsonIgnore]
         public Profile.Profile Profile { get; set; }
+        [JsonIgnore] 
+        public IList<Profile.Profile> Profiles { get; private set; } = new List<Profile.Profile>();
 
         [JsonIgnore]
         public List<UserEmail> Emails { get; set; } = new();

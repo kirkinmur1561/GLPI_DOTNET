@@ -73,9 +73,12 @@ namespace CommonObj.Dashboard.Assets.LinkComputer
         public object LastUp {get; set;}        
         
         [JsonIgnore]
-        public Computer Computer { get; set; }       
+        public Computer Computer { get; set; }
 
         [JsonIgnore]
-        public List<NetworkName> ListNetworkNames { get; set; } = new();
+        public IList<Computer> Computers { get; private set; } = new List<Computer>();
+
+        [JsonIgnore]
+        public IList<NetworkName> ListNetworkNames { get; set; } = new List<NetworkName>();
     }
 }

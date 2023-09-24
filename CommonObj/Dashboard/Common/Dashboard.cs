@@ -246,23 +246,32 @@ namespace CommonObj.Dashboard.Common
         [JsonProperty(BaseJsonProperty.LINKS)]
         public List<Link> Links { get; set; }
 
-        
+        [JsonIgnore]
         public User User { get; set; }
-        public IList<User> Users { get; set; } = new List<User>();
+        [JsonIgnore]
+        public IList<User> Users { get; private set; } = new List<User>();
         
+        [JsonIgnore]
         public Group Group { get; set; }
-        public IList<Group> Groups { get; set; }        
+        [JsonIgnore]
+        public IList<Group> Groups { get; private set; }        
                 
         public Manufacturer Manufacturer { get; set; }
-        public IList<Manufacturer> Manufacturers { get; set; }
+        public IList<Manufacturer> Manufacturers { get; private set; }
         
+        [JsonIgnore]
         public Location Location { get; set; }
-        public IList<Location> Locations { get; set; }
+        [JsonIgnore]
+        public IList<Location> Locations { get; private set; }
         
+        [JsonIgnore]
         public Entity Entity { get; set; }
-        public IList<Entity> Entitys { get; set; } = new List<Entity>();
+        [JsonIgnore]
+        public IList<Entity> Entitys { get; private set; } = new List<Entity>();
 
+        [JsonIgnore]
         public IEnumerable<ModifiedObj> ChangeProperty { get; }
+        [JsonIgnore]
         private IList<ModifiedObj?> _modifiedObjs = new List<ModifiedObj?>();
         
         public ModifiedObj? Add(string variableName, object newValue)
@@ -406,6 +415,11 @@ namespace CommonObj.Dashboard.Common
                 ? JsonConvert.DeserializeObject<List<TD>>(startListType)
                 : throw new ExceptionGLPI_ErrorCommon(startListType, responseStart.StatusCode);        
         }
+
+        public static Task<string> LoadFromUri(IClient client, string endPoint, CancellationToken cancel)
+        {
+            return Task.FromResult(string.Empty);
+        }
         
         /// <summary>
         /// 
@@ -421,6 +435,7 @@ namespace CommonObj.Dashboard.Common
             Func<IEnumerable<Link>,IEnumerable<Link>> links,
             CancellationToken cancel = default)
         {
+            if (Links.Count == 0) return;
             IEnumerable<Link> lks;//список адресов, которые будут загружены
             if (loadLink == ELoadLink.BlackList)
                 lks = Links.Except(links.Invoke(Links));

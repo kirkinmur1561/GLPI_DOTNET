@@ -6,6 +6,6 @@ namespace CommonObj.Dashboard.Assets.LinkComputer
     public class NetworkName:Dashboard<NetworkName>
     {
         [JsonIgnore]
-        public IEnumerable<IPAddress> IpAddress { get; set; }
+        public IList<IPAddress> IpAddress { get; private set; } = new List<IPAddress>();
     }
 }

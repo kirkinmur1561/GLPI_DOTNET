@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace CommonObj.Dashboard.Assets
 {
     public abstract class WorkStation<TW> : Dashboard<TW> where TW : Dashboard<TW>
-        {
+    {
         [JsonProperty(BaseJsonProperty.CONTACT)]
         public string Contact { get; set; }
 
@@ -24,11 +24,15 @@ namespace CommonObj.Dashboard.Assets
 
         [JsonProperty(BaseJsonProperty.IS_DYNAMIC)]
         public bool? IsDynamic { get; set; }
-        
+
         [JsonIgnore]
         public State State { get; set; }
-        
         [JsonIgnore]
-        public Network Network {get;set;}
+        public IList<State> States { get; private set; } = new List<State>();
+
+        [JsonIgnore]
+        public Network Network { get; set; }
+        [JsonIgnore]
+        public IList<Network> Networks { get; private set; } = new List<Network>();
     }
 }

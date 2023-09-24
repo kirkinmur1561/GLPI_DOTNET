@@ -24,86 +24,96 @@ namespace CommonObj.Dashboard.Assets
         public string UUId { get; set; }       
 
         [JsonIgnore]
-        public List<ItemTicket> Item_Ticket {get;set;} = new();
+        public IList<ItemTicket> Item_Ticket { get; private set;} = new List<ItemTicket>();
         
         [JsonIgnore]
-        public List<Item_Project> Item_Project {get;set;} = new();
+        public IList<Item_Project> Item_Project { get; private set;} = new List<Item_Project>();
         
         [JsonIgnore]
-        public List<NetworkPort> NetworkPort {get;set;} = new();
+        public IList<NetworkPort> NetworkPort { get; private set;} = new List<NetworkPort>();
         
         [JsonIgnore]
-        public List<Item_DeviceMotherboard> Item_DeviceMotherboard {get;set;} = new();
+        public IList<Item_DeviceMotherboard> Item_DeviceMotherboard { get; private set;} = new List<Item_DeviceMotherboard>();
         
         [JsonIgnore]
-        public List<Item_DeviceFirmware> Item_DeviceFirmware {get;set;} = new();
+        public IList<Item_DeviceFirmware> Item_DeviceFirmware { get; private set;} = new List<Item_DeviceFirmware>();
         
         [JsonIgnore]
-        public List<Item_DeviceProcessor> Item_DeviceProcessor {get;set;} = new();
+        public IList<Item_DeviceProcessor> Item_DeviceProcessor { get; private set;} = new List<Item_DeviceProcessor>();
         
         [JsonIgnore]
-        public List<Item_DeviceMemory> Item_DeviceMemory {get;set;} = new();
+        public IList<Item_DeviceMemory> Item_DeviceMemory { get; private set;} = new List<Item_DeviceMemory>();
         
         [JsonIgnore]
-        public List<Item_DeviceHardDrive> Item_DeviceHardDrive {get;set;} = new();
+        public IList<Item_DeviceHardDrive> Item_DeviceHardDrive { get; private set;} = new List<Item_DeviceHardDrive>();
         
         [JsonIgnore]
-        public List<Item_DeviceNetworkCard> Item_DeviceNetworkCard {get;set;} = new();
+        public IList<Item_DeviceNetworkCard> Item_DeviceNetworkCard { get; private set;} = new List<Item_DeviceNetworkCard>();
         
         [JsonIgnore]
-        public List<Item_DeviceDrive> Item_DeviceDrive {get;set;} = new();
+        public IList<Item_DeviceDrive> Item_DeviceDrive { get; private set;} = new List<Item_DeviceDrive>();
         
         [JsonIgnore]
-        public List<Item_DeviceBattery> Item_DeviceBattery {get;set;} = new();
+        public IList<Item_DeviceBattery> Item_DeviceBattery { get; private set;} = new List<Item_DeviceBattery>();
         
         [JsonIgnore]
-        public List<Item_DeviceGraphicCard> Item_DeviceGraphicCard {get;set;} = new();
+        public IList<Item_DeviceGraphicCard> Item_DeviceGraphicCard { get; private set;} = new List<Item_DeviceGraphicCard>();
         
         [JsonIgnore]
-        public List<Item_DeviceSoundCard> Item_DeviceSoundCard {get;set;} = new();
+        public IList<Item_DeviceSoundCard> Item_DeviceSoundCard { get; private set;} = new List<Item_DeviceSoundCard>();
         
         [JsonIgnore]
-        public List<Item_DeviceControl> Item_DeviceControl {get;set;} = new();
+        public IList<Item_DeviceControl> Item_DeviceControl { get; private set;} = new List<Item_DeviceControl>();
         
         [JsonIgnore]
-        public List<Item_DevicePci> Item_DevicePci {get;set;} = new();
+        public IList<Item_DevicePci> Item_DevicePci { get; private set;} = new List<Item_DevicePci>();
         
         [JsonIgnore]
-        public List<Item_DeviceCase> Item_DeviceCase {get;set;} = new();
+        public IList<Item_DeviceCase> Item_DeviceCase { get; private set;} = new List<Item_DeviceCase>();
         
         [JsonIgnore]
-        public List<Item_DevicePowerSupply> Item_DevicePowerSupply {get;set;} = new();
+        public IList<Item_DevicePowerSupply> Item_DevicePowerSupply { get; private set;} = new List<Item_DevicePowerSupply>();
         
         [JsonIgnore]
-        public List<Item_DeviceGeneric> Item_DeviceGeneric {get;set;} = new();
+        public IList<Item_DeviceGeneric> Item_DeviceGeneric { get; private set;} = new List<Item_DeviceGeneric>();
         
         [JsonIgnore]
-        public List<Item_DeviceSimcard> Item_DeviceSimcard {get;set;} = new();
+        public IList<Item_DeviceSimcard> Item_DeviceSimcard { get; private set;} = new List<Item_DeviceSimcard>();
         
         [JsonIgnore]
-        public List<Item_DeviceSensor> Item_DeviceSensor {get;set;} = new();
+        public IList<Item_DeviceSensor> Item_DeviceSensor { get; private set;} = new List<Item_DeviceSensor>();
         
         [JsonIgnore]
-        public List<Item_DeviceCamera> Item_DeviceCamera {get;set;} = new();
+        public IList<Item_DeviceCamera> Item_DeviceCamera { get; private set;} = new List<Item_DeviceCamera>();
 
         [JsonIgnore] 
-        public List<Contract_Item> Contract_Item { get; set; } = new();        
+        public IList<Contract_Item> Contract_Item {  get; private  set; } = new List<Contract_Item>();        
         
         [JsonIgnore]
-        public AutoUpdateSystem AutoUpdateSystem {get;set;}
+        public AutoUpdateSystem AutoUpdateSystem { get; set;}
+        [JsonIgnore]
+        public IList<ItemTicket> AutoUpdateSystems { get; private set;} = new List<ItemTicket>();
         
         [JsonIgnore]
-        public ComputerModel ComputerModel {get;set;}
+        public ComputerModel ComputerModel { get; set;}
+        [JsonIgnore]
+        public IList<Item_Project> ComputerModels { get; private set;} = new List<Item_Project>();
         
         [JsonIgnore]
-        public ComputerType ComputerType {get;set;}
+        public ComputerType ComputerType { get; set;}
+        [JsonIgnore]
+        public IList<NetworkPort> ComputerTypes { get; private set;} = new List<NetworkPort>();
                  
         
         [JsonIgnore]
-        public ReservationItem ReservationItem {get;set;}        
+        public ReservationItem ReservationItem { get; set;}
+        [JsonIgnore]
+        public IList<Item_DeviceMotherboard> ReservationItems { get; private set;} = new List<Item_DeviceMotherboard>();
         
         [JsonIgnore]
-        public Infocom Infocom {get;set;}        
+        public Infocom Infocom { get; set;}
+        [JsonIgnore]
+        public IList<Item_DeviceFirmware> Infocoms { get; private set;} = new List<Item_DeviceFirmware>();
                    
 
         public override bool Equals(object obj)

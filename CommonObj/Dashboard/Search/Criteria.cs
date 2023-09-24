@@ -116,8 +116,8 @@ namespace CommonObj.Dashboard.Search
                                             s.Name.ToLower(),
                                             s.GetValue(criteria))));
 
-                sb.Append(string.Join("&", objs));
-                if (index + 1 < criteriaArray.Length) sb.Append("&");
+                sb.Append(string.Join('&', objs));
+                if (index + 1 < criteriaArray.Length) sb.Append('&');
             }
             return sb.ToString();
         }

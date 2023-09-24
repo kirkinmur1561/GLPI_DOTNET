@@ -160,50 +160,50 @@ namespace CommonObj.Dashboard.Helpdesk
         
         [JsonIgnore]
         public RequestType RequestType { get;  set; }
-        public IList<RequestType> RequestTypes { get; set; } = new List<RequestType>(); 
+        public IList<RequestType> RequestTypes { get;private set;  } = new List<RequestType>(); 
         
         [JsonIgnore]
         public ITILCategory ITILCategory { get; set; }
-        public IList<ITILCategory> ITILCategorys { get; set; } = new List<ITILCategory>();
+        public IList<ITILCategory> ITILCategorys { get;private set;  } = new List<ITILCategory>();
         
         // [JsonIgnore]
         // public DocumentItem Document_Item { get; set; }
         
         [JsonIgnore]
-        public IList<TicketTask> TicketTasks { get;  set;} = new List<TicketTask>();
+        public IList<TicketTask> TicketTasks { get; private set; } = new List<TicketTask>();
         
         [JsonIgnore]
-        public IList<TicketValidation> TicketValidation { get;  set;} = new List<TicketValidation>();
+        public IList<TicketValidation> TicketValidation { get; private set; } = new List<TicketValidation>();
         
         [JsonIgnore]
-        public IList<TicketCost> TicketCost { get;  set;} = new List<TicketCost>();
+        public IList<TicketCost> TicketCost { get; private set; } = new List<TicketCost>();
         
         [JsonIgnore]
-        public IList<ProblemTicket> Problem_Ticket { get; set; } = new List<ProblemTicket>();
+        public IList<ProblemTicket> Problem_Ticket { get;private set;  } = new List<ProblemTicket>();
         
         [JsonIgnore]
-        public IList<ChangeTicket> Change_Ticket { get;  set;} = new List<ChangeTicket>();
+        public IList<ChangeTicket> Change_Ticket { get; private set; } = new List<ChangeTicket>();
         
         [JsonIgnore]
-        public IList<ItemTicket> Item_Ticket { get;  set;} = new List<ItemTicket>();
+        public IList<ItemTicket> Item_Ticket { get; private set; } = new List<ItemTicket>();
         
         /// <summary>
         /// Список сообщений, который оставил под статусом решенных
         /// </summary>
         [JsonIgnore]
-        public IList<ITILSolution> ITILSolution { get;  set;} = new List<ITILSolution>();
+        public IList<ITILSolution> ITILSolution { get; private set; } = new List<ITILSolution>();
         
         [JsonIgnore]
-        public IList<ITILFollowup> ITILFollowup { get;  set;} = new List<ITILFollowup>();
+        public IList<ITILFollowup> ITILFollowup { get; private set; } = new List<ITILFollowup>();
         
         [JsonIgnore]
-        public IList<TicketUser> Ticket_User { get;  set;} = new List<TicketUser>();
+        public IList<TicketUser> Ticket_User { get; private set; } = new List<TicketUser>();
         
         [JsonIgnore]
-        public IList<GroupTicket> Group_Ticket { get;  set;} = new List<GroupTicket>();
+        public IList<GroupTicket> Group_Ticket { get; private set; } = new List<GroupTicket>();
         
         [JsonIgnore]
-        public IList<SupplierTicket> Supplier_Ticket { get;  set;} = new List<SupplierTicket>();
+        public IList<SupplierTicket> Supplier_Ticket { get; private set; } = new List<SupplierTicket>();
         
 
         // /// <summary>
