@@ -1,6 +1,8 @@
 ﻿using CommonObj.Base;
 using CommonObj.Dashboard.Administration;
 using CommonObj.Dashboard.Common;
+using CommonObj.Dashboard.Common.LinkCommon;
+using CommonObj.Dashboard.Helpdesk.Agreements;
 using CommonObj.Dashboard.Helpdesk.LinkTicket;
 using Newtonsoft.Json;
 
@@ -166,9 +168,6 @@ namespace CommonObj.Dashboard.Helpdesk
         public ITILCategory ITILCategory { get; set; }
         public IList<ITILCategory> ITILCategorys { get;private set;  } = new List<ITILCategory>();
         
-        // [JsonIgnore]
-        // public DocumentItem Document_Item { get; set; }
-        
         [JsonIgnore]
         public IList<TicketTask> TicketTasks { get; private set; } = new List<TicketTask>();
         
@@ -186,6 +185,11 @@ namespace CommonObj.Dashboard.Helpdesk
         
         [JsonIgnore]
         public IList<ItemTicket> Item_Ticket { get; private set; } = new List<ItemTicket>();
+
+        [JsonIgnore]
+        public IList<Document_Item> Document_Items { get; private set; } = new List<Document_Item>();
+
+        public Document_Item Document_Item { get; private set; }
         
         /// <summary>
         /// Список сообщений, который оставил под статусом решенных
@@ -204,7 +208,17 @@ namespace CommonObj.Dashboard.Helpdesk
         
         [JsonIgnore]
         public IList<SupplierTicket> Supplier_Ticket { get; private set; } = new List<SupplierTicket>();
-        
+
+        [JsonIgnore]
+        public IList<OLA> OLAs { get; private set; } = new List<OLA>();
+
+        public OLA OLA { get; private set; }
+
+        [JsonIgnore]
+        public IList<SLA> SLAs { get; private set; } = new List<SLA>();
+
+        public  SLA SLA { get; private set; }
+
 
         // /// <summary>
         // /// Loader other property

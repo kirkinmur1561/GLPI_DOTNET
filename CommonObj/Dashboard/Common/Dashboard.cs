@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using CommonObj.Base;
 using CommonObj.Client;
@@ -416,9 +417,12 @@ namespace CommonObj.Dashboard.Common
                 : throw new ExceptionGLPI_ErrorCommon(startListType, responseStart.StatusCode);        
         }
 
-        public static Task<string> LoadFromUri(IClient client, string endPoint, CancellationToken cancel)
+        public static async Task<string> LoadFromUri(IClient clt, string endPoint, CancellationToken cancel = default)
         {
-            return Task.FromResult(string.Empty);
+            clt.SetHeaderDefault();
+
+            HttpResponseMessage responsEnd = await clt.http.GetAsync(endPoint, cancel);
+            return await responsEnd.Content.ReadAsStringAsync(cancel);
         }
         
         /// <summary>
@@ -467,6 +471,7 @@ namespace CommonObj.Dashboard.Common
                     data = await response.Content.ReadAsStringAsync(cancel);
                     if (response.IsSuccessStatusCode)
                     {
+                        if (singleVal == null) singleVal = GetType().GetProperty(lk.Key, BindingFlags.NonPublic);
                         var loadCollectVal = JsonConvert.DeserializeObject(data, singleVal.PropertyType);
                         
                         /*Поиск свойства в котором есть Id{PropertyName}*/

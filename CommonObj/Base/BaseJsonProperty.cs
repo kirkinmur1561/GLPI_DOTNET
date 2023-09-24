@@ -278,7 +278,8 @@ public static class BaseJsonProperty
         public const string DEFAULT_CONTRACT_ALERT = "default_contract_alert"; 
         public const string DEFAULT_INFOCOM_ALERT = "default_infocom_alert"; 
         public const string DEFAULT_CARTRIDGES_ALARM_THRESHOLD = "default_cartridges_alarm_threshold"; 
-        public const string DEFAULT_CONSUMABLES_ALARM_THRESHOLD = "default_consumables_alarm_threshold"; 
+        public const string DEFAULT_CONSUMABLES_ALARM_THRESHOLD = "default_consumables_alarm_threshold";
+        public const string DEFINITION_TIME = "definition_time";
         public const string DELAY_SEND_EMAILS = "delay_send_emails"; 
         public const string IS_NOTIF_ENABLE_DEFAULT = "is_notif_enable_default"; 
         public const string INQUEST_DURATION = "inquest_duration"; 
@@ -544,6 +545,7 @@ public static class BaseJsonProperty
         public const string BRAND = "brand";
         public const string PHONEPOWERSUPPLIES_ID = "phonepowersupplies_id";
         public const string NUMBER_LINE = "number_line";
+        public const string NUMBER_TIME = "number_time";
         public const string HAVE_HEADSET = "have_headset";
         public const string HAVE_HP = "have_hp";
         public const string HAVE_SERIAL = "have_serial";
@@ -622,6 +624,7 @@ public static class BaseJsonProperty
         public const string TIME_TO_RESOLVE = "time_to_resolve";
         public const string TIME_TO_OWN = "time_to_own";
         public const string BEGIN_WAITING_DATE = "begin_waiting_date";
+        public const string OLAS_ID = "olas_id";
         public const string SLA_WAITING_DURATION = "sla_waiting_duration";
         public const string OLA_WAITING_DURATION = "ola_waiting_duration";
         public const string OLAS_ID_TTO = "olas_id_tto";
@@ -636,4 +639,9 @@ public static class BaseJsonProperty
         public const string TAKEINTOACCOUNT_DELAY_STAT = "takeintoaccount_delay_stat";
         public const string ACTIONTIME = "actiontime";
         public const string VALIDATION_PERCENT = "validation_percent";
+        public const string END_OF_WORKING_DAY = "end_of_working_day";
+        public const string SLM_ID = "slms_id";
+        public const string USE_TICKET_CALENDAR = "use_ticket_calendar";
+        public const string EXECUTION_TIME = "execution_time";
+        public const string MATCH = "match";
 }
