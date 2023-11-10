@@ -1,6 +1,6 @@
 ﻿namespace CommonObj.Dashboard.Helpdesk.LinkTicket
 {
-    public class SupplierTicket
+    public class Supplier_Ticket
     {
     }
 }

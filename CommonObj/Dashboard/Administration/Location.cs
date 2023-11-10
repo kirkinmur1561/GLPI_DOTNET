@@ -158,8 +158,12 @@ namespace CommonObj.Dashboard.Administration
 
             if (int.TryParse(y, out r)) return 1;
             return 0;
-        }  
-       
+        }
+
+        public override string ToString() =>
+            string.Join(" : ", Id, Name);
+        
+
     }
 
 

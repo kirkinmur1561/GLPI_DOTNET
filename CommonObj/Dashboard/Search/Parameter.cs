@@ -96,9 +96,7 @@ namespace CommonObj.Dashboard.Search
 
         public bool? is_deleted { get => p_is_deleted; set => Updater(value); }
         protected internal bool? p_is_deleted;
-        //add_keys_names
-        //raw
-
+        
         protected internal void Updater(object val,[CallerMemberName] string name = "")
         {
             GetType()

@@ -1,3 +1,4 @@
+using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using CommonObj.Base;
@@ -7,7 +8,7 @@ using Newtonsoft.Json;
 namespace Single;
 
 /// <summary>
-/// Single client for GLPI AIP
+/// Single client for GLPI API
 /// </summary>
 public class Client:IClient
 {
@@ -106,9 +107,69 @@ public class Client:IClient
 
     public string ExceptUri(Uri uri) =>
         string.Join(BaseResource.SEPARATOR_URI, uri.ToString().Split(BaseResource.SEPARATOR_URI).Except(BaseUri));
-    
+
+    private HttpListener _listener;
+    private IEnumerable<Listening> _listenings;
+
+    /// <summary>
+    /// For WebHook plugin https://github.com/ericferon/glpi-webhook
+    /// </summary>
+    /// <param name="listenings"></param>
+    /// <param name="cancel"></param>
+    /// <returns></returns>
+    public async Task InitListener(IEnumerable<Listening> listenings,CancellationToken cancel = default)
+    {
+        _listenings = listenings;
+        _listener = new HttpListener();
+        foreach (Listening url in listenings) _listener.Prefixes.Add(url.Url);
+        _listener.Start();
+        while (true)
+        {
+            HttpListenerContext context = await _listener.GetContextAsync();
+            Push(context, cancel);
+        }
+    }
+
+    private async Task Push(HttpListenerContext context,CancellationToken cancel)
+    {
+        Listening? listening = _listenings.FirstOrDefault(f =>
+            f.Url.Equals(context.Request.Url?.OriginalString) && f.Method.Equals(context.Request.HttpMethod));
+
+        if (listening == null) return;
         
-    
+        using StreamReader sr = new StreamReader(context.Request.InputStream);
+        string values = await sr.ReadToEndAsync(cancel);
+
+        Task.Run(() =>
+            Nullable.Equals(listening.TypeObj, null)
+                ? listening.Response.Invoke(values, listening.ListenerId)
+                : listening.ResponseObj(JsonConvert.DeserializeObject(values, listening.TypeObj),
+                    listening.ListenerId), cancel);
+        
+        
+        Encoding? encoding = context.Response.ContentEncoding;
+        if (encoding == null)
+        {
+            encoding = Encoding.UTF8;
+            context.Response.ContentEncoding = encoding;
+        }
+        
+        byte[] buffer = encoding.GetBytes(string.Empty);
+        context.Response.StatusCode = (int) HttpStatusCode.OK;
+        context.Response.StatusDescription = "OK";
+        context.Response.ProtocolVersion = new Version ("1.1");
+        context.Response.KeepAlive = false;
+        await using Stream sw = context.Response.OutputStream;
+        await sw.WriteAsync(buffer, cancel);
+    }
+
+    public Task DisposableListener()
+    {
+        _listener?.Stop();
+        _listener?.Close();
+        return Task.CompletedTask;
+    }
+
 
     private Task KillSession(CancellationToken cancel = default) =>
         http.GetAsync(BaseResource.ROUTE_KILL_SESSION, cancel);

@@ -172,19 +172,21 @@ namespace CommonObj.Dashboard.Helpdesk
         public IList<TicketTask> TicketTasks { get; private set; } = new List<TicketTask>();
         
         [JsonIgnore]
-        public IList<TicketValidation> TicketValidation { get; private set; } = new List<TicketValidation>();
+        public IList<TicketCost> TicketCosts { get; private set; } = new List<TicketCost>();
+        
+        public TicketCost TicketCost { get; private set; }
         
         [JsonIgnore]
-        public IList<TicketCost> TicketCost { get; private set; } = new List<TicketCost>();
+        public IList<ProblemTicket> ProblemTickets { get;private set;  } = new List<ProblemTicket>();
+        public ProblemTicket ProblemTicket { get; private set; }
         
         [JsonIgnore]
-        public IList<ProblemTicket> Problem_Ticket { get;private set;  } = new List<ProblemTicket>();
+        public IList<ChangeTicket> ChangeTickets { get; private set; } = new List<ChangeTicket>();
+        public ChangeTicket ChangeTicket { get; private set; }
         
         [JsonIgnore]
-        public IList<ChangeTicket> Change_Ticket { get; private set; } = new List<ChangeTicket>();
-        
-        [JsonIgnore]
-        public IList<ItemTicket> Item_Ticket { get; private set; } = new List<ItemTicket>();
+        public IList<ItemTicket> ItemTickets { get; private set; } = new List<ItemTicket>();
+        public ItemTicket ItemTicket { get; private set; }
 
         [JsonIgnore]
         public IList<Document_Item> Document_Items { get; private set; } = new List<Document_Item>();
@@ -195,19 +197,24 @@ namespace CommonObj.Dashboard.Helpdesk
         /// Список сообщений, который оставил под статусом решенных
         /// </summary>
         [JsonIgnore]
-        public IList<ITILSolution> ITILSolution { get; private set; } = new List<ITILSolution>();
+        public IList<ITILSolution> ITILSolutions { get; private set; } = new List<ITILSolution>();
+        public ITILSolution ITILSolution { get; private set; }
         
         [JsonIgnore]
-        public IList<ITILFollowup> ITILFollowup { get; private set; } = new List<ITILFollowup>();
+        public IList<ITILFollowup> ITILFollowups { get; private set; } = new List<ITILFollowup>();
+        public ITILFollowup ITILFollowup { get; private set; }
         
         [JsonIgnore]
-        public IList<TicketUser> Ticket_User { get; private set; } = new List<TicketUser>();
+        public IList<TicketUser> TicketUsers { get; private set; } = new List<TicketUser>();
+        public TicketUser TicketUser { get; private set; }
         
         [JsonIgnore]
-        public IList<GroupTicket> Group_Ticket { get; private set; } = new List<GroupTicket>();
+        public IList<GroupTicket> GroupTickets { get; private set; } = new List<GroupTicket>();
+        public GroupTicket GroupTicket { get; private set; }
         
         [JsonIgnore]
-        public IList<SupplierTicket> Supplier_Ticket { get; private set; } = new List<SupplierTicket>();
+        public IList<Supplier_Ticket> Supplier_Tickets { get; private set; } = new List<Supplier_Ticket>();
+        public Supplier_Ticket Supplier_Ticket { get; private set; }
 
         [JsonIgnore]
         public IList<OLA> OLAs { get; private set; } = new List<OLA>();
@@ -218,6 +225,11 @@ namespace CommonObj.Dashboard.Helpdesk
         public IList<SLA> SLAs { get; private set; } = new List<SLA>();
 
         public  SLA SLA { get; private set; }
+
+        [JsonIgnore]
+        public IList<TicketValidation> TicketValidations { get; private set; } = new List<TicketValidation>();
+        
+        public TicketValidation TicketValidation { get; private set; }
 
 
         // /// <summary>

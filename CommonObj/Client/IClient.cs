@@ -28,5 +28,9 @@ public interface IClient:ICommonClient, IEquatable<IClient>,IAsyncDisposable
         CancellationToken? cancel = default);
 
     void SetHeaderDefault(string mediaType = BaseResource.MIMO_APPLICATION_JSON);
-    string ExceptUri(Uri uri);    
+    string ExceptUri(Uri uri);
+
+    Task InitListener(IEnumerable<Listening> listenings, CancellationToken cancel = default);
+    
+    Task DisposableListener();
 }

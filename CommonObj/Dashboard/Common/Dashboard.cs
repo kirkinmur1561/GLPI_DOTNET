@@ -1,6 +1,7 @@
 ﻿using System.Collections;
-using System.Reflection;
+using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
+using System.Text;
 using CommonObj.Base;
 using CommonObj.Client;
 using CommonObj.Dashboard.Administration;
@@ -326,37 +327,55 @@ namespace CommonObj.Dashboard.Common
 
         //#region Single
 
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <param name="clt">Init glpi client</param>
+        /// <param name="cancel"></param>
+        /// <returns></returns>
+        /// <exception cref="ExceptionGLPI_ErrorCommon"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="TaskCanceledException"></exception>
+        /// <exception cref="UriFormatException"></exception>
         public static async Task<IEnumerable<SearchOption>> ListSearchOptionsAsync(
             IClient clt,
             CancellationToken cancel = default)
         {             
             clt.SetHeaderDefault();
-            
+
             HttpResponseMessage response =
-                await clt.http.GetAsync(string.Join("/", value: new[] { LIST_SEARCH_OPTIONS, typeof(TD).Name }), cancel);            
+                await clt.http.GetAsync(string.Join("/", value: new[] { LIST_SEARCH_OPTIONS, typeof(TD).Name }),
+                    cancel);     
 
             string responseData = await response.Content.ReadAsStringAsync(cancel);
 
             return response.IsSuccessStatusCode
-                ? SearchOption.Parse(JsonConvert.DeserializeObject<Dictionary<string, object>>(responseData)?? new Dictionary<string, object>())
+                ? SearchOption.Parse(JsonConvert.DeserializeObject<Dictionary<string, object>>(responseData) ??
+                                     new Dictionary<string, object>())
                 : throw new ExceptionGLPI_ErrorCommon(responseData, response.StatusCode);
         }
         
         /// <summary>
-        /// Получить объект D в формате JSON
+        /// Get object TD in format JSON
         /// </summary>
-        /// <param name="clt">подключенный объект к GLPI</param>
-        /// <param name="parameter">Параметры запроса</param>
-        /// <param name="cancel">Принудительная остановка процесса</param>
+        /// <param name="clt">Inti glpi client</param>
+        /// <param name="parameter">parameter request</param>
+        /// <param name="cancel"></param>
         /// <returns></returns>
         /// <exception cref="ExceptionGLPI_ErrorCommon"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="TaskCanceledException"></exception>
+        /// <exception cref="UriFormatException"></exception>
         public static async Task<string> GetJsonAsync(
             IClient clt,
             Parameter parameter,
             CancellationToken cancel = default)
         {            
-            clt.SetHeaderDefault();           
+            clt.SetHeaderDefault();
 
+            clt.http.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("utf-8"));
             HttpResponseMessage response = await clt.http.GetAsync(string.Join(string.Empty, typeof(TD).Name, parameter), cancel);
             
             string responseData = await response.Content.ReadAsStringAsync(cancel);
@@ -367,32 +386,70 @@ namespace CommonObj.Dashboard.Common
         }
         
         /// <summary>
-        /// Получить объект типа TD
+        /// Get object TD
         /// </summary>
-        /// <param name="clt">Основное подключение к glpi</param>
-        /// <param name="parameter">Параметры поиска</param>
-        /// <param name="cancel">Принудительная остановка процесса</param>
+        /// <param name="clt">Init glpi client</param>
+        /// <param name="parameter">parameter request</param>
+        /// <param name="cancel"></param>
         /// <exception cref="Exception"></exception>
-        public static async Task<TD?> GetAsync(
+        /// <exception cref="ExceptionGLPI_ErrorCommon"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="TaskCanceledException"></exception>
+        /// <exception cref="UriFormatException"></exception>
+        public static async Task<TD?> GetItemAsync(
             IClient clt,
             Parameter parameter,
             CancellationToken cancel = default)
         {
-                     
-            clt.SetHeaderDefault();            
-            
-            if (parameter?.id is null or < 0) throw new System.Exception("Error parameter. Id eq = null or < 0");
-            return JsonConvert.DeserializeObject<TD>(await GetJsonAsync(clt, parameter, cancel));
-        }        
-        
+            clt.SetHeaderDefault();
+
+            return parameter.id is null or < 0
+                ? throw new Exception("Error parameter. Id eq = null or < 0")
+                : JsonConvert.DeserializeObject<TD>(await GetJsonAsync(clt, parameter, cancel));
+        }
+
         /// <summary>
-        /// Получить список объектов D
+        /// Get object items TD
         /// </summary>
-        /// <param name="clt">Основное подключение к glpi</param>
-        /// <param name="cancel">Принудительная остановка процесса</param>
+        /// <param name="clt">Init glpi client</param>
+        /// <param name="parameter">parameter request</param>
+        /// <param name="cancel"></param>
         /// <returns></returns>
         /// <exception cref="ExceptionGLPI_ErrorCommon"></exception>
-        public static async Task<IEnumerable<TD>?> GetEnumerableAsync(
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="TaskCanceledException"></exception>
+        /// <exception cref="UriFormatException"></exception>
+        public static async Task<IEnumerable<TD>?> GetItemsAsync(
+            IClient clt,
+            Parameter parameter,
+            CancellationToken cancel = default)
+        {
+            clt.SetHeaderDefault();
+
+            HttpResponseMessage response =
+                await clt.http.GetAsync(string.Join(string.Empty, typeof(TD).Name, parameter), cancel);
+
+            string result = await response.Content.ReadAsStringAsync(cancel);
+
+            return response.IsSuccessStatusCode
+                ? JsonConvert.DeserializeObject<List<TD>>(result)
+                : throw new ExceptionGLPI_ErrorCommon(result, response.StatusCode);
+        }
+        
+        /// <summary>
+        /// Get all objects
+        /// </summary>
+        /// <param name="clt">Init glpi client</param>
+        /// <param name="cancel"></param>
+        /// <returns></returns>
+        /// <exception cref="ExceptionGLPI_ErrorCommon"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="TaskCanceledException"></exception>
+        /// <exception cref="UriFormatException"></exception>
+        public static async Task<IEnumerable<TD>?> GetItemsAsync(
             IClient clt,
             CancellationToken cancel = default)
         {
@@ -417,13 +474,182 @@ namespace CommonObj.Dashboard.Common
                 : throw new ExceptionGLPI_ErrorCommon(startListType, responseStart.StatusCode);        
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="clt">Init glpi client</param>
+        /// <param name="endPoint"></param>
+        /// <param name="cancel"></param>
+        /// <returns></returns>
+        /// <exception cref="ExceptionGLPI_ErrorCommon"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="TaskCanceledException"></exception>
+        /// <exception cref="UriFormatException"></exception>
         public static async Task<string> LoadFromUri(IClient clt, string endPoint, CancellationToken cancel = default)
         {
             clt.SetHeaderDefault();
 
             HttpResponseMessage responsEnd = await clt.http.GetAsync(endPoint, cancel);
-            return await responsEnd.Content.ReadAsStringAsync(cancel);
+            string result = await responsEnd.Content.ReadAsStringAsync(cancel);
+            return responsEnd.IsSuccessStatusCode
+                ? result
+                : throw new ExceptionGLPI_ErrorCommon(result, responsEnd.StatusCode);
         }
+
+        /// <summary>
+        ///  Send objects in glpi
+        /// </summary>
+        /// <param name="clt">Init client</param>
+        /// <param name="objs">Objects for insert into glpi</param>
+        /// <param name="cancel"></param>
+        /// <returns></returns>
+        /// <exception cref="ExceptionGLPI_ErrorCommon"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="TaskCanceledException"></exception>
+        /// <exception cref="UriFormatException"></exception>
+        public static async Task<string> AddItemsAsync(IClient clt, IEnumerable<TD> objs, CancellationToken cancel = default)
+        {
+            clt.SetHeaderDefault();
+            
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            
+            StringContent content =
+                new StringContent(JsonConvert.SerializeObject(
+                        new { input = objs },
+                        Formatting.Indented, settings),
+                    Encoding.UTF8, MIMO_APPLICATION_JSON);
+
+            HttpResponseMessage response = await clt.http.PostAsync(typeof(TD).Name, content, cancel);
+
+            string result = await response.Content.ReadAsStringAsync(cancel);
+
+            return response.IsSuccessStatusCode
+                ? result
+                : throw new ExceptionGLPI_ErrorCommon(result, response.StatusCode);
+        }
+
+        /// <summary>
+        ///  Send object in glpi
+        /// </summary>
+        /// <param name="clt">Init glpi client</param>
+        /// <param name="obj">Object for insert info glpi</param>
+        /// <param name="cancel"></param>
+        /// <returns></returns>
+        /// <exception cref="ExceptionGLPI_ErrorCommon"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="TaskCanceledException"></exception>
+        /// <exception cref="UriFormatException"></exception>
+        public static Task<string> AddItemAsync(IClient clt, TD obj, CancellationToken cancel = default) =>
+            AddItemsAsync(clt, new[] { obj }, cancel);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="clt"></param>
+        /// <param name="objsUpdate"></param>
+        /// <param name="cancel"></param>
+        /// <returns></returns>
+        /// <exception cref="ExceptionGLPI_ErrorCommon"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="TaskCanceledException"></exception>
+        /// <exception cref="UriFormatException"></exception>
+        public static async Task<string> UpdateItemsAsync(IClient clt, IEnumerable<TD> objsUpdate, CancellationToken cancel = default)
+        {
+            clt.SetHeaderDefault();
+            
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            
+            StringContent content =
+                new StringContent(JsonConvert.SerializeObject(
+                        new { input = objsUpdate },
+                        Formatting.Indented, settings),
+                    Encoding.UTF8, MIMO_APPLICATION_JSON);
+
+            HttpResponseMessage response = await clt.http.PutAsync(typeof(TD).Name, content, cancel);
+
+            string result = await response.Content.ReadAsStringAsync(cancel);
+
+            return response.IsSuccessStatusCode
+                ? result
+                : throw new ExceptionGLPI_ErrorCommon(result, response.StatusCode);
+        }
+
+        public static Task<string> UpdateItemAsync(IClient clt, TD objUpdate, CancellationToken cancel = default) =>
+            UpdateItemsAsync(clt, new[] { objUpdate }, cancel);
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="clt"></param>
+        /// <param name="objsDel"></param>
+        /// <param name="isForcePurge">If the itemtype have a trashbin, you can force purge (delete finally)</param>
+        /// <param name="isHistory">Set to false to disable saving of deletion in global history</param>
+        /// <param name="cancel"></param>
+        /// <returns></returns>
+        /// <exception cref="ExceptionGLPI_ErrorCommon"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="TaskCanceledException"></exception>
+        /// <exception cref="UriFormatException"></exception>
+        public static async Task<string> DeleteItemsAsync(IClient clt, IEnumerable<TD> objsDel, bool isForcePurge = false,
+            bool isHistory = true, CancellationToken cancel = default)
+        {
+            clt.SetHeaderDefault();
+            
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            StringContent content =
+                new StringContent(JsonConvert.SerializeObject(
+                        new
+                        {
+                            input = objsDel.Select(s => new { id = s.Id }),
+                            force_purge = isForcePurge,
+                            history = isHistory
+                        },
+                        Formatting.Indented, settings),
+                    Encoding.UTF8, MIMO_APPLICATION_JSON);
+            
+            var request = new HttpRequestMessage(HttpMethod.Delete, typeof(TD).Name);
+            request.Content = content;
+            HttpResponseMessage response = await clt.http.SendAsync(request, cancel);
+            string result = await response.Content.ReadAsStringAsync(cancel);
+
+            return response.IsSuccessStatusCode
+                ? result
+                : throw new ExceptionGLPI_ErrorCommon(result, response.StatusCode);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="clt"></param>
+        /// <param name="objDel"></param>
+        /// <param name="isForcePurge">If the itemtype have a trashbin, you can force purge (delete finally)</param>
+        /// <param name="isHistory">Set to false to disable saving of deletion in global history</param>
+        /// <param name="cancel"></param>
+        /// <returns></returns>
+        /// <exception cref="ExceptionGLPI_ErrorCommon"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="TaskCanceledException"></exception>
+        /// <exception cref="UriFormatException"></exception>
+        public static Task<string> DeleteItemAsync(IClient clt, TD objDel, bool isForcePurge = false,
+            bool isHistory = true, CancellationToken cancel = default) =>
+            DeleteItemsAsync(clt, new[] { objDel }, isForcePurge, isHistory, cancel);
         
         /// <summary>
         /// 
@@ -471,21 +697,42 @@ namespace CommonObj.Dashboard.Common
                     data = await response.Content.ReadAsStringAsync(cancel);
                     if (response.IsSuccessStatusCode)
                     {
-                        if (singleVal == null) singleVal = GetType().GetProperty(lk.Key, BindingFlags.NonPublic);
-                        var loadCollectVal = JsonConvert.DeserializeObject(data, singleVal.PropertyType);
-                        
-                        /*Поиск свойства в котором есть Id{PropertyName}*/
-                        var valId = GetType().GetProperty(string.Join(string.Empty, BaseJsonProperty.Id, lk.Key));
-                        if (valId == null)
-                            objects.Add(loadCollectVal);
+                        object loadCollectVal;
+                        bool isSingle;
+
+                        try
+                        {
+                            loadCollectVal = JsonConvert.DeserializeObject(data, singleVal.PropertyType);
+                            isSingle = true;
+                        }
+                        catch
+                        {
+                            loadCollectVal = JsonConvert.DeserializeObject(data, collectVal.PropertyType);
+                            isSingle = false;
+                        }
+
+                        if (isSingle)
+                        {
+                            /*Поиск свойства в котором есть Id{PropertyName}*/
+                            var valId = GetType().GetProperty(string.Join(string.Empty, BaseJsonProperty.Id, lk.Key));
+                            if (valId == null)
+                                objects.Add(loadCollectVal);
+                            else
+                            {
+                                long? thisValId = (long?) valId.GetValue(this);
+                                long? loadValId = ((IDashboard) loadCollectVal).Id;
+
+                                if (thisValId.Equals(loadValId))
+                                    singleVal.SetValue(this, loadCollectVal);
+                                else objects.Add(loadCollectVal);
+                            }
+                        }
                         else
                         {
-                            long? thisValId = (long?) valId.GetValue(this);
-                            long? loadValId = ((IDashboard) loadCollectVal).Id;
-
-                            if (thisValId.Equals(loadValId))
-                                singleVal.SetValue(this, loadCollectVal);
-                            else objects.Add(loadCollectVal);
+                            foreach (var val in (IList)loadCollectVal)
+                            {
+                                objects.Add(val);
+                            }
                         }
                     }                            
                     else throw new ExceptionGLPI_ErrorCommon(data, response.StatusCode);
@@ -493,745 +740,10 @@ namespace CommonObj.Dashboard.Common
             }
         }
 
-        // /// <summary>
-        // /// Загружает объекты с атрибутом BaseEntity
-        // /// </summary>
-        // /// <param name="clt"></param>
-        // /// <param name="cancel"></param>
-        // /// <exception cref="ExceptionCheck"></exception>
-        // public virtual async Task LoadBaseEntity(
-        //     IGlpiClient clt, 
-        //     CancellationToken cancel = default)
-        // {
-        //     if (clt.Checker())      throw new ExceptionCheck(clt);
-        //     if (clt.IsClone)        throw new System.Exception("Объект не должен быть клоном");
-        //     
-        //     IGlpiClient client = (IGlpiClient)clt.Clone();
-        //     client.SetHeaderDefault();
-        //
-        //     int iteration = 0;            
-        //     List<ClientResponse> responseMessages = new List<ClientResponse>();            
-        //
-        //     foreach (var entity in GetType().GetProperties()
-        //                  .Where(w => w.GetCustomAttributes(typeof(BaseEntityAttribute), true).Any()))
-        //     {
-        //         long? id = (long?)GetType()
-        //             .GetProperty(string.Join("", "Id", entity.Name))
-        //             ?.GetValue(this);
-        //
-        //         if (id == null) continue;
-        //
-        //         clt.QueueRequest.Enqueue(
-        //             new ClientRequest(
-        //                 async () => await client.Client.GetAsync(string.Join("/", entity.Name, id), cancel),
-        //                 response => responseMessages.Add(response), null, entity));
-        //         
-        //         iteration++;
-        //     }
-        //     
-        //     var timeSpan = DateTime.Now + TimeSpan.FromSeconds(client.TimeOut);            
-        //     
-        //     while (responseMessages.Count != iteration) 
-        //     {                
-        //         if (cancel.IsCancellationRequested)                
-        //             cancel.ThrowIfCancellationRequested();                
-        //
-        //         if (timeSpan < DateTime.Now) 
-        //             throw new TimeoutException("Привышено время ожидания ответа от сервера!");
-        //     }
-        //    
-        //
-        //     foreach (ClientResponse response in responseMessages
-        //                  .Where(w => w.Response.IsSuccessStatusCode))
-        //         response
-        //             .RequestedProperty
-        //             .SetValue(this,
-        //                 JsonConvert.DeserializeObject(await response.Response.Content.ReadAsStringAsync(cancel),
-        //                     response.RequestedProperty.PropertyType));
-        // }
+        public int CompareTo(TD? other) =>
+            Id < other?.Id ? -1 : Id > other?.Id ? 1 : 0;
         
-        
-        //
-        // /// <summary>
-        // /// Поиск объектов типа D
-        // /// </summary>
-        // /// <param name="clt"></param>
-        // /// <param name="criterias"></param>
-        // /// <param name="parameter"></param>
-        // /// <param name="cancel"></param>
-        // /// <returns></returns>
-        // /// <exception cref="ExceptionCheck"></exception>
-        // /// <exception cref="Exception"></exception>
-        // /// <exception cref="TimeoutException"></exception>
-        // public static async Task<ResponseSearch> GetAsync(
-        //     IGlpiClient clt,
-        //     IEnumerable<Criteria> criterias,
-        //     Parameter parameter = null, 
-        //     CancellationToken cancel = default)
-        // {
-        //     if (clt.Checker())      throw new ExceptionCheck(clt);
-        //     if (clt.IsClone)        throw new System.Exception("Объект не должен быть клоном");
-        //     
-        //     IGlpiClient client = (IGlpiClient)clt.Clone();
-        //     client.SetHeaderDefault();
-        //     
-        //     HttpResponseMessage response = null;
-        //     ClientRequest clientRequest;
-        //
-        //
-        //     if (parameter == null)
-        //         clientRequest = new ClientRequest(
-        //             async () => await client.Client.GetAsync($"search" +
-        //                                                      $"/{typeof(TD).Name}" +
-        //                                                      $"?{Criteria.GetUri(criterias)}",
-        //                 cancel),
-        //             a => response = a.Response);
-        //     else
-        //         clientRequest = new ClientRequest(
-        //             async () => await client.Client.GetAsync(
-        //                 $"search/{typeof(TD).Name}?{Criteria.GetUri(criterias)}&{parameter}", cancel),
-        //             a => response = a.Response);
-        //
-        //     clt.QueueRequest.Enqueue(clientRequest);
-        //
-        //     var timeSpan = DateTime.Now + TimeSpan.FromSeconds(client.TimeOut);            
-        //     
-        //     while (response == null) 
-        //     {                
-        //         if (cancel.IsCancellationRequested)                
-        //             cancel.ThrowIfCancellationRequested();                
-        //
-        //         if (timeSpan < DateTime.Now) 
-        //             throw new TimeoutException("Привышено время ожидания ответа от сервера!");
-        //     }
-        //
-        //     ResponseSearch seatchStart;
-        //     ResponseSearch seatchEnd;
-        //
-        //     if (!response.IsSuccessStatusCode)
-        //         throw new System.Exception(
-        //             $"Status code:{response.StatusCode} " +
-        //             $"content?:{await response.Content.ReadAsStringAsync(cancel)}");
-        //     {
-        //         seatchStart = 
-        //             JsonConvert
-        //                 .DeserializeObject<ResponseSearch>(await response.Content.ReadAsStringAsync(cancel));
-        //         
-        //         if (seatchStart == null || seatchStart.Count >= seatchStart.TotalCount) return seatchStart;
-        //         HttpResponseMessage responseSearchEnd = null;
-        //         if (parameter == null)
-        //             clt.QueueRequest.Enqueue(new ClientRequest(
-        //                 async () => await client.Client.GetAsync(
-        //                     $"search" +
-        //                     $"/{typeof(TD).Name}" +
-        //                     $"?{Criteria.GetUri(criterias)}" +
-        //                     $"&{new Parameter { range = new Range(0, seatchStart.TotalCount) }}",
-        //                     cancel), 
-        //                 a => responseSearchEnd = a.Response));
-        //         else
-        //         {
-        //             parameter.range = new Range(0, seatchStart.TotalCount);
-        //             clt.QueueRequest.Enqueue(
-        //                 new ClientRequest(
-        //                     async () => 
-        //                         await client
-        //                             .Client
-        //                             .GetAsync($"search" +
-        //                                       $"/{typeof(TD).Name}" +
-        //                                       $"?{Criteria.GetUri(criterias)}" +
-        //                                       $"&{parameter}", cancel), 
-        //                     a => responseSearchEnd = a.Response));
-        //         }
-        //         
-        //         timeSpan = DateTime.Now + TimeSpan.FromSeconds(client.TimeOut);  
-        //         
-        //         while (responseSearchEnd == null)
-        //         {
-        //             if (cancel.IsCancellationRequested) cancel.ThrowIfCancellationRequested();
-        //             
-        //             if (timeSpan < DateTime.Now) 
-        //                 throw new TimeoutException("Привышено время ожидания ответа от сервера!");
-        //         }
-        //
-        //         return responseSearchEnd.IsSuccessStatusCode
-        //             ? JsonConvert
-        //                 .DeserializeObject<ResponseSearch>(
-        //                     await responseSearchEnd.Content.ReadAsStringAsync(cancel))
-        //             : throw new System.Exception($"Status code:{response.StatusCode} " +
-        //                                          $"content?:{await response.Content.ReadAsStringAsync(cancel)}");
-        //
-        //     }
-        //
-        // }        
-        //
-        /// <summary>
-        /// Получить список объектов D
-        /// </summary>
-        /// <param name="glpiClient"></param>
-        /// <param name="cancel"></param>
-        /// <returns></returns>
-        /// <exception cref="ExceptionCheck"></exception>
-        // public static async Task<string> GetEnumerableJson(
-        //     IClient clt, 
-        //     CancellationToken cancel = default)=>        
-        //      glpiClient.Checker()
-        //         ? throw new ExceptionCheck(glpiClient)
-        //         : JsonConvert.SerializeObject(await GetEnumerable(glpiClient, cancel));        
-        
-        /// <summary>
-        /// Get date from uri
-        /// </summary>
-        /// <param name="clt"></param>
-        /// <param name="endPoint"></param>
-        /// <param name="cancel"></param>
-        /// <returns></returns>
-        /// <exception cref="ExceptionCheck"></exception>
-        /// <exception cref="Exception"></exception>
-        /// <exception cref="TimeoutException"></exception>
-        // public static async Task<string> GetJsonFromUri(
-        //     IGlpiClient clt,
-        //     string endPoint, 
-        //     CancellationToken cancel = default)
-        // {            
-        //     if (clt.Checker())      throw new ExceptionCheck(clt);
-        //     if (clt.IsClone)        throw new System.Exception("Объект не должен быть клоном");
-        //     
-        //     IGlpiClient client = (IGlpiClient)clt.Clone();
-        //     client.SetHeaderDefault();           
-        //
-        //     HttpResponseMessage response = null;
-        //     ClientRequest req = new ClientRequest(async () => await client.Client.GetAsync(endPoint, cancel),
-        //         r => response = r.Response);
-        //     clt.QueueRequest.Enqueue(req);
-        //
-        //     var timeSpan = DateTime.Now + TimeSpan.FromSeconds(client.TimeOut);  
-        //     
-        //     while (response == null)
-        //     {
-        //         if (cancel.IsCancellationRequested)
-        //             cancel.ThrowIfCancellationRequested();
-        //         
-        //         if (timeSpan < DateTime.Now) 
-        //             throw new TimeoutException("Привышено время ожидания ответа от сервера!");
-        //     }
-        //
-        //     return response.IsSuccessStatusCode
-        //         ? await response.Content.ReadAsStringAsync(cancel)
-        //         : throw new System.Exception(
-        //             $"Status code:{response.StatusCode} " +
-        //             $"content?:{await response.Content.ReadAsStringAsync(cancel)}");
-        // }
-        //
-             
-        //
-        // /// <summary>
-        // /// Добавляет объекты D в коллекцию GLPI
-        // /// </summary>
-        // /// <param name="clt"></param>
-        // /// <param name="ds"></param>
-        // /// <param name="cancel"></param>
-        // /// <returns></returns>
-        // /// <exception cref="ExceptionCheck"></exception>
-        // /// <exception cref="Exception"></exception>
-        // /// <exception cref="TimeoutException"></exception>
-        // public static async Task<string> AddItems(
-        //     IGlpiClient clt,
-        //     IEnumerable<TD> ds, 
-        //     CancellationToken cancel = default)
-        // {
-        //     if (clt.Checker())      throw new ExceptionCheck(clt);
-        //     if (clt.IsClone)        throw new System.Exception("Объект не должен быть клоном");
-        //     
-        //     IGlpiClient client = (IGlpiClient)clt.Clone();
-        //     client.SetHeaderDefault();
-        //     
-        //     JsonSerializerSettings settings = new JsonSerializerSettings
-        //     {
-        //         NullValueHandling = NullValueHandling.Ignore
-        //     };
-        //
-        //
-        //     StringContent content =
-        //         new StringContent(JsonConvert.SerializeObject(
-        //                 new { input = ds }, 
-        //                 Formatting.Indented, settings),
-        //             Encoding.UTF8, "application/json");
-        //     
-        //     HttpResponseMessage response = null;
-        //     
-        //     ClientRequest clientRequest = new ClientRequest(
-        //         async () => await client.Client.PostAsync(typeof(TD).Name, content,cancel), 
-        //         a => response = a.Response);
-        //     
-        //     clt.QueueRequest.Enqueue(clientRequest);
-        //
-        //     var timeSpan = DateTime.Now + TimeSpan.FromSeconds(client.TimeOut);  
-        //     
-        //     while (response == null)
-        //     {
-        //         if (cancel.IsCancellationRequested)
-        //             cancel.ThrowIfCancellationRequested();
-        //         
-        //         if (timeSpan < DateTime.Now) 
-        //             throw new TimeoutException("Привышено время ожидания ответа от сервера!");
-        //     }
-        //
-        //     return response.IsSuccessStatusCode
-        //         ? await response.Content.ReadAsStringAsync(cancel)
-        //         : throw new System.Exception(
-        //             $"Status code: {response.StatusCode}" +
-        //             $" content: {await response.Content.ReadAsStringAsync(cancel)}");
-        // }
-        //
-        // /// <summary>
-        // /// Добавить объект
-        // /// </summary>
-        // /// <param name="clt"></param>
-        // /// <param name="cancel"></param>
-        // /// <returns></returns>
-        // /// <exception cref="ExceptionCheck"></exception>
-        // /// <exception cref="Exception"></exception>
-        // /// <exception cref="TimeoutException"></exception>
-        // public async Task<string> AddItem(
-        //     IGlpiClient clt,            
-        //     CancellationToken cancel = default)
-        // {
-        //     if (clt.Checker())      throw new ExceptionCheck(clt);
-        //     if (clt.IsClone)        throw new System.Exception("Объект не должен быть клоном");
-        //     
-        //     IGlpiClient client = (IGlpiClient)clt.Clone();
-        //     client.SetHeaderDefault();
-        //     
-        //     JsonSerializerSettings settings = new JsonSerializerSettings
-        //     {
-        //         NullValueHandling = NullValueHandling.Ignore
-        //     };
-        //
-        //     StringContent content =
-        //         new StringContent(JsonConvert.SerializeObject(
-        //                 new { input = this },
-        //                 Formatting.Indented, settings),
-        //             Encoding.UTF8, "application/json");
-        //     
-        //     HttpResponseMessage response = null;
-        //     
-        //     ClientRequest clientRequest =
-        //         new ClientRequest(async () => 
-        //                 await client.Client.PostAsync(typeof(TD).Name, content, cancel),
-        //             a => response = a.Response);
-        //     
-        //     clt.QueueRequest.Enqueue(clientRequest);
-        //
-        //     var timeSpan = DateTime.Now + TimeSpan.FromSeconds(client.TimeOut);  
-        //     
-        //     while (response == null)
-        //     {
-        //         if (cancel.IsCancellationRequested)
-        //             cancel.ThrowIfCancellationRequested();
-        //         
-        //         if (timeSpan < DateTime.Now) 
-        //             throw new TimeoutException("Привышено время ожидания ответа от сервера!");
-        //     }
-        //
-        //     return response.IsSuccessStatusCode
-        //         ? await response.Content.ReadAsStringAsync(cancel)
-        //         : throw new System.Exception(
-        //             $"Status code: {response.StatusCode} content: {await response.Content.ReadAsStringAsync(cancel)}");
-        // }
-        //
-        // /// <summary>
-        // /// Обновление объектов
-        // /// </summary>
-        // /// <param name="clt"></param>
-        // /// <param name="ds"></param>
-        // /// <param name="cancel"></param>
-        // /// <returns></returns>
-        // /// <exception cref="ExceptionCheck"></exception>
-        // /// <exception cref="Exception"></exception>
-        // /// <exception cref="TimeoutException"></exception>
-        // public static async Task<IEnumerable<ResponseToChange>> UpdateItems(
-        //     IGlpiClient clt,
-        //     List<TD> ds,
-        //     CancellationToken cancel = default)
-        // {
-        //     if (clt.Checker())      throw new ExceptionCheck(clt);
-        //     if (clt.IsClone)        throw new System.Exception("Объект не должен быть клоном");
-        //     
-        //     IGlpiClient client = (IGlpiClient)clt.Clone();
-        //     client.SetHeaderDefault();
-        //     
-        //     JsonSerializerSettings settings = new JsonSerializerSettings
-        //     {
-        //         NullValueHandling = NullValueHandling.Ignore
-        //     };
-        //
-        //     List<Dictionary<string, object>> kv = new List<Dictionary<string, object>>();
-        //     for (int index = 0; index < ds.Count(); index++)
-        //     {
-        //         var q = ds[index].ChangeProperty;
-        //         q.Add("id", ds[index].Id);
-        //         kv.Add(q);
-        //     }
-        //
-        //     StringContent content = new StringContent(JsonConvert.SerializeObject(new { input = kv },Formatting.Indented, settings), Encoding.UTF8, "application/json");
-        //     HttpResponseMessage response = null;
-        //     ClientRequest clientRequest = new ClientRequest(async () => await client.Client.PutAsync(typeof(TD).Name, content,cancel), a => response = a.Response);
-        //     clt.QueueRequest.Enqueue(clientRequest);
-        //
-        //     var timeSpan = DateTime.Now + TimeSpan.FromSeconds(client.TimeOut);  
-        //     
-        //     while (response == null)
-        //     {
-        //         if (cancel.IsCancellationRequested)
-        //             cancel.ThrowIfCancellationRequested();
-        //         
-        //         if (timeSpan < DateTime.Now) 
-        //             throw new TimeoutException("Привышено время ожидания ответа от сервера!");
-        //     }
-        //
-        //     return response.IsSuccessStatusCode
-        //         ? ResponseToChange.ParseItem(await response.Content.ReadAsStringAsync(cancel))
-        //         : throw new System.Exception(
-        //             $"Status code: {response.StatusCode} content: {await response.Content.ReadAsStringAsync(cancel)}");
-        // }
-        //
-        // /// <summary>
-        // /// Обновление объекта
-        // /// </summary>
-        // /// <param name="clt"></param>
-        // /// <param name="cancel"></param>
-        // /// <returns></returns>
-        // /// <exception cref="ExceptionCheck"></exception>
-        // /// <exception cref="Exception"></exception>
-        // /// <exception cref="TimeoutException"></exception>
-        // public async Task<ResponseToChange> UpdateItem(
-        //     IGlpiClient clt,
-        //     CancellationToken cancel = default)
-        // {
-        //     if (clt.Checker())      throw new ExceptionCheck(clt);
-        //     if (clt.IsClone)        throw new System.Exception("Объект не должен быть клоном");
-        //     
-        //     IGlpiClient client = (IGlpiClient)clt.Clone();
-        //     client.SetHeaderDefault();
-        //     
-        //     JsonSerializerSettings settings = new JsonSerializerSettings
-        //     {
-        //         NullValueHandling = NullValueHandling.Ignore
-        //     };
-        //
-        //     HttpResponseMessage response = null;
-        //
-        //     StringContent content = new StringContent(
-        //         JsonConvert.SerializeObject
-        //         (
-        //             new { input = ChangeProperty },
-        //             Formatting.Indented,
-        //             settings
-        //         ),
-        //         Encoding.UTF8,
-        //         "application/json");
-        //
-        //     ClientRequest clientRequest = new ClientRequest(
-        //         async () =>
-        //             await client.Client.PutAsync(
-        //                 string.Join("/", typeof(TD).Name, Id), content, cancel),
-        //         a => response = a.Response);
-        //     
-        //     clt.QueueRequest.Enqueue(clientRequest);
-        //
-        //     var timeSpan = DateTime.Now + TimeSpan.FromSeconds(client.TimeOut);  
-        //     
-        //     while (response == null)
-        //     {
-        //         if (cancel.IsCancellationRequested)
-        //             cancel.ThrowIfCancellationRequested();
-        //         
-        //         if (timeSpan < DateTime.Now) 
-        //             throw new TimeoutException("Привышено время ожидания ответа от сервера!");
-        //     }
-        //
-        //     return response.IsSuccessStatusCode
-        //         ? ResponseToChange.Parse( await response.Content.ReadAsStringAsync(cancel))                
-        //     : throw new System.Exception(
-        //         $"Status code: {response.StatusCode} content: {await response.Content.ReadAsStringAsync(cancel)}"); 
-        // }
-        //
-        // /// <summary>
-        // /// Удаление объекта 
-        // /// </summary>
-        // /// <param name="clt"></param>
-        // /// <param name="cancel"></param>
-        // /// <returns></returns>
-        // /// <exception cref="ExceptionCheck"></exception>
-        // /// <exception cref="Exception"></exception>
-        // /// <exception cref="TimeoutException"></exception>
-        // public async Task<string> Delete(
-        //     IGlpiClient clt,
-        //     CancellationToken cancel = default)
-        // {
-        //     if (clt.Checker())      throw new ExceptionCheck(clt);
-        //     if (clt.IsClone)        throw new System.Exception("Объект не должен быть клоном");
-        //     
-        //     IGlpiClient client = (IGlpiClient)clt.Clone();
-        //     client.SetHeaderDefault();            
-        //
-        //     HttpResponseMessage response = null;
-        //     
-        //     ClientRequest clientRequest =
-        //         new ClientRequest(
-        //             async () =>
-        //                 await client.Client.DeleteAsync(string.Join("/", typeof(TD).Name, Id), cancel),
-        //             a => response = a.Response);
-        //     clt.QueueRequest.Enqueue(clientRequest);
-        //
-        //     var timeSpan = DateTime.Now + TimeSpan.FromSeconds(client.TimeOut);  
-        //     
-        //     while (response == null)
-        //     {
-        //         if (cancel.IsCancellationRequested)
-        //             cancel.ThrowIfCancellationRequested();
-        //         
-        //         if (timeSpan < DateTime.Now) 
-        //             throw new TimeoutException("Привышено время ожидания ответа от сервера!");
-        //     }
-        //
-        //     return response.IsSuccessStatusCode
-        //         ? await response.Content.ReadAsStringAsync(cancel)
-        //         : throw new System.Exception(
-        //             $"Status code: {response.StatusCode} content: {await response.Content.ReadAsStringAsync(cancel)}");
-        // }
-        //
-        // /// <summary>
-        // /// Метод загрузки элеметов из объекта Links
-        // /// </summary>
-        // /// <param name="clt"></param>
-        // /// <param name="properties">Список черных/белых типов</param>
-        // /// <param name="isIgnoreProperties">Если false = список типов используется как белый список,если true список используется как черный спиок</param>
-        // /// <param name="cancel"></param>
-        // /// <exception cref="ExceptionCheck"></exception>
-        // /// <exception cref="Exception"></exception>
-        // /// <exception cref="TimeoutException"></exception>
-        // public virtual async Task LoadFromLinkAsync(
-        //     IGlpiClient clt, 
-        //     IEnumerable<PropertyInfo> properties = null,
-        //     bool? isIgnoreProperties = null,            
-        //     CancellationToken cancel = default)
-        // {
-        //     if (Links == null || Links.Count == 0) return;
-        //     
-        //     if (clt.Checker())      throw new ExceptionCheck(clt);
-        //     if (clt.IsClone)        throw new System.Exception("Объект не должен быть клоном");
-        //     
-        //     IGlpiClient client = (IGlpiClient)clt.Clone();
-        //     client.SetHeaderDefault();            
-        //
-        //     HttpResponseMessage response = null;
-        //
-        //     IEnumerable<string>
-        //         appendIgnore = //свойсва, которые будут игнорироваться по умолчанию через атрибут NoLinkAttribute
-        //             GetType().GetProperties()
-        //                 .Where(w => w.GetCustomAttributes(true).Contains(typeof(NoLinkAttribute)))
-        //                 .Select(s => s.Name.ToLower());            
-        //
-        //     IEnumerable<string> propertiesStr =
-        //         properties != null ? properties.Select(s => s.Name.ToLower()) : Array.Empty<string>();//строковое предстваления свойства
-        //
-        //     IEnumerable<Link> links = isIgnoreProperties switch
-        //     {
-        //         true => Links.Where(w => !appendIgnore.Contains(w.Rel) && !propertiesStr.Contains(w.Rel.ToLower())),
-        //         false => Links.Where(w => !appendIgnore.Contains(w.Rel) && propertiesStr.Contains(w.Rel.ToLower())),
-        //         _ => Links.Where(w => !appendIgnore.Contains(w.Rel))
-        //     };
-        //
-        //     foreach (Link link in links)
-        //     {
-        //         PropertyInfo rel = GetType().GetProperty(link.Rel);//Получаем свойство
-        //         if(rel == null || rel.GetCustomAttributes(typeof(NoLinkAttribute)).Any()) continue;//Проверка на существование или есть атрибут пропуска загрузки               
-        //         var request = new ClientRequest(
-        //             async () => await client.Client.GetAsync(
-        //                 string.Join("", link.Address.Segments.Skip(client.Client.BaseAddress!.Segments.Length)),
-        //                 cancel), a => response = a.Response);
-        //         
-        //         clt.QueueRequest.Enqueue(request); // отправка запроса в очерель запросов                
-        //         
-        //         var timeSpan = DateTime.Now + TimeSpan.FromSeconds(client.TimeOut);  
-        //     
-        //         while (response == null)
-        //         {
-        //             if (cancel.IsCancellationRequested)
-        //                 cancel.ThrowIfCancellationRequested();
-        //         
-        //             if (timeSpan < DateTime.Now) 
-        //                 throw new TimeoutException("Привышено время ожидания ответа от сервера!");
-        //         }
-        //
-        //         if (response.IsSuccessStatusCode)
-        //         {
-        //             try
-        //             {
-        //                 // если ответ положительный, то идет запись объекта
-        //                 rel.SetValue(this, JsonConvert.DeserializeObject(
-        //                     await response.Content.ReadAsStringAsync(cancel),
-        //                     rel.PropertyType));
-        //             }
-        //             catch (System.Exception er)
-        //             {
-        //                 //Debug.WriteLine($"{er.Message}\n{link.Rel}\n{link.Address}");
-        //             }
-        //         }
-        //         response = null;
-        //     }           
-        // }
-        //
-        // #endregion
-
-        #region Multies
-
-         // public virtual async Task LoadBaseEntity(
-        //     IGlpiMulti glpiMulti,
-        //     IGlpiClient client, 
-        //     CancellationToken cancel = default)
-        // {
-        //     if (glpiMulti.Checker()) throw new ExceptionCheck(glpiMulti);
-        //     if (client.Checker()) throw new ExceptionCheck(client);
-        //     
-        //     int iteration = 0;
-        //     List<ClientResponse> responseMessages = new List<ClientResponse>();
-        //     
-        //     
-        //     foreach (var entity in GetType().GetProperties()
-        //                  .Where(w => w.GetCustomAttributes(typeof(BaseEntityAttribute), true).Any()))  
-        //     {
-        //
-        //         long? id = (long?)GetType().GetProperty($"Id{entity.Name}")
-        //             ?.GetValue(this);
-        //         if (id == null) continue;
-        //
-        //         glpiMulti.QueueRequest.Enqueue(new MultiRequest());
-        //         glpiMulti.QueueRequest.Enqueue(new MultiRequest(
-        //             async () => await client.Client.GetAsync($"{entity.Name}/{id}", cancel),
-        //             a => responseMessages.Add(a), client, entity));
-        //         iteration++;
-        //     }
-        //
-        //     while (responseMessages.Count != iteration)
-        //     {
-        //         if (cancel.IsCancellationRequested)
-        //             cancel.ThrowIfCancellationRequested();
-        //     }
-        //
-        //     foreach (ClientResponse response in responseMessages.Where(w=>w.ResponseMessage.IsSuccessStatusCode))
-        //     {                
-        //         response.RequestedProperty.SetValue(this, await response.ResponseMessage.Content.ReadAsStringAsync(cancel));
-        //     } 
-        //     
-        // }
-        //
-       
-       
-        //
-        // /// <summary>
-        // /// Получить объект D в формате JSON
-        // /// </summary>
-        // /// /// <param name="glpiMulti"> подключенный общий клиент к GLPI</param>
-        // /// <param name="glpiClient"> подключенный клиент к GLPI</param>
-        // /// <param name="parameter">Параметры запроса</param>
-        // /// <param name="isClientOperator"></param>
-        // /// <param name="cancel">Принудительная остановка процесса</param>
-        // /// <exception cref="ExceptionCheck"></exception>
-        // /// <exception cref="Exception"></exception>
-        // public static async Task<string> GetJson(
-        //     IGlpiMulti glpiMulti,
-        //     IGlpiClient glpiClient,
-        //     Parameter parameter, 
-        //     bool isClientOperator = true,
-        //     CancellationToken cancel = default)
-        // {
-        //     if (glpiMulti.Checker()) throw new ExceptionCheck(glpiMulti);            
-        //     if (glpiClient.Checker()) throw new ExceptionCheck(glpiClient);            
-        //     
-        //     if (parameter == null) throw new System.Exception("Error parameter.");
-        //     HttpResponseMessage response = null;
-        //     MultiRequest multiRequest;
-        //     if (isClientOperator)
-        //     {
-        //         glpiClient.SetHeaderDefault();
-        //         multiRequest = new MultiRequest(
-        //             () => glpiClient.Client.GetAsync($"{typeof(TD).Name}{parameter}", cancel),
-        //             w => response = w, glpiClient);
-        //     }
-        //     else
-        //     {
-        //         glpiMulti.SetHeaderDefault();
-        //         multiRequest = new MultiRequest(
-        //             () => glpiMulti.Client.GetAsync($"{typeof(TD).Name}{parameter}", cancel),
-        //             w => response = w, glpiClient);
-        //     }
-        //
-        //     glpiMulti.QueueRequest.Enqueue(multiRequest);
-        //
-        //     while (response == null) 
-        //     {
-        //         if (cancel.IsCancellationRequested)
-        //         {
-        //             cancel.ThrowIfCancellationRequested();
-        //         }                
-        //     }
-        //     
-        //     if (response.IsSuccessStatusCode)
-        //         return await Task.FromResult(await response.Content.ReadAsStringAsync(cancel));
-        //     
-        //     throw new System.Exception($"status code: {response.StatusCode} content: {await response.Content.ReadAsStringAsync(cancel)}");
-        // }
-        //
-        //
-        
-        //
-        // /// <summary>
-        // /// 
-        // /// </summary>
-        // /// <param name="glpiMulti"></param>
-        // /// <param name="glpiClient"></param>
-        // /// <param name="parameter"></param>
-        // /// <param name="isClientOperator"></param>
-        // /// <param name="cancel"></param>
-        // /// <returns></returns>
-        // /// <exception cref="ExceptionCheck"></exception>
-        // /// <exception cref="Exception"></exception>
-        // public static async Task<TD> GetAsync(
-        //     IGlpiMulti glpiMulti,
-        //     IGlpiClient glpiClient,
-        //     Parameter parameter,
-        //     bool isClientOperator = true,
-        //     CancellationToken cancel = default)
-        // {
-        //     if (glpiMulti.Checker()) throw new ExceptionCheck(glpiClient);
-        //     
-        //     if (glpiClient.Checker()) throw new ExceptionCheck(glpiClient);
-        //    
-        //     
-        //     if (parameter?.id is null or < 0) throw new System.Exception("Error parameter.");
-        //    
-        //     try
-        //     {
-        //         return JsonConvert.DeserializeObject<TD>(await GetJson(glpiMulti, glpiClient, parameter,
-        //             isClientOperator, cancel));
-        //     }
-        //     catch
-        //     {
-        //         throw new System.Exception("Json value null");
-        //     }           
-        //
-        //     
-        // }
-
-        #endregion
-
-
-        public int CompareTo(TD other) =>
-            Id < other.Id ? -1 : Id > other.Id ? 1 : 0;
-        
-        public bool Equals(IDashboard other) =>
+        public bool Equals(IDashboard? other) =>
             other != null && Id == other.Id;
     }
 }
