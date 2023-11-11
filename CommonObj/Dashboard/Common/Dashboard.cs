@@ -376,7 +376,10 @@ namespace CommonObj.Dashboard.Common
             clt.SetHeaderDefault();
 
             clt.http.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("utf-8"));
-            HttpResponseMessage response = await clt.http.GetAsync(string.Join(string.Empty, typeof(TD).Name, parameter), cancel);
+            HttpResponseMessage response =
+                await clt.http.GetAsync(
+                    string.Join(string.Empty, typeof(TD).Name, parameter.id == null ? "?" : string.Empty, parameter),
+                    cancel);
             
             string responseData = await response.Content.ReadAsStringAsync(cancel);
 
@@ -435,6 +438,43 @@ namespace CommonObj.Dashboard.Common
 
             return response.IsSuccessStatusCode
                 ? JsonConvert.DeserializeObject<List<TD>>(result)
+                : throw new ExceptionGLPI_ErrorCommon(result, response.StatusCode);
+        }
+
+        public static async Task<IEnumerable<TD>?> GetItemsAsync(
+            IClient clt,
+            Parameter parameter,
+            IEnumerable<Criteria> criteria,
+            CancellationToken cancel = default)
+        {
+            clt.SetHeaderDefault();
+
+            HttpResponseMessage response =
+                await clt.http.GetAsync(
+                    string.Join(string.Empty, typeof(TD).Name, "?", Criteria.GetUri(criteria), "&", parameter), cancel);
+        
+            string result = await response.Content.ReadAsStringAsync(cancel);
+        
+            return response.IsSuccessStatusCode
+                ? JsonConvert.DeserializeObject<List<TD>>(result)
+                : throw new ExceptionGLPI_ErrorCommon(result, response.StatusCode);
+        }
+        //
+        public static async Task<ResponseSearch?> GetItemsAsync(
+            IClient clt,            
+            IEnumerable<Criteria> criteria,
+            CancellationToken cancel = default)
+        {
+            clt.SetHeaderDefault();
+
+            HttpResponseMessage response =
+                await clt.http.GetAsync(
+                    string.Join(string.Empty, SearchRequest, typeof(TD).Name, "?", Criteria.GetUri(criteria)), cancel);
+        
+            string result = await response.Content.ReadAsStringAsync(cancel);
+        
+            return response.IsSuccessStatusCode
+                ? JsonConvert.DeserializeObject<ResponseSearch>(result)
                 : throw new ExceptionGLPI_ErrorCommon(result, response.StatusCode);
         }
         
