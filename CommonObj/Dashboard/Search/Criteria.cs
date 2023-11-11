@@ -1,12 +1,13 @@
 ﻿using System.Text;
 using CommonObj.Dashboard.Administration;
+using CommonObj.Dashboard.Common;
 using CommonObj.Dashboard.Helpdesk;
 
 namespace CommonObj.Dashboard.Search
 {
     public class Criteria
     {
-        public Criteria(short field,
+        private Criteria(int field,
                         bool meta,
                         Type type,
                         ESearchType searchtype,
@@ -18,18 +19,31 @@ namespace CommonObj.Dashboard.Search
             this.searchtype = searchtype;
             this.value = value;
         }
-
-        public Criteria(short field,
-                        bool meta,
-                        Type type,
-                        ESearchType searchtype,
-                        ELink elink,
-                        string value) :
+        
+        public static Criteria Create<TD>(int field, bool meta,ESearchType searchtype,string value) where TD: Dashboard<TD> => 
+            new(field, meta, typeof(TD), searchtype, value);
+        
+        private Criteria(int field,
+            bool meta,
+            Type type,
+            ESearchType searchtype,
+            ELink elink,
+            string value) :
             this(field, meta, type, searchtype, value) =>
             SetLink(elink);
 
+        public static Criteria Create<TD>(int field, bool meta, ESearchType searchtype, ELink elink, string value)
+            where TD : Dashboard<TD> =>
+            new(field, meta, typeof(TD), searchtype, elink, value);
 
-        public void SetLink(ELink elink) =>
+        public static Criteria Create(int field, bool meta, Type typeDash, ESearchType searchtype, string value) =>
+            new(field, meta, typeDash, searchtype, value);
+
+        public static Criteria Create(int field, bool meta, Type typeDash, ESearchType searchtype, ELink elink,
+            string value) =>
+            new(field, meta, typeDash, searchtype, elink, value);
+
+        private void SetLink(ELink elink) =>
             link = GetELink(elink);
 
         private string GetELink(ELink eLink) => eLink switch
@@ -42,7 +56,7 @@ namespace CommonObj.Dashboard.Search
             _ => throw new ArgumentOutOfRangeException(nameof(eLink), eLink, null)
         };
 
-        public short field { get; set; } = 0;
+        public int field { get; set; } = 0;
         public bool meta { get; set;} = false;
         public string itemtype { get; set;} = string.Empty;
         public string link { get;  set; } = string.Empty;

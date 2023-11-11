@@ -19,4 +19,6 @@ public class BaseResource
     public const string LIST_SEARCH_OPTIONS = "listSearchOptions";
     public const char SEPARATOR_URI = '/';
     public const char COLLECT_IDENTIFIER = 's';
+    public const string Search = "search";
+    public static readonly string SearchRequest = $"search{SEPARATOR_URI}";
 }
