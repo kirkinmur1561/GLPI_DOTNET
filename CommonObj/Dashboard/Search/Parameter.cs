@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using CommonObj.Base;
 
 namespace CommonObj.Dashboard.Search
 {
@@ -108,8 +109,8 @@ namespace CommonObj.Dashboard.Search
 
         public override string ToString() =>
             id != null ?
-                $"/{id}" : 
-                $"{string.Join("&", GetType().GetProperties().Where(w => w.GetValue(this) != null).Select(s => $"{s.Name}={s.GetValue(this)?.ToString()?.ToLower()}"))}";
+                $"{BaseResource.SEPARATOR_URI}{id}" : 
+                $"{string.Join(BaseResource.SEPARATOR_AND, GetType().GetProperties().Where(w => w.GetValue(this) != null).Select(s => $"{s.Name}={s.GetValue(this)?.ToString()?.ToLower()}"))}";
         
 
     }

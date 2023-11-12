@@ -128,6 +128,23 @@ var ticks = responseSearch?.Data
 }).Result)
 .ToList();
 ```
+### Upload Document
+```csharp
+ManifestFileUpload? result = await Document.Upload(client, new ManifestFile("file.png", "newImage.png"));
+```
+#### or
+```csharp
+ManifestFileUpload? result = await Document.Upload(client, new ManifestFile(new MemoryStream(),"fileFromStream.png", "newImageFromStream.png"));
+```
+### Download Document
+```csharp
+if (!Equals(result, null))
+{
+    var streamFile = Document.Download(client, result.Id);
+    await using FileStream fs = new FileStream(result.upload_result.Files.FirstOrDefault().Display, FileMode.CreateNew, FileAccess.Write);
+    await (await streamFile).CopyToAsync(fs);
+}
+```
 ### Create Ticket
 ```csharp
 string ticItem = await Ticket.AddItemAsync(client, new Ticket

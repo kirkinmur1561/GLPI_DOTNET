@@ -345,7 +345,7 @@ namespace CommonObj.Dashboard.Common
             clt.SetHeaderDefault();
 
             HttpResponseMessage response =
-                await clt.http.GetAsync(string.Join("/", value: new[] { LIST_SEARCH_OPTIONS, typeof(TD).Name }),
+                await clt.http.GetAsync(string.Join(SEPARATOR_URI, value: new[] { LIST_SEARCH_OPTIONS, typeof(TD).Name }),
                     cancel);     
 
             string responseData = await response.Content.ReadAsStringAsync(cancel);
@@ -378,7 +378,7 @@ namespace CommonObj.Dashboard.Common
             clt.http.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("utf-8"));
             HttpResponseMessage response =
                 await clt.http.GetAsync(
-                    string.Join(string.Empty, typeof(TD).Name, parameter.id == null ? "?" : string.Empty, parameter),
+                    string.Join(string.Empty, typeof(TD).Name, parameter.id == null ? SEPARATOR_ARGUMENT : string.Empty, parameter),
                     cancel);
             
             string responseData = await response.Content.ReadAsStringAsync(cancel);
@@ -451,7 +451,8 @@ namespace CommonObj.Dashboard.Common
 
             HttpResponseMessage response =
                 await clt.http.GetAsync(
-                    string.Join(string.Empty,SearchRequest,'/', typeof(TD).Name, '?', Criteria.GetUri(criteria), '&', parameter), cancel);
+                    string.Join(string.Empty, SearchRequest, SEPARATOR_URI, typeof(TD).Name, SEPARATOR_ARGUMENT,
+                        Criteria.GetUri(criteria), SEPARATOR_AND, parameter), cancel);
         
             string result = await response.Content.ReadAsStringAsync(cancel);
         
@@ -469,7 +470,8 @@ namespace CommonObj.Dashboard.Common
 
             HttpResponseMessage response =
                 await clt.http.GetAsync(
-                    string.Join(string.Empty, SearchRequest, typeof(TD).Name, "?", Criteria.GetUri(criteria)), cancel);
+                    string.Join(string.Empty, SearchRequest, typeof(TD).Name, SEPARATOR_ARGUMENT,
+                        Criteria.GetUri(criteria)), cancel);
         
             string result = await response.Content.ReadAsStringAsync(cancel);
         
@@ -535,6 +537,22 @@ namespace CommonObj.Dashboard.Common
             return responsEnd.IsSuccessStatusCode
                 ? result
                 : throw new ExceptionGLPI_ErrorCommon(result, responsEnd.StatusCode);
+        }
+
+        public static async Task<Stream> LoadFromUriStream(IClient clt, string endPoint, CancellationToken cancel = default)
+        {
+            clt.SetHeaderDefault();
+
+            HttpResponseMessage responsEnd = await clt.http.GetAsync(endPoint, cancel);
+            return await responsEnd.Content.ReadAsStreamAsync(cancel);            
+        }
+        
+        public static async Task<byte[]> LoadFromUriByte(IClient clt, string endPoint, CancellationToken cancel = default)
+        {
+            clt.SetHeaderDefault();
+
+            HttpResponseMessage responsEnd = await clt.http.GetAsync(endPoint, cancel);
+            return await responsEnd.Content.ReadAsByteArrayAsync(cancel);
         }
 
         /// <summary>

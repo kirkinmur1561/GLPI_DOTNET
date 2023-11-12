@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using CommonObj.Base;
 using CommonObj.Dashboard.Administration;
 using CommonObj.Dashboard.Common;
 using CommonObj.Dashboard.Helpdesk;
@@ -130,8 +131,8 @@ namespace CommonObj.Dashboard.Search
                                             s.Name.ToLower(),
                                             s.GetValue(criteria))));
 
-                sb.Append(string.Join('&', objs));
-                if (index + 1 < criteriaArray.Length) sb.Append('&');
+                sb.Append(string.Join(BaseResource.SEPARATOR_AND, objs));
+                if (index + 1 < criteriaArray.Length) sb.Append(BaseResource.SEPARATOR_AND);
             }
             return sb.ToString();
         }

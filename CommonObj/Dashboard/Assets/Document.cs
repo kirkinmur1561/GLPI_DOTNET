@@ -1,4 +1,8 @@
-﻿using CommonObj.Base;
+﻿using System.Net.Http.Headers;
+using System.Net.Mime;
+using System.Text;
+using CommonObj.Base;
+using CommonObj.Client;
 using CommonObj.Dashboard.Common;
 using Newtonsoft.Json;
 
@@ -6,6 +10,10 @@ namespace CommonObj.Dashboard.Assets
 {
     public class Document:Dashboard<Document>
     {
+        private const string UPLOADMANIFEST = "uploadManifest";
+        private const string FILENAMEZERO = "filename[0]";
+        private const string ALT = "?alt=media";
+        
         [JsonProperty(BaseJsonProperty.FILENAME)]
         public string FileName { get; set; }
         
@@ -32,95 +40,65 @@ namespace CommonObj.Dashboard.Assets
         
         [JsonProperty(BaseJsonProperty.TAG)]
         public string Tag { get; set; }
-        
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="glpiClient"></param>
+        /// <param name="clt"></param>
+        /// <param name="idDocument"></param>
         /// <param name="cancel"></param>
-        /// <exception cref="ExceptionCheck"></exception>
-        /// <exception cref="Exception"></exception>
-        //[Obsolete("No correct method!!!")]
-        // public async Task Download(IGlpiClient glpiClient,CancellationToken cancel = default)
-        // {
-        //     if (glpiClient.Checker()) throw new ExceptionCheck(glpiClient);
-        //
-        //     HttpResponseMessage response = null;
-        //
-        //     HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, "Document");
-        //     requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/octet-stream"));
-        //     requestMessage.Headers.Add("Session-Token", glpiClient.Init.SessionToken);
-        //     requestMessage.Headers.Add("app_token", glpiClient.AppToken);
-        //     requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        //     requestMessage.Content = new StringContent(JsonConvert.SerializeObject(new { input = new { id = Id } }), Encoding.UTF8, "application/json");
-        //
-        //     var r = await glpiClient.Client.SendAsync(requestMessage, cancel);
-        //
-        //     ClientRequest clientRequest = new ClientRequest
-        //     (async () => 
-        //     {
-        //         
-        //         return null;
-        //
-        //
-        //     },
-        //     w => 
-        //     response = w);
-        //
-        //     glpiClient.QueueRequest.Enqueue(clientRequest);
-        //
-        //     while (response == null)
-        //     {
-        //         if (cancel.IsCancellationRequested)
-        //         {
-        //             cancel.ThrowIfCancellationRequested();
-        //         }
-        //
-        //     }
-        //     if (response.IsSuccessStatusCode) return;
-        //     throw new System.Exception(
-        //         $"status code:{response.StatusCode} content:{await response.Content.ReadAsStringAsync(cancel)}");
-        // }
-        
-        
+        /// <returns></returns>
+        /// <exception cref="ExceptionGLPI_ErrorCommon"></exception>
+        public static Task<Stream> Download(IClient clt, long idDocument, CancellationToken cancel = default)
+        {
+            clt.SetHeaderDefault(BaseResource.MIMO_APPLICATION_OCTET_STREAM);
+
+            var res =  clt.http.GetAsync(
+                string.Join(string.Empty, nameof(Document), BaseResource.SEPARATOR_URI, idDocument, ALT),
+                cancel).Result;
+            if (!res.IsSuccessStatusCode)
+                throw new ExceptionGLPI_ErrorCommon(res.Content.ReadAsStringAsync(cancel).Result, res.StatusCode);
+            return res.Content.ReadAsStreamAsync(cancel);
+        }
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="glpiClient"></param>
-        /// <param name="uri"></param>
+        /// <param name="clt"></param>
+        /// <param name="manifestFile"></param>
         /// <param name="cancel"></param>
-        /// <exception cref="ExceptionCheck"></exception>
-        /// <exception cref="Exception"></exception>
-        // [Obsolete]
-        // public static async Task GetDoc(IGlpiClient glpiClient, string uri, CancellationToken cancel = default)
-        // {
-        //     Uri result;
-        //     if (glpiClient.Checker())
-        //         throw new ExceptionCheck(glpiClient);
-        //
-        //     if (string.IsNullOrEmpty(uri)) throw new System.Exception("URI is null or empty");
-        //     if (!Uri.TryCreate(uri, UriKind.Absolute, out result)) throw new System.Exception("Error create URI.");
-        //    
-        //
-        //     HttpResponseMessage response = null;
-        //     ClientRequest clientRequest = new ClientRequest
-        //     (() => glpiClient.Client.GetAsync(result,cancel),
-        //     w => response = w);
-        //
-        //     glpiClient.QueueRequest.Enqueue(clientRequest);
-        //
-        //     while (response == null)
-        //     {
-        //         if (cancel.IsCancellationRequested)
-        //         {
-        //             cancel.ThrowIfCancellationRequested();
-        //         }
-        //     }
-        //
-        //     if (response.IsSuccessStatusCode) return;
-        //     throw new System.Exception(
-        //             $"status code:{response.StatusCode} content:{await response.Content.ReadAsStringAsync(cancel)}");
-        // }
+        /// <returns></returns>
+        /// <exception cref="ExceptionGLPI_ErrorCommon"></exception>
+        public static async Task<ManifestFileUpload?> Upload(IClient clt, ManifestFile manifestFile, CancellationToken cancel = default)
+
+        {
+            clt.SetHeaderDefault();
+
+            MultipartFormDataContent form = new MultipartFormDataContent();
+            string[] filesname = {manifestFile.FileName};
+            StringContent stringContent =
+                new StringContent(JsonConvert.SerializeObject(new
+                    {
+                        input = new
+                        {
+                            name = manifestFile.DocumentName,
+                            _filename = filesname
+                        }
+                    }),
+                    Encoding.UTF8,
+                    MediaTypeNames.Application.Json);
+
+            StreamContent streamContent = new StreamContent(manifestFile.GetStream());
+            streamContent.Headers.ContentType =
+                new MediaTypeWithQualityHeaderValue(BaseResource.MIMO_MULTIPART_FORM_DATA);
+
+            form.Add(streamContent, FILENAMEZERO, filesname[0]);
+            form.Add(stringContent, UPLOADMANIFEST);
+            HttpResponseMessage response = await clt.http.PostAsync(nameof(Document), form, cancel);
+            string result = await response.Content.ReadAsStringAsync(cancel);
+            return response.IsSuccessStatusCode
+                ? JsonConvert.DeserializeObject<ManifestFileUpload>(result)
+                : throw new ExceptionGLPI_ErrorCommon(result, response.StatusCode);
+        }
     }
 }

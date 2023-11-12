@@ -1,5 +1,4 @@
-﻿using CommonObj.Dashboard.Common;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace CommonObj.Dashboard.Search
 {

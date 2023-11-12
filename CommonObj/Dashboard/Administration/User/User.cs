@@ -351,7 +351,7 @@ namespace CommonObj.Dashboard.Administration.User
             clt.SetHeaderDefault();           
             clt.http.Timeout = internalTimeout != default ? internalTimeout : clt.CommonTimeout;
             HttpResponseMessage response =
-                await clt.http.GetAsync(string.Join("/", nameof(User), Id , nameof(UserEmail)), cancel);            
+                await clt.http.GetAsync(string.Join(BaseResource.SEPARATOR_URI, nameof(User), Id , nameof(UserEmail)), cancel);            
             
             string data = await response.Content.ReadAsStringAsync(cancel);
             if (response.IsSuccessStatusCode)

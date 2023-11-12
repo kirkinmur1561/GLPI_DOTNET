@@ -613,6 +613,7 @@ public static class BaseJsonProperty
         public const string VALIDATION_DATE = "validation_date";
         public const string CLOSEDATE = "closedate";
         public const string SOLVEDATE = "solvedate";
+        public const string UPLOAD_RESULT = "upload_result";
         public const string USERS_ID_LASTUPDATER = "users_id_lastupdater";
         public const string USERS_ID_RECIPIENT = "users_id_recipient";
         public const string URGENCY = "urgency";
