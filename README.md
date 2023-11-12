@@ -16,7 +16,10 @@ await client.InitSession(
 - I recommend using a user token to avoid leaking user data
 #### or
 ```csharp
-await client.InitSession(Client.ConvertToBase64("log", "pass"), EAuthorizationType.LoginPassInBase64, true);
+await client.InitSession(
+    Client.ConvertToBase64("log", "pass"), 
+    EAuthorizationType.LoginPassInBase64,
+    true);
 ```
 - `log` and `pass` any type auth
 
