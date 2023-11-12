@@ -8,7 +8,10 @@ await using Client client = new Client("http://localhost:5555/apirest.php/","app
 ```
 #### _necessary to use_
 ```csharp
-await client.InitSession("glpiClientToken",EAuthorizationType.UserToken, true);
+await client.InitSession(
+    "glpiClientToken",
+    EAuthorizationType.UserToken,
+    true);
 ```
 - I recommend using a user token to avoid leaking user data
 #### or
