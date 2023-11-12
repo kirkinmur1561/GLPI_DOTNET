@@ -441,7 +441,7 @@ namespace CommonObj.Dashboard.Common
                 : throw new ExceptionGLPI_ErrorCommon(result, response.StatusCode);
         }
 
-        public static async Task<IEnumerable<TD>?> GetItemsAsync(
+        public static async Task<ResponseSearch?> GetItemsAsync(
             IClient clt,
             Parameter parameter,
             IEnumerable<Criteria> criteria,
@@ -451,12 +451,12 @@ namespace CommonObj.Dashboard.Common
 
             HttpResponseMessage response =
                 await clt.http.GetAsync(
-                    string.Join(string.Empty, typeof(TD).Name, "?", Criteria.GetUri(criteria), "&", parameter), cancel);
+                    string.Join(string.Empty,SearchRequest,'/', typeof(TD).Name, '?', Criteria.GetUri(criteria), '&', parameter), cancel);
         
             string result = await response.Content.ReadAsStringAsync(cancel);
         
             return response.IsSuccessStatusCode
-                ? JsonConvert.DeserializeObject<List<TD>>(result)
+                ? JsonConvert.DeserializeObject<ResponseSearch>(result)
                 : throw new ExceptionGLPI_ErrorCommon(result, response.StatusCode);
         }
         //

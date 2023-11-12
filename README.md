@@ -86,6 +86,42 @@ responseSearchTickets.Data
 ```
 `responseSearchTickets` was obtained from the previous example.
 In `s.FirstOrDefault().Value` contains `EFieldTicket.TicketStatus` (ticket id). At the same time I download tickets by ID.
+### Get Ticket from `ResponseSearch` and `Parameter`
+```csharp
+ResponseSearch? responseSearch = await Ticket.GetItemsAsync(client,
+new Parameter
+{
+    is_deleted = false,
+    range = new Range(0, 9),
+    sort = (int)EFieldTicket.TicketId
+},
+new Criteria[]
+{
+    Criteria.Create<Ticket>
+    (
+      (int) EFieldTicket.TicketStatus,
+      false,
+      Criteria.ESearchType.equals,
+      $"{(int)Ticket.EStatus.Await}"
+    )
+});
+```
+- In the parameters:
+  - `is_deleted = false` (sorting will ignore deleted objects)
+  - `range: from 0 to 9 (10 objects)` will be taken into account in sorting
+  - `sorting: the number of the field` by which sorting will be performed.
+- In the `criteria` (`search` for `tickets` whose `status` is `equal` to `Await`)
+- **_In the final: loading 10 non-deleted tickets, sorted by their ID, that are in Await status_**
+```csharp
+var ticks = responseSearch?.Data
+.Select(s => (long) s.FirstOrDefault().Value)
+.AsParallel()
+.Select(q => Ticket.GetItemAsync(client, new Parameter
+{
+    id = q
+}).Result)
+.ToList();
+```
 ### Create Ticket
 ```csharp
 string ticItem = await Ticket.AddItemAsync(client, new Ticket
