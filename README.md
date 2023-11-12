@@ -33,7 +33,7 @@ Ticket? tic = await Ticket.GetItemAsync(client, new Parameter
     id = 1
 });
 IEnumerable<Ticket>? tics = await Ticket.GetItemsAsync(client);
-IEnumerable<Ticket>? ticsWithParameters = await Ticket.GetItemsAsync(_client, new Parameter
+IEnumerable<Ticket>? ticsWithParameters = await Ticket.GetItemsAsync(client, new Parameter
 {
     order = Parameter.EOrder.DESC,
     range = new Range(0, 9)
