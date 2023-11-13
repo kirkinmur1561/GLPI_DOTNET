@@ -141,7 +141,8 @@ ManifestFileUpload? result = await Document.Upload(client, new ManifestFile(new 
 if (!Equals(result, null))
 {
     var streamFile = Document.Download(client, result.Id);
-    await using FileStream fs = new FileStream(result.upload_result.Files.FirstOrDefault().Display, FileMode.CreateNew, FileAccess.Write);
+    await using FileStream fs = new FileStream(result.upload_result.Files
+            .FirstOrDefault().Display, FileMode.CreateNew, FileAccess.Write);
     await (await streamFile).CopyToAsync(fs);
 }
 ```
