@@ -4,3 +4,6 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 /TestLab/
+/CommonObj/CommonObj.csproj
+/Single/Single.csproj
+/GLPINET.sln
